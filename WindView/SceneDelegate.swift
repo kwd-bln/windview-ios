@@ -21,12 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             
             let rootViewController: UIViewController
-//            if Auth.auth().currentUser == nil {
-//                rootViewController = LoginViewController()
-//            } else {
-//                rootViewController = ViewController()
-//            }
-            rootViewController = LoginViewController()
+            if Auth.auth().currentUser == nil {
+                rootViewController = LoginViewController()
+            } else {
+                rootViewController = ViewController()
+            }
             
             window.rootViewController = rootViewController
             self.window = window
