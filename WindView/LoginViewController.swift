@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import Firebase
+import GoogleSignIn
 
 final class LoginViewController: UIViewController {
     let backgroundImageView: UIImageView = {
@@ -134,6 +136,8 @@ final class LoginViewController: UIViewController {
             $0.right.equalToSuperview().offset(-44).priority(.low)
             
         }
+        
+        googleLoginButton.addTarget(self, action: #selector(didPushGoogleSignInButton), for: .touchUpInside)
     }
     
     @objc private func didPushLoginButton() {
@@ -143,12 +147,46 @@ final class LoginViewController: UIViewController {
             print("== AuthResult: ,", authResult, error)
         }
     }
+    
+    @objc private func didPushGoogleSignInButton() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+            if let error = error {
+                print("error in g sign in ", error)
+                return
+            }
+            
+            guard
+                let authentication = user?.authentication,
+                let idToken = authentication.idToken
+            else { return }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: authentication.accessToken)
+            
+            Auth.auth().signIn(with: credential) { authResult, error in
+                if let error = error {
+                    let authError = error as NSError
+                    if authError.code == AuthErrorCode.secondFactorRequired.rawValue {
+                        print("second factor required")
+                    } else {
+                        print(error.localizedDescription)
+                    }
+                    return
+                }
+                print("Googleのログインに成功しました。")
+            }
+            
+            
+        }
+    }
 }
 
 private class SeparatorView: UIView {
     private static let orLabelTextPhone: String = "メールアドレス以外での\nログインはこちら"
     private static let orLabelTextPad: String = "メールアドレス以外でのログインはこちら"
-
+    
     convenience init() {
         self.init(frame: .zero)
         let label = addLabel()
@@ -172,7 +210,7 @@ private class SeparatorView: UIView {
             $0.left.equalTo(label.snp.right).offset(14).priority(.low)
         }
     }
-
+    
     private func addLabel() -> UILabel {
         let label = UILabel()
         label.textColor = .white
@@ -186,7 +224,7 @@ private class SeparatorView: UIView {
         addSubview(label)
         return label
     }
-
+    
     private func addLine() -> UIView {
         let line = UIView()
         line.backgroundColor = .white
