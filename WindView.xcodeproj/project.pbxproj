@@ -28,6 +28,7 @@
 		C9D64AEE27B150D400A9631E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AED27B150D400A9631E /* Utils.swift */; };
 		C9D64AF027B1520800A9631E /* NSAttributedString+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEF27B1520800A9631E /* NSAttributedString+extension.swift */; };
 		C9D64AF227B15AC800A9631E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9D64AF127B15AC700A9631E /* Colors.xcassets */; };
+		C9E5FB6927B2BEBC00538B09 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C9E5FB6827B2BEBC00538B09 /* GoogleSignIn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 				C95E310727AC2A97001D9088 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				C95E310927AC2A97001D9088 /* FirebaseAuth in Frameworks */,
 				C95E311227AC2C93001D9088 /* SnapKit in Frameworks */,
+				C9E5FB6927B2BEBC00538B09 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +198,7 @@
 				C95E310A27AC2A97001D9088 /* FirebaseCrashlytics */,
 				C95E310C27AC2A97001D9088 /* FirebaseFirestore */,
 				C95E311127AC2C93001D9088 /* SnapKit */,
+				C9E5FB6827B2BEBC00538B09 /* GoogleSignIn */,
 			);
 			productName = WindView;
 			productReference = C95E30D027AC22F7001D9088 /* WindView.app */;
@@ -272,6 +275,7 @@
 			packageReferences = (
 				C95E310527AC2A96001D9088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C95E311027AC2C93001D9088 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C9E5FB6727B2BEBC00538B09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = C95E30D127AC22F7001D9088 /* Products */;
 			projectDirPath = "";
@@ -679,6 +683,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		C9E5FB6727B2BEBC00538B09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -706,6 +718,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C95E311027AC2C93001D9088 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C9E5FB6827B2BEBC00538B09 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9E5FB6727B2BEBC00538B09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
