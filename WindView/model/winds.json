@@ -1,0 +1,731 @@
+[
+  {
+    "values": [
+      {
+        "windspeed": 1.5433686593270912,
+        "windheading": 190,
+        "height": 10,
+        "altitude": 590
+      },
+      {
+        "windspeed": 1.0289124395513942,
+        "windheading": 205,
+        "height": 60,
+        "altitude": 640
+      },
+      {
+        "windspeed": 2.5722810988784857,
+        "windheading": 245,
+        "height": 121,
+        "altitude": 701
+      },
+      {
+        "windspeed": 5.1445621977569713,
+        "windheading": 260,
+        "height": 213,
+        "altitude": 793
+      },
+      {
+        "windspeed": 8.745755736186851,
+        "windheading": 290,
+        "height": 365,
+        "altitude": 945
+      },
+      {
+        "windspeed": 8.2312995164111538,
+        "windheading": 290,
+        "height": 518,
+        "altitude": 1098
+      },
+      {
+        "windspeed": 7.2023870768597593,
+        "windheading": 290,
+        "height": 670,
+        "altitude": 1250
+      },
+      {
+        "windspeed": 6.1734746373083649,
+        "windheading": 310,
+        "height": 975,
+        "altitude": 1555
+      },
+      {
+        "windspeed": 3.6011935384298797,
+        "windheading": 20,
+        "height": 1280,
+        "altitude": 1860
+      }
+    ],
+    "location": {
+      "formatted_address": "Q9HP+2R Dietmanns, Austria",
+      "plus_code": {
+        "global_code": "8FWQQ9HP+2R",
+        "compound_code": "Q9HP+2R Dietmanns, Austria"
+      },
+      "address_components": [
+        {
+          "short_name": "Q9HP+2R",
+          "long_name": "Q9HP+2R",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Dietmanns",
+          "long_name": "Dietmanns",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Waidhofen an der Thaya District",
+          "long_name": "Waidhofen an der Thaya District",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "short_name": "Lower Austria",
+          "long_name": "Lower Austria",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "AT",
+          "long_name": "Austria",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lng": 15.3884114802915, "lat": 48.778911480291498 },
+          "southwest": { "lng": 15.385713519708499, "lat": 48.776213519708499 }
+        },
+        "bounds": {
+          "northeast": { "lng": 15.387124999999999, "lat": 48.777625 },
+          "southwest": { "lng": 15.387, "lat": 48.777500000000003 }
+        },
+        "location": { "lat": 48.777548899999999, "lng": 15.387110099999999 }
+      },
+      "place_id": "GhIJOEXsuIZjSEARD-eGSzPGLkA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1534874400, "nanoseconds": 0 },
+    "mag_dec": 4.7000000000000002,
+    "lng": 15.387110140970469,
+    "lat": 48.777548869936503,
+    "updated_at": { "seconds": 1643537076, "nanoseconds": 547000000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 8.2312995164111538,
+        "windheading": 230,
+        "height": 10,
+        "altitude": 590
+      },
+      {
+        "windspeed": 3.0867373186541824,
+        "windheading": 255,
+        "height": 60,
+        "altitude": 640
+      },
+      {
+        "windspeed": 5.1445621977569713,
+        "windheading": 260,
+        "height": 121,
+        "altitude": 701
+      },
+      {
+        "windspeed": 6.6879308570840621,
+        "windheading": 265,
+        "height": 213,
+        "altitude": 793
+      },
+      {
+        "windspeed": 7.2023870768597593,
+        "windheading": 300,
+        "height": 365,
+        "altitude": 945
+      },
+      {
+        "windspeed": 7.2023870768597593,
+        "windheading": 300,
+        "height": 518,
+        "altitude": 1098
+      },
+      {
+        "windspeed": 6.1734746373083649,
+        "windheading": 310,
+        "height": 670,
+        "altitude": 1250
+      },
+      {
+        "windspeed": 6.1734746373083649,
+        "windheading": 315,
+        "height": 975,
+        "altitude": 1555
+      },
+      {
+        "windspeed": 4.6301059779812741,
+        "windheading": 30,
+        "height": 1280,
+        "altitude": 1860
+      },
+      {
+        "windspeed": 3.0867373186541824,
+        "windheading": 65,
+        "height": 1889,
+        "altitude": 2469
+      }
+    ],
+    "location": {
+      "formatted_address": "Q9HP+2R Dietmanns, Austria",
+      "plus_code": {
+        "global_code": "8FWQQ9HP+2R",
+        "compound_code": "Q9HP+2R Dietmanns, Austria"
+      },
+      "address_components": [
+        {
+          "short_name": "Q9HP+2R",
+          "long_name": "Q9HP+2R",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Dietmanns",
+          "long_name": "Dietmanns",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Waidhofen an der Thaya District",
+          "long_name": "Waidhofen an der Thaya District",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "short_name": "Lower Austria",
+          "long_name": "Lower Austria",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "AT",
+          "long_name": "Austria",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lng": 15.3884114802915, "lat": 48.778911480291498 },
+          "southwest": { "lng": 15.385713519708499, "lat": 48.776213519708499 }
+        },
+        "bounds": {
+          "northeast": { "lng": 15.387124999999999, "lat": 48.777625 },
+          "southwest": { "lng": 15.387, "lat": 48.777500000000003 }
+        },
+        "location": { "lat": 48.777548899999999, "lng": 15.387110099999999 }
+      },
+      "place_id": "GhIJOEXsuIZjSEARD-eGSzPGLkA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1534878600, "nanoseconds": 0 },
+    "mag_dec": 4.7000000000000002,
+    "lng": 15.387110140970469,
+    "lat": 48.777548869936503,
+    "updated_at": { "seconds": 1643537680, "nanoseconds": 91000000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 0.19086325753678363,
+        "windheading": 207.69999999999999,
+        "height": 50,
+        "altitude": 630
+      },
+      {
+        "windspeed": 2.5630208869225228,
+        "windheading": 254.69999999999999,
+        "height": 100,
+        "altitude": 680
+      },
+      {
+        "windspeed": 5.262372672085605,
+        "windheading": 254.69999999999999,
+        "height": 150,
+        "altitude": 730
+      },
+      {
+        "windspeed": 7.2255376067496657,
+        "windheading": 262.69999999999999,
+        "height": 200,
+        "altitude": 780
+      },
+      {
+        "windspeed": 6.7892787323798744,
+        "windheading": 271.69999999999999,
+        "height": 250,
+        "altitude": 830
+      },
+      {
+        "windspeed": 6.3530198580100832,
+        "windheading": 292.69999999999999,
+        "height": 300,
+        "altitude": 880
+      },
+      {
+        "windspeed": 7.4709332235826738,
+        "windheading": 296.69999999999999,
+        "height": 350,
+        "altitude": 930
+      },
+      {
+        "windspeed": 7.8526597386562402,
+        "windheading": 292.69999999999999,
+        "height": 400,
+        "altitude": 980
+      },
+      {
+        "windspeed": 8.1525877147854722,
+        "windheading": 300.69999999999999,
+        "height": 450,
+        "altitude": 1030
+      },
+      {
+        "windspeed": 7.7163288404156809,
+        "windheading": 301.69999999999999,
+        "height": 500,
+        "altitude": 1080
+      },
+      {
+        "windspeed": 8.4525156909147032,
+        "windheading": 299.69999999999999,
+        "height": 550,
+        "altitude": 1130
+      },
+      {
+        "windspeed": 7.2800699660458896,
+        "windheading": 306.69999999999999,
+        "height": 600,
+        "altitude": 1180
+      },
+      {
+        "windspeed": 7.8253935590081287,
+        "windheading": 302.69999999999999,
+        "height": 650,
+        "altitude": 1230
+      },
+      {
+        "windspeed": 6.6802140137874266,
+        "windheading": 314.69999999999999,
+        "height": 700,
+        "altitude": 1280
+      },
+      {
+        "windspeed": 6.2984874987138593,
+        "windheading": 306.69999999999999,
+        "height": 750,
+        "altitude": 1330
+      },
+      {
+        "windspeed": 7.2255376067496657,
+        "windheading": 313.69999999999999,
+        "height": 800,
+        "altitude": 1380
+      },
+      {
+        "windspeed": 7.0074081695647701,
+        "windheading": 323.69999999999999,
+        "height": 850,
+        "altitude": 1430
+      },
+      {
+        "windspeed": 5.6168330075110608,
+        "windheading": 343.69999999999999,
+        "height": 900,
+        "altitude": 1480
+      },
+      {
+        "windspeed": 4.253524025105464,
+        "windheading": 357.69999999999999,
+        "height": 950,
+        "altitude": 1530
+      },
+      {
+        "windspeed": 6.7892787323798744,
+        "windheading": 343.69999999999999,
+        "height": 1000,
+        "altitude": 1580
+      },
+      {
+        "windspeed": 5.4805021092705015,
+        "windheading": 29.699999999999989,
+        "height": 1050,
+        "altitude": 1630
+      },
+      {
+        "windspeed": 3.8717975100318962,
+        "windheading": 9.6999999999999886,
+        "height": 1100,
+        "altitude": 1680
+      },
+      {
+        "windspeed": 3.08107830023665,
+        "windheading": 34.699999999999989,
+        "height": 1150,
+        "altitude": 1730
+      },
+      {
+        "windspeed": 3.08107830023665,
+        "windheading": 36.699999999999989,
+        "height": 1200,
+        "altitude": 1780
+      },
+      {
+        "windspeed": 0.62712213190657484,
+        "windheading": 149.69999999999999,
+        "height": 1250,
+        "altitude": 1830
+      },
+      {
+        "windspeed": 1.7450354974791644,
+        "windheading": 59.699999999999989,
+        "height": 1300,
+        "altitude": 1880
+      },
+      {
+        "windspeed": 2.0176972939602842,
+        "windheading": 77.699999999999989,
+        "height": 1350,
+        "altitude": 1930
+      },
+      {
+        "windspeed": 3.1356106595328739,
+        "windheading": 75.699999999999989,
+        "height": 1400,
+        "altitude": 1980
+      },
+      {
+        "windspeed": 2.6175532462187467,
+        "windheading": 67.699999999999989,
+        "height": 1450,
+        "altitude": 2030
+      },
+      {
+        "windspeed": 1.9631649346640601,
+        "windheading": 97.699999999999989,
+        "height": 1500,
+        "altitude": 2080
+      },
+      {
+        "windspeed": 2.453956168330075,
+        "windheading": 83.699999999999989,
+        "height": 1550,
+        "altitude": 2130
+      }
+    ],
+    "location": {
+      "formatted_address": "Q9HP+2R Dietmanns, Austria",
+      "plus_code": {
+        "global_code": "8FWQQ9HP+2R",
+        "compound_code": "Q9HP+2R Dietmanns, Austria"
+      },
+      "address_components": [
+        {
+          "short_name": "Q9HP+2R",
+          "long_name": "Q9HP+2R",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Dietmanns",
+          "long_name": "Dietmanns",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Waidhofen an der Thaya District",
+          "long_name": "Waidhofen an der Thaya District",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "short_name": "Lower Austria",
+          "long_name": "Lower Austria",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "AT",
+          "long_name": "Austria",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lng": 15.3884114802915, "lat": 48.778911480291498 },
+          "southwest": { "lng": 15.385713519708499, "lat": 48.776213519708499 }
+        },
+        "bounds": {
+          "northeast": { "lng": 15.387124999999999, "lat": 48.777625 },
+          "southwest": { "lng": 15.387, "lat": 48.777500000000003 }
+        },
+        "location": { "lng": 15.387110099999999, "lat": 48.777548899999999 }
+      },
+      "place_id": "GhIJOEXsuIZjSEARD-eGSzPGLkA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1534884240, "nanoseconds": 0 },
+    "mag_dec": 4.7000000000000002,
+    "lng": 15.387110140970469,
+    "lat": 48.777548869936503,
+    "updated_at": { "seconds": 1643534823, "nanoseconds": 86000000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 0.19086325753678363,
+        "windheading": 288.30000000000001,
+        "height": 50,
+        "altitude": 630
+      },
+      {
+        "windspeed": 2.5630208869225228,
+        "windheading": 242.30000000000001,
+        "height": 100,
+        "altitude": 680
+      },
+      {
+        "windspeed": 5.262372672085605,
+        "windheading": 248.30000000000001,
+        "height": 150,
+        "altitude": 730
+      },
+      {
+        "windspeed": 7.2255376067496657,
+        "windheading": 257.30000000000001,
+        "height": 200,
+        "altitude": 780
+      },
+      {
+        "windspeed": 6.7892787323798744,
+        "windheading": 267.30000000000001,
+        "height": 250,
+        "altitude": 830
+      },
+      {
+        "windspeed": 6.3530198580100832,
+        "windheading": 284.30000000000001,
+        "height": 300,
+        "altitude": 880
+      },
+      {
+        "windspeed": 7.4709332235826738,
+        "windheading": 289.30000000000001,
+        "height": 350,
+        "altitude": 930
+      },
+      {
+        "windspeed": 7.8526597386562402,
+        "windheading": 288.30000000000001,
+        "height": 400,
+        "altitude": 980
+      },
+      {
+        "windspeed": 8.1525877147854722,
+        "windheading": 291.30000000000001,
+        "height": 450,
+        "altitude": 1030
+      },
+      {
+        "windspeed": 7.7163288404156809,
+        "windheading": 291.30000000000001,
+        "height": 500,
+        "altitude": 1080
+      },
+      {
+        "windspeed": 8.4525156909147032,
+        "windheading": 294.30000000000001,
+        "height": 550,
+        "altitude": 1130
+      },
+      {
+        "windspeed": 7.2800699660458896,
+        "windheading": 290.30000000000001,
+        "height": 600,
+        "altitude": 1180
+      },
+      {
+        "windspeed": 7.8253935590081287,
+        "windheading": 293.30000000000001,
+        "height": 650,
+        "altitude": 1230
+      },
+      {
+        "windspeed": 6.6802140137874266,
+        "windheading": 306.30000000000001,
+        "height": 700,
+        "altitude": 1280
+      },
+      {
+        "windspeed": 6.2984874987138593,
+        "windheading": 308.30000000000001,
+        "height": 750,
+        "altitude": 1330
+      },
+      {
+        "windspeed": 7.2255376067496657,
+        "windheading": 297.30000000000001,
+        "height": 800,
+        "altitude": 1380
+      },
+      {
+        "windspeed": 7.0074081695647701,
+        "windheading": 316.30000000000001,
+        "height": 850,
+        "altitude": 1430
+      }
+    ],
+    "location": {
+      "formatted_address": "Q9HP+2R Dietmanns, Austria",
+      "plus_code": {
+        "global_code": "8FWQQ9HP+2R",
+        "compound_code": "Q9HP+2R Dietmanns, Austria"
+      },
+      "address_components": [
+        {
+          "short_name": "Q9HP+2R",
+          "long_name": "Q9HP+2R",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Dietmanns",
+          "long_name": "Dietmanns",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Waidhofen an der Thaya District",
+          "long_name": "Waidhofen an der Thaya District",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "short_name": "Lower Austria",
+          "long_name": "Lower Austria",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "AT",
+          "long_name": "Austria",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lng": 15.3884114802915, "lat": 48.778911480291498 },
+          "southwest": { "lng": 15.385713519708499, "lat": 48.776213519708499 }
+        },
+        "bounds": {
+          "northeast": { "lng": 15.387124999999999, "lat": 48.777625 },
+          "southwest": { "lng": 15.387, "lat": 48.777500000000003 }
+        },
+        "location": { "lat": 48.777548899999999, "lng": 15.387110099999999 }
+      },
+      "place_id": "GhIJOEXsuIZjSEARD-eGSzPGLkA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1534885620, "nanoseconds": 0 },
+    "mag_dec": 4.7000000000000002,
+    "lng": 15.387110140970469,
+    "lat": 48.777548869936503,
+    "updated_at": { "seconds": 1643534965, "nanoseconds": 660000000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 0.19086325753678363,
+        "windheading": 312.30000000000001,
+        "height": 50,
+        "altitude": 630
+      },
+      {
+        "windspeed": 2.5630208869225228,
+        "windheading": 289.30000000000001,
+        "height": 100,
+        "altitude": 680
+      },
+      {
+        "windspeed": 5.262372672085605,
+        "windheading": 311.30000000000001,
+        "height": 150,
+        "altitude": 730
+      },
+      {
+        "windspeed": 7.2255376067496657,
+        "windheading": 255.30000000000001,
+        "height": 200,
+        "altitude": 780
+      },
+      {
+        "windspeed": 6.7892787323798744,
+        "windheading": 277.30000000000001,
+        "height": 250,
+        "altitude": 830
+      },
+      {
+        "windspeed": 6.3530198580100832,
+        "windheading": 285.30000000000001,
+        "height": 300,
+        "altitude": 880
+      },
+      {
+        "windspeed": 7.4709332235826738,
+        "windheading": 289.30000000000001,
+        "height": 350,
+        "altitude": 930
+      }
+    ],
+    "location": {
+      "formatted_address": "Q9HP+2R Dietmanns, Austria",
+      "plus_code": {
+        "global_code": "8FWQQ9HP+2R",
+        "compound_code": "Q9HP+2R Dietmanns, Austria"
+      },
+      "address_components": [
+        {
+          "short_name": "Q9HP+2R",
+          "long_name": "Q9HP+2R",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Dietmanns",
+          "long_name": "Dietmanns",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Waidhofen an der Thaya District",
+          "long_name": "Waidhofen an der Thaya District",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "short_name": "Lower Austria",
+          "long_name": "Lower Austria",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "AT",
+          "long_name": "Austria",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lng": 15.3884114802915, "lat": 48.778911480291498 },
+          "southwest": { "lng": 15.385713519708499, "lat": 48.776213519708499 }
+        },
+        "bounds": {
+          "northeast": { "lng": 15.387124999999999, "lat": 48.777625 },
+          "southwest": { "lng": 15.387, "lat": 48.777500000000003 }
+        },
+        "location": { "lat": 48.777548899999999, "lng": 15.387110099999999 }
+      },
+      "place_id": "GhIJOEXsuIZjSEARD-eGSzPGLkA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1534888500, "nanoseconds": 0 },
+    "mag_dec": 4.7000000000000002,
+    "lng": 15.387110140970469,
+    "lat": 48.777548869936503,
+    "updated_at": { "seconds": 1643535055, "nanoseconds": 909000000 }
+  }
+]
