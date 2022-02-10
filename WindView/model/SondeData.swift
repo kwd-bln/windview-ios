@@ -7,11 +7,12 @@
 
 import Foundation
 import FirebaseFirestore
+import CoreGraphics
 
 struct SondeData: Codable {
-    let lat: Double
-    let lng: Double
-    let magDeclination: Double
+    let lat: CGFloat
+    let lng: CGFloat
+    let magDeclination: CGFloat
     
     let measuredAt: Timestamp
     let updatedAt: Timestamp
@@ -60,10 +61,10 @@ struct Location: Codable {
     }
     
     struct Geometry: Codable {
-        let bounds: [String: [String: Double]]
-        let location: [String: Double]
+        let bounds: [String: [String: CGFloat]]
+        let location: [String: CGFloat]
         let locationType: String
-        let viewport: [String: [String: Double]]
+        let viewport: [String: [String: CGFloat]]
         
         enum CodingKeys: String, CodingKey {
             case bounds
@@ -75,9 +76,9 @@ struct Location: Codable {
 }
 
 struct SondeDataItem: Codable {
-    let altitude: Double
-    let height: Double
-    let temperature: Double?
-    let windheading: Double
-    let windspeed: Double
+    let altitude: CGFloat
+    let height: CGFloat
+    let temperature: CGFloat?
+    let windheading: CGFloat
+    let windspeed: CGFloat
 }
