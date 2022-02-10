@@ -11,6 +11,9 @@
 		C9072A4627B40554001397D6 /* winds.json in Resources */ = {isa = PBXBuildFile; fileRef = C9072A4527B40554001397D6 /* winds.json */; };
 		C9072A4827B410FA001397D6 /* DistanceChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4727B410FA001397D6 /* DistanceChartView.swift */; };
 		C9072A4A27B52E5A001397D6 /* CGRect+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4927B52E5A001397D6 /* CGRect+extension.swift */; };
+		C9072A4D27B53099001397D6 /* DistanceChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4C27B53099001397D6 /* DistanceChartViewController.swift */; };
+		C9072A4F27B53169001397D6 /* SpeedChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4E27B53169001397D6 /* SpeedChartViewController.swift */; };
+		C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5227B531A0001397D6 /* ColorLayerTableViewController.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30D827AC22F7001D9088 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D727AC22F7001D9088 /* ViewController.swift */; };
@@ -63,6 +66,9 @@
 		C9072A4527B40554001397D6 /* winds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = winds.json; sourceTree = "<group>"; };
 		C9072A4727B410FA001397D6 /* DistanceChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceChartView.swift; sourceTree = "<group>"; };
 		C9072A4927B52E5A001397D6 /* CGRect+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extension.swift"; sourceTree = "<group>"; };
+		C9072A4C27B53099001397D6 /* DistanceChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceChartViewController.swift; sourceTree = "<group>"; };
+		C9072A4E27B53169001397D6 /* SpeedChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartViewController.swift; sourceTree = "<group>"; };
+		C9072A5227B531A0001397D6 /* ColorLayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLayerTableViewController.swift; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +135,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9072A4B27B53081001397D6 /* childs */ = {
+			isa = PBXGroup;
+			children = (
+				C9072A4C27B53099001397D6 /* DistanceChartViewController.swift */,
+				C9072A4E27B53169001397D6 /* SpeedChartViewController.swift */,
+				C9072A5227B531A0001397D6 /* ColorLayerTableViewController.swift */,
+			);
+			path = childs;
 			sourceTree = "<group>";
 		};
 		C95E30C727AC22F7001D9088 = {
@@ -214,6 +230,7 @@
 		C9E5FB6A27B2C91000538B09 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C9072A4B27B53081001397D6 /* childs */,
 				C95E310E27AC2AAA001D9088 /* LoginViewController.swift */,
 				C9E5FB6B27B33ADD00538B09 /* HomeViewController.swift */,
 			);
@@ -391,14 +408,17 @@
 				C9E5FB7B27B3F20000538B09 /* SondeDataModel.swift in Sources */,
 				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
+				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
 				C95E30D827AC22F7001D9088 /* ViewController.swift in Sources */,
 				C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */,
 				C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */,
 				C9072A4A27B52E5A001397D6 /* CGRect+extension.swift in Sources */,
 				C9D64AF027B1520800A9631E /* NSAttributedString+extension.swift in Sources */,
+				C9072A4D27B53099001397D6 /* DistanceChartViewController.swift in Sources */,
 				C9E5FB6C27B33ADD00538B09 /* HomeViewController.swift in Sources */,
 				C9E5FB7127B3EE9000538B09 /* HomeViewModel.swift in Sources */,
 				C9D64AEE27B150D400A9631E /* Utils.swift in Sources */,
+				C9072A4F27B53169001397D6 /* SpeedChartViewController.swift in Sources */,
 				C9072A4827B410FA001397D6 /* DistanceChartView.swift in Sources */,
 				C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */,
 				C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */,

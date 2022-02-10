@@ -19,6 +19,9 @@ final class HomeViewController: UIViewController {
     
     let childVCList: [(menuTitle: String, vc: UIViewController)] = [("first", UIViewController(nibName: nil, bundle: nil))]
     
+    
+    let distanceChartView = DistanceChartView()
+    
     private var childControllers: [UIViewController] {
         childVCList.map { $0.vc }
     }
@@ -42,6 +45,14 @@ final class HomeViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .blue
         setupPVC()
+        
+        view.addSubview(distanceChartView)
+        distanceChartView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(50)
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-16)
+            $0.width.equalTo(distanceChartView.snp.height)
+        }
     }
     
     private func setupPVC() {
