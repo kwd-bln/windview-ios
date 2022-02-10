@@ -35,9 +35,9 @@ struct Location: Codable {
     let addressComponents: [AddressComponents]
     let formattedAddress: String
     let geometry: Geometry
-    let placeId: String
-    let plusCode: [String:String]
-    let types: [String]
+    let placeId: String?
+    let plusCode: [String:String]?
+    let types: [String]?
     
     enum CodingKeys: String, CodingKey {
         case addressComponents = "address_components"

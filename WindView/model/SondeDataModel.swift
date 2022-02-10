@@ -17,12 +17,12 @@ protocol SondeDataModelInput {
 }
 
 final class SondeDataModel: SondeDataModelInput {
-    static let fetchCount: Int = 5
+    static let fetchCount: Int = 10
     
     func fetchLatestSondeDataModel() async throws -> SondeData {
         let snapshot  = try await Firestore.firestore()
             .collection("sondeview")
-            .order(by: "measured_at")
+            .order(by: "measured_at", descending: true)
             .limit(to: Self.fetchCount)
             .getDocuments()
         
@@ -30,6 +30,7 @@ final class SondeDataModel: SondeDataModelInput {
             let sondeDataList = try snapshot.documents.compactMap { try $0.data(as: SondeData.self )}
             return sondeDataList.first!
         } catch {
+            print("error:", error)
             throw SondeDataModelError.fetchError
         }
     }
@@ -54,5 +55,25 @@ final class StubSondeDataModel: SondeDataModelInput {
         
         return sondeDataList.first!
         
+    }
+}
+
+
+
+// MARK: - モックデータの作成のためのextension
+
+extension SondeDataModel {
+    func save(dataList: [SondeData]) {
+        guard let json =  try? JSONEncoder().encode(dataList) else { return }
+        
+        guard let url = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("wind.json") else { return }
+
+        do {
+            try json.write(to: url)
+        } catch let error {
+            print(error)
+        }
+        
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
     }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C9072A4227B401BE001397D6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C9072A4127B401BE001397D6 /* FirebaseFirestoreSwift-Beta */; };
-		C9072A4627B40554001397D6 /* winds.json in Resources */ = {isa = PBXBuildFile; fileRef = C9072A4527B40554001397D6 /* winds.json */; };
 		C9072A4827B410FA001397D6 /* DistanceChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4727B410FA001397D6 /* DistanceChartView.swift */; };
 		C9072A4A27B52E5A001397D6 /* CGRect+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4927B52E5A001397D6 /* CGRect+extension.swift */; };
 		C9072A4D27B53099001397D6 /* DistanceChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A4C27B53099001397D6 /* DistanceChartViewController.swift */; };
@@ -17,6 +16,7 @@
 		C9072A5527B54CFE001397D6 /* CGFloat+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5427B54CFE001397D6 /* CGFloat+extension.swift */; };
 		C9072A5727B55249001397D6 /* CGPoint+extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5627B55249001397D6 /* CGPoint+extenstion.swift */; };
 		C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */; };
+		C9072A5D27B56B02001397D6 /* winds.json in Resources */ = {isa = PBXBuildFile; fileRef = C9072A5C27B56B02001397D6 /* winds.json */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E30DC27AC22F9001D9088 /* Images.xcassets */; };
@@ -65,7 +65,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C9072A4527B40554001397D6 /* winds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = winds.json; sourceTree = "<group>"; };
 		C9072A4727B410FA001397D6 /* DistanceChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceChartView.swift; sourceTree = "<group>"; };
 		C9072A4927B52E5A001397D6 /* CGRect+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extension.swift"; sourceTree = "<group>"; };
 		C9072A4C27B53099001397D6 /* DistanceChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceChartViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +73,7 @@
 		C9072A5427B54CFE001397D6 /* CGFloat+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+extension.swift"; sourceTree = "<group>"; };
 		C9072A5627B55249001397D6 /* CGPoint+extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+extenstion.swift"; sourceTree = "<group>"; };
 		C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+extension.swift"; sourceTree = "<group>"; };
+		C9072A5C27B56B02001397D6 /* winds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = winds.json; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 		C9E5FB6D27B33B2600538B09 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				C9072A4527B40554001397D6 /* winds.json */,
+				C9072A5C27B56B02001397D6 /* winds.json */,
 				C9E5FB6E27B33C2900538B09 /* SondeData.swift */,
 				C9E5FB7A27B3F20000538B09 /* SondeDataModel.swift */,
 			);
@@ -384,7 +384,7 @@
 			files = (
 				C95E30E027AC22F9001D9088 /* LaunchScreen.storyboard in Resources */,
 				C9D64AF227B15AC800A9631E /* Colors.xcassets in Resources */,
-				C9072A4627B40554001397D6 /* winds.json in Resources */,
+				C9072A5D27B56B02001397D6 /* winds.json in Resources */,
 				C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */,
 				C95E310427AC273F001D9088 /* GoogleService-Info.plist in Resources */,
 			);
