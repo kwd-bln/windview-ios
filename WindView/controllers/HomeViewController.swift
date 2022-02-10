@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+    // MARK: PageViewController系
     
     let pageViewController: UIPageViewController = {
         let pvc = UIPageViewController(transitionStyle: .scroll,
@@ -17,16 +18,20 @@ final class HomeViewController: UIViewController {
         return pvc
     }()
     
-    let childVCList: [(menuTitle: String, vc: UIViewController)] = [("first", UIViewController(nibName: nil, bundle: nil))]
+    private var currentPageIndex: Int = 0
     
-    
-    let distanceChartView = DistanceChartView()
+    let childVCList: [(menuTitle: String, vc: UIViewController)]
     
     private var childControllers: [UIViewController] {
         childVCList.map { $0.vc }
     }
     
+    
     let viewModel: HomeViewModelType
+    
+    // MARK: views
+    
+    let distanceChartView = DistanceChartView()
     
     var safeAreaGuide: UILayoutGuide {
         view.safeAreaLayoutGuide
@@ -34,6 +39,11 @@ final class HomeViewController: UIViewController {
     
     init(viewModel: HomeViewModelType = HomeViewModel()) {
         self.viewModel = viewModel
+        self.childVCList = [
+            ("DistanceChart", DistanceChartViewController()),
+            ("SpeedChart", SpeedChartViewController()),
+            ("ColorTable", ColorLayerTableViewController())
+        ]
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -56,8 +66,8 @@ final class HomeViewController: UIViewController {
     }
     
     private func setupPVC() {
-//        pageViewController.dataSource = self
-//        pageViewController.delegate = self
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
         
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
@@ -81,3 +91,42 @@ final class HomeViewController: UIViewController {
         
     }
 }
+
+// MARK: - UIPageViewControllerDataSource
+
+extension HomeViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let index = childControllers.firstIndex(of: viewController), index != 0 {
+            return childControllers[index - 1]
+        } else {
+            return nil
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let index = childControllers.firstIndex(of: viewController), index < childControllers.count - 1 {
+            return childControllers[index + 1]
+        } else {
+            return nil
+        }
+    }
+}
+
+// MARK: - UIPageViewControllerDelegate
+
+extension HomeViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating _: Bool,
+                            previousViewControllers _: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        if let viewController: UIViewController = pageViewController.viewControllers?.last {
+            guard let index = childControllers.firstIndex(of: viewController) else { return }
+            if completed {
+                currentPageIndex = index
+            }
+        }
+    }
+}
+
