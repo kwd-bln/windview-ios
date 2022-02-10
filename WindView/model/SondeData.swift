@@ -76,9 +76,14 @@ struct Location: Codable {
 }
 
 struct SondeDataItem: Codable {
+    /// meter
     let altitude: CGFloat
+    /// meter
     let height: CGFloat
+    /// Celsius degree
     let temperature: CGFloat?
+    /// true degree /  to
     let windheading: CGFloat
+    /// m / s
     let windspeed: CGFloat
 }
