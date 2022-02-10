@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HomeViewController: UIViewController {
     // MARK: PageViewController系
@@ -26,16 +27,20 @@ final class HomeViewController: UIViewController {
         childVCList.map { $0.vc }
     }
     
+    private var distanceChartViewController: DistanceChartViewController {
+        childControllers[0] as! DistanceChartViewController
+    }
     
     let viewModel: HomeViewModelType
     
     // MARK: views
     
-    let distanceChartView = DistanceChartView()
-    
     var safeAreaGuide: UILayoutGuide {
         view.safeAreaLayoutGuide
     }
+    
+    // MARK: その他
+    let disposeBag = DisposeBag()
     
     init(viewModel: HomeViewModelType = HomeViewModel()) {
         self.viewModel = viewModel
@@ -56,13 +61,12 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .blue
         setupPVC()
         
-        view.addSubview(distanceChartView)
-        distanceChartView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(50)
-            $0.left.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-16)
-            $0.width.equalTo(distanceChartView.snp.height)
-        }
+        viewModel.outputs.sondeData
+            .drive { [weak self] sondeData in
+                guard let sondeData = sondeData else { return }
+                self?.distanceChartViewController.drawChart(by: sondeData, with: 1, isTo: true)
+            }.disposed(by: disposeBag)
+
     }
     
     private func setupPVC() {

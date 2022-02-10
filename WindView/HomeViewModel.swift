@@ -30,7 +30,10 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         let _sondeData = PublishRelay<SondeData?>()
         self.sondeData = _sondeData.asDriver(onErrorJustReturn: nil)
         self.model = model
-        self.model.fetchLatestSondeDataModel()
+        Task {
+            let latestData = try await model.fetchLatestSondeDataModel()
+            _sondeData.accept(latestData)
+        }
     }
 }
 
