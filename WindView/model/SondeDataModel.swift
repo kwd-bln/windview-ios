@@ -9,57 +9,36 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+enum SondeDataModelError: Error {
+    case fetchError
+}
 protocol SondeDataModelInput {
-    func fetchLatestSondeDataModel()
+    func fetchLatestSondeDataModel() async throws -> SondeData
 }
 
 final class SondeDataModel: SondeDataModelInput {
     static let fetchCount: Int = 5
-    func fetchLatestSondeDataModel() {
-        Firestore.firestore().collection("sondeview").order(by: "measured_at").limit(to: Self.fetchCount)
-            .getDocuments { snapshot, error in
-                
-                if let error = error {
-                    print("Error:", error)
-                }
-                
-                guard let snapshot = snapshot else { return }
-                
-                do {
-                    let sondeDataList = try snapshot.documents
-                        .map { try $0.data(as: SondeData.self) }
-                    print("success")
-                    print("sondeDataList", sondeDataList)
-                    
-                    let json = try JSONEncoder().encode(sondeDataList)
-                    self.saveJson(json: json)
-                } catch {
-                    print("error", error)
-                    return
-                }
-            }
-        
-    }
     
-    func saveJson(json: Data) {
-        guard let url = try? FileManager.default.url(for: .documentDirectory,
-                                                        in: .userDomainMask,
-                                                        appropriateFor: nil,
-                                                        create: true)
-                .appendingPathComponent("winds.json") else { return }
+    func fetchLatestSondeDataModel() async throws -> SondeData {
+        let snapshot  = try await Firestore.firestore()
+            .collection("sondeview")
+            .order(by: "measured_at")
+            .limit(to: Self.fetchCount)
+            .getDocuments()
         
         do {
-            try json.write(to: url)
-            print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!)
-        } catch let error {
-            print(error)
+            let sondeDataList = try snapshot.documents.compactMap { try $0.data(as: SondeData.self )}
+            return sondeDataList.first!
+        } catch {
+            throw SondeDataModelError.fetchError
         }
-
     }
 }
 
 final class StubSondeDataModel: SondeDataModelInput {
-    func fetchLatestSondeDataModel() {
+    func fetchLatestSondeDataModel() async throws -> SondeData {
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+        
         guard let url = Bundle.main.url(forResource: "winds", withExtension: "json") else {
             fatalError("ファイルが見つからない")
         }
@@ -73,7 +52,7 @@ final class StubSondeDataModel: SondeDataModelInput {
             fatalError("JSON読み込みエラー")
         }
         
-        print(sondeDataList)
+        return sondeDataList.first!
         
     }
 }
