@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 final class SpeedChartViewController: UIViewController {
+    
+    private let speedChartView = SpeedChartView()
+    private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
+                                                         font: .hiraginoSans(style: .light, size: 12))
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -19,6 +24,19 @@ final class SpeedChartViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .lightGray
+        
+        view.addSubview(timeLabel)
+        view.addSubview(speedChartView)
+        speedChartView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-16)
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(speedChartView.snp.height)
+        }
+        
+        timeLabel.snp.makeConstraints {
+            $0.bottom.equalTo(speedChartView.snp.top).offset(-12)
+            $0.left.equalTo(speedChartView).offset(16)
+        }
     }
 }

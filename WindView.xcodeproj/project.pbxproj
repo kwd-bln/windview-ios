@@ -23,6 +23,7 @@
 		C9072A6527B635A6001397D6 /* DistantChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6427B635A6001397D6 /* DistantChartViewData.swift */; };
 		C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6727B64B49001397D6 /* UILabel+extension.swift */; };
 		C9072A6A27B64EAB001397D6 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6927B64EAA001397D6 /* DateUtil.swift */; };
+		C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E30DC27AC22F9001D9088 /* Images.xcassets */; };
@@ -86,6 +87,7 @@
 		C9072A6427B635A6001397D6 /* DistantChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistantChartViewData.swift; sourceTree = "<group>"; };
 		C9072A6727B64B49001397D6 /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
 		C9072A6927B64EAA001397D6 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartView.swift; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +174,14 @@
 			path = DistanceChart;
 			sourceTree = "<group>";
 		};
+		C9072A6B27B68BD2001397D6 /* SpeedChart */ = {
+			isa = PBXGroup;
+			children = (
+				C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */,
+			);
+			path = SpeedChart;
+			sourceTree = "<group>";
+		};
 		C95E30C727AC22F7001D9088 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +242,7 @@
 		C9D64AE727B14D7600A9631E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				C9072A6B27B68BD2001397D6 /* SpeedChart */,
 				C9072A6627B64A5A001397D6 /* DistanceChart */,
 				C9D64AE827B14DA500A9631E /* CustomTextField.swift */,
 			);
@@ -441,6 +452,7 @@
 				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
+				C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
