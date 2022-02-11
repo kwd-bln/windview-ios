@@ -24,6 +24,8 @@
 		C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6727B64B49001397D6 /* UILabel+extension.swift */; };
 		C9072A6A27B64EAB001397D6 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6927B64EAA001397D6 /* DateUtil.swift */; };
 		C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */; };
+		C9072A6F27B69A78001397D6 /* SondeData+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6E27B69A77001397D6 /* SondeData+extension.swift */; };
+		C9072A7127B69B82001397D6 /* SpeedChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E30DC27AC22F9001D9088 /* Images.xcassets */; };
@@ -88,6 +90,8 @@
 		C9072A6727B64B49001397D6 /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
 		C9072A6927B64EAA001397D6 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartView.swift; sourceTree = "<group>"; };
+		C9072A6E27B69A77001397D6 /* SondeData+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SondeData+extension.swift"; sourceTree = "<group>"; };
+		C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartViewData.swift; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */,
+				C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */,
 			);
 			path = SpeedChart;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */,
 				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
 				C9072A6927B64EAA001397D6 /* DateUtil.swift */,
+				C9072A6E27B69A77001397D6 /* SondeData+extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -467,10 +473,12 @@
 				C9E5FB7127B3EE9000538B09 /* HomeViewModel.swift in Sources */,
 				C9D64AEE27B150D400A9631E /* Utils.swift in Sources */,
 				C9072A4F27B53169001397D6 /* SpeedChartViewController.swift in Sources */,
+				C9072A6F27B69A78001397D6 /* SondeData+extension.swift in Sources */,
 				C9072A4827B410FA001397D6 /* DistanceChartView.swift in Sources */,
 				C9072A5527B54CFE001397D6 /* CGFloat+extension.swift in Sources */,
 				C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */,
 				C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */,
+				C9072A7127B69B82001397D6 /* SpeedChartViewData.swift in Sources */,
 				C9072A5F27B56D0B001397D6 /* Settings.swift in Sources */,
 				C9072A6A27B64EAB001397D6 /* DateUtil.swift in Sources */,
 				C9072A5727B55249001397D6 /* CGPoint+extenstion.swift in Sources */,
