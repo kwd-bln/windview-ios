@@ -64,10 +64,14 @@ final class HomeViewController: UIViewController {
         setupPVC()
         viewModel.inputs.loadView()
         
-        viewModel.outputs.sondeDataList
-            .drive { [weak self] sondeDataList in
-                self?.distanceChartViewController.drawChart(by: sondeDataList, with: 1, isTo: true)
-            }.disposed(by: disposeBag)
+        Driver.combineLatest(
+            viewModel.outputs.sondeDataList,
+            viewModel.outputs.chartSize
+        ).drive { [weak self] sondeDataList, csize in
+            if sondeDataList.count == 0 { return }
+            self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: true)
+        }.disposed(by: disposeBag)
+        
         distanceChartViewController
             .zoomButtonTap
             .bind(to: viewModel.inputs.zoomButtonTap)

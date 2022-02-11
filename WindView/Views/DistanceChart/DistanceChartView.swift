@@ -10,7 +10,8 @@ import UIKit
 
 final class DistanceChartView: UIView {
     static let radiusRatio: CGFloat = 0.32
-    static let chartLayerTag: Int = 1111
+    
+    private let drawingView = UIView()
     
     init() {
         super.init(frame: .zero)
@@ -18,6 +19,10 @@ final class DistanceChartView: UIView {
         layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 1
         clipsToBounds = true
+        addSubview(drawingView)
+        drawingView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -77,6 +82,10 @@ private extension DistanceChartView {
 
 extension DistanceChartView {
     func drawChart(by sondeDataList: [SondeData], with scale: ChartSize, isTo: Bool) {
+        // sub layers を削除
+        drawingView.layer.sublayers = nil
+        
+        // 計算
         let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0) }
         let maxDistance = distanceDataList.map { $0.maxDistance }
         let maxDist = maxDistance.max() ?? 0
@@ -97,7 +106,7 @@ extension DistanceChartView {
     
     /// 単位距離を計算する
     func calculateUnitDist(by maxDist: CGFloat, size: ChartSize) -> CGFloat {
-        let oneThirdOfMaxDist = ceil(maxDist * Self.radiusRatio * size.rawValue)
+        let oneThirdOfMaxDist = ceil(maxDist * Self.radiusRatio / size.rawValue)
         let unitDistance = max(oneThirdOfMaxDist.toPrecition(2), 10)
         return unitDistance
     }
@@ -114,7 +123,7 @@ extension DistanceChartView {
             textLayer.bounds = CGRect(origin: .zero, size: size)
             textLayer.frame.origin = CGFloat(i) * unitVector + bounds.mid - .init(x: 0, y: size.height)
             textLayer.contentsScale = UIScreen.main.scale
-            layer.addSublayer(textLayer)
+            drawingView.layer.addSublayer(textLayer)
         }
     }
     
@@ -147,7 +156,7 @@ extension DistanceChartView {
         shapeLayer.strokeColor = color.cgColor
         shapeLayer.fillColor = .none
         shapeLayer.path = path.cgPath
-        layer.addSublayer(shapeLayer)
+        drawingView.layer.addSublayer(shapeLayer)
         
         // 点を描く処理
         let circlePath = UIBezierPath()
@@ -164,7 +173,7 @@ extension DistanceChartView {
         circleShapeLayer.strokeColor = .none
         circleShapeLayer.fillColor = color.cgColor
         circleShapeLayer.path = circlePath.cgPath
-        layer.addSublayer(circleShapeLayer)
+        drawingView.layer.addSublayer(circleShapeLayer)
     }
 }
 
