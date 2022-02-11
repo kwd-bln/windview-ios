@@ -42,9 +42,36 @@ extension SpeedChartView {
         let maxSpeed = sondeData.maxSpeed
         // 単位となる速度
         let unitSpeed = calcUnitSpeed(maxSpeed)
-        
         drawScales(unitSpeed)
         
+        let speedViewData = SpeedChartViewData(from: sondeData)
+        drawChart(speedViewData, in: unitSpeed, isTo: isTo)
+
+    }
+    
+    private func drawChart(_ speedViewData: SpeedChartViewData, in unit: CGFloat, isTo: Bool) {
+        let halfWidth = bounds.width * 0.5
+        
+        // distanceをrect中の長さに合わせるために掛ける定数
+        let multiple = halfWidth / unit * Self.radiusRatio
+        // 最も高い高さ
+        let maxHeight = speedViewData.speedPoints.last?.altitude ?? 0
+        // scaleされた点
+        speedViewData.speedPoints.forEach { alt, vector in
+            // scaleされた点
+            let scaledVector = vector * multiple
+            let path = UIBezierPath()
+            path.move(to: bounds.mid)
+            path.addLine(to:  bounds.mid + scaledVector)
+            
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+            shapeLayer.lineWidth = 1
+            shapeLayer.strokeColor = UIColor.red.cgColor
+            shapeLayer.fillColor = .none
+            shapeLayer.path = path.cgPath
+            drawingView.layer.addSublayer(shapeLayer)
+        }
     }
 }
 
@@ -93,8 +120,8 @@ private extension SpeedChartView {
     }
     
     func calcUnitSpeed(_ maxSpeed: CGFloat) -> CGFloat {
-        let tmpUnitSpeed = min(maxSpeed * Self.radiusRatio, 0.1)
-        return tmpUnitSpeed.toPrecition(2)
+        let tmpUnitSpeed = max(maxSpeed * Self.radiusRatio, 0.1)
+        return tmpUnitSpeed.ceiledPrecition(2)
     }
     
     func drawScales(_ unitSpeed: CGFloat) {
@@ -115,9 +142,9 @@ private extension SpeedChartView {
     }
 }
 
-
 private extension SondeData {
     var maxSpeed: CGFloat {
         values.map { $0.windspeed }.max() ?? 0
     }
 }
+

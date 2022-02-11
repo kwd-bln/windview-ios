@@ -135,7 +135,7 @@ extension DistanceChartView {
         let halfWidth = bounds.width / 2
         
         // distanceをrect中の長さに合わせるために掛ける定数
-        let multiple = halfWidth / unit / 3
+        let multiple = halfWidth / unit * Self.radiusRatio
         // scaleされた点
         let scaledPoints = distData.distancePoints.map { $0 * multiple }
         
