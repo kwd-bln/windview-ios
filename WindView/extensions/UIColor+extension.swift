@@ -36,4 +36,10 @@ extension UIColor {
     convenience init(hex: String) {
         self.init(hex: hex, alpha: 1.0)
     }
+    
+    /// 番号を色に変える
+    static func number(_ index: Int, max: Int) -> UIColor {
+        let step: CGFloat = min(1 / CGFloat(max), 0.12)
+        return UIColor(hue: step * CGFloat(max - index - 1), saturation: 1, brightness: 1, alpha: 1)
+    }
 }

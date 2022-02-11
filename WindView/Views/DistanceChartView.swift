@@ -86,8 +86,12 @@ extension DistanceChartView {
         // 目盛りを描画
         drawScales(unitDistance)
         
-        distanceDataList.reversed().forEach { distanceData in
-            drawUnitDistChart(by: distanceData, in: unitDistance, isTo: true)
+        let numOfData = distanceDataList.count
+        distanceDataList.reversed().enumerated().forEach { index, distanceData in
+            drawUnitDistChart(by: distanceData,
+                              in: unitDistance,
+                              isTo: true,
+                              color: UIColor.number(index, max: numOfData))
         }
     }
     
@@ -115,7 +119,10 @@ extension DistanceChartView {
     }
     
     /// 1つの`DistantChartViewData`を描画する
-    func drawUnitDistChart(by distData: DistantChartViewData, in unit: CGFloat, isTo: Bool) {
+    func drawUnitDistChart(by distData: DistantChartViewData,
+                           in unit: CGFloat,
+                           isTo: Bool,
+                           color: UIColor) {
         let halfWidth = bounds.width / 2
         
         // distanceをrect中の長さに合わせるために掛ける定数
@@ -137,7 +144,7 @@ extension DistanceChartView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
         shapeLayer.lineWidth = 1
-        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.strokeColor = color.cgColor
         shapeLayer.fillColor = .none
         shapeLayer.path = path.cgPath
         layer.addSublayer(shapeLayer)
@@ -155,7 +162,7 @@ extension DistanceChartView {
         circleShapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
         circleShapeLayer.lineWidth = 1
         circleShapeLayer.strokeColor = .none
-        circleShapeLayer.fillColor = UIColor.blue.cgColor
+        circleShapeLayer.fillColor = color.cgColor
         circleShapeLayer.path = circlePath.cgPath
         layer.addSublayer(circleShapeLayer)
     }
