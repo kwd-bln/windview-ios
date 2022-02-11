@@ -59,12 +59,13 @@ final class HomeViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view.backgroundColor = .blue
-        setupPVC()
         
-        viewModel.outputs.sondeData
-            .drive { [weak self] sondeData in
-                guard let sondeData = sondeData else { return }
-                self?.distanceChartViewController.drawChart(by: sondeData, with: 1, isTo: true)
+        setupPVC()
+        viewModel.inputs.loadView()
+        
+        viewModel.outputs.sondeDataList
+            .drive { [weak self] sondeDataList in
+                self?.distanceChartViewController.drawChart(by: sondeDataList, with: 1, isTo: true)
             }.disposed(by: disposeBag)
 
     }

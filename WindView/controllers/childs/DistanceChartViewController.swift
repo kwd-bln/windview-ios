@@ -31,7 +31,7 @@ final class DistanceChartViewController: UIViewController {
         }
     }
     
-    func drawChart(by sondeData: SondeData, with unit: CGFloat, isTo: Bool) {
-        distanceChartView.drawChart(by: sondeData, with: unit, isTo: isTo)
+    func drawChart(by sondeData: [SondeData], with unit: CGFloat, isTo: Bool) {
+        distanceChartView.drawChart(by: sondeData, with: .m, isTo: isTo)
     }
 }

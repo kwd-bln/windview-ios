@@ -17,6 +17,7 @@ final class DistanceChartView: UIView {
         backgroundColor = .Palette.main
         layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 1
+        clipsToBounds = true
     }
     
     override func draw(_ rect: CGRect) {
@@ -75,6 +76,9 @@ private extension DistanceChartView {
 // MARK: - draw chart
 
 extension DistanceChartView {
+    func drawChart(by sondeDataList: [SondeData], with scale: ChartSize, isTo: Bool) {
+    }
+    
     func drawChart(by sondeData: SondeData, with unit: CGFloat, isTo: Bool) {
         let halfWidth = bounds.width / 2
         
