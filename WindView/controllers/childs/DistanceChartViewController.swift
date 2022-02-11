@@ -13,6 +13,17 @@ final class DistanceChartViewController: UIViewController {
     private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
                                                          font: .hiraginoSans(style: .light, size: 12))
     
+    private let zoomButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(UIImage(named: "zoom"), for: .normal)
+        button.tintColor = UIColor.Palette.grayText
+        button.layer.borderColor = UIColor(hex: "444444").cgColor
+        button.layer.borderWidth = 1
+        button.contentEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
+        button.layer.cornerRadius = 3
+        return button
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,6 +37,7 @@ final class DistanceChartViewController: UIViewController {
         
         view.addSubview(timeLabel)
         view.addSubview(distanceChartView)
+        view.addSubview(zoomButton)
         distanceChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().offset(-16)
@@ -36,6 +48,12 @@ final class DistanceChartViewController: UIViewController {
         timeLabel.snp.makeConstraints {
             $0.bottom.equalTo(distanceChartView.snp.top).offset(-12)
             $0.left.equalTo(distanceChartView).offset(16)
+        }
+        
+        zoomButton.snp.makeConstraints {
+            $0.size.equalTo(CGSize(width: 24, height: 24))
+            $0.right.equalTo(distanceChartView).offset(-8)
+            $0.bottom.equalTo(distanceChartView).offset(-8)
         }
     }
     
