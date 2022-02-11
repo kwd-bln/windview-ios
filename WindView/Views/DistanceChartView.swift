@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class DistanceChartView: UIView {
-    static let radiusRatio: CGFloat = 0.3
+    static let radiusRatio: CGFloat = 0.32
     static let chartLayerTag: Int = 1111
     
     init() {
@@ -77,6 +77,64 @@ private extension DistanceChartView {
 
 extension DistanceChartView {
     func drawChart(by sondeDataList: [SondeData], with scale: ChartSize, isTo: Bool) {
+        let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0) }
+        let maxDistance = distanceDataList.map { $0.maxDistance }
+        let maxDist = maxDistance.max() ?? 0
+        let unitDistance = calculateUnitDist(by: maxDist, size: scale)
+        distanceDataList.reversed().forEach { distanceData in
+            drawUnitDistChart(by: distanceData, in: unitDistance, isTo: true)
+        }
+    }
+    
+    func calculateUnitDist(by maxDist: CGFloat, size: ChartSize) -> CGFloat {
+        let oneThirdOfMaxDist = ceil(maxDist * Self.radiusRatio * size.rawValue)
+        let unitDistance = max(oneThirdOfMaxDist.toPrecition(2), 10)
+        return unitDistance
+    }
+    
+    func drawUnitDistChart(by distData: DistantChartViewData, in unit: CGFloat, isTo: Bool) {
+        let halfWidth = bounds.width / 2
+        
+        // distanceをrect中の長さに合わせるために掛ける定数
+        let multiple = halfWidth / unit / 3
+        // scaleされた点
+        let scaledPoints = distData.distancePoints.map { $0 * multiple }
+        
+        // 線を描く処理
+        let path = UIBezierPath()
+        path.move(to: bounds.mid)
+        scaledPoints.forEach { point in
+            if point != .zero {
+                path.addLine(to: point + bounds.mid)
+            }
+        }
+        path.stroke()
+        path.stroke()
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        shapeLayer.lineWidth = 1
+        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.fillColor = .none
+        shapeLayer.path = path.cgPath
+        layer.addSublayer(shapeLayer)
+        
+        // 点を描く処理
+        let circlePath = UIBezierPath()
+        scaledPoints.forEach { point in
+            let drawingPoint = point + bounds.mid
+            circlePath.move(to: drawingPoint)
+            circlePath.addCircle(center: drawingPoint, with: 2)
+        }
+        circlePath.stroke()
+        
+        let circleShapeLayer = CAShapeLayer()
+        circleShapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        circleShapeLayer.lineWidth = 1
+        circleShapeLayer.strokeColor = .none
+        circleShapeLayer.fillColor = UIColor.blue.cgColor
+        circleShapeLayer.path = circlePath.cgPath
+        layer.addSublayer(circleShapeLayer)
     }
     
     func drawChart(by sondeData: SondeData, with unit: CGFloat, isTo: Bool) {
@@ -127,7 +185,24 @@ extension DistanceChartView {
     }
 }
 
-extension SondeData {
+struct DistantChartViewData {
+    let measuredAt: Date
+    let magDeclination: CGFloat
+    let distancePoints: [CGPoint]
+    
+    init(from sondeData: SondeData) {
+        self.measuredAt = sondeData.measuredAt.dateValue()
+        self.magDeclination = sondeData.magDeclination
+        self.distancePoints = sondeData.distancePoints
+    }
+    
+    var maxDistance: CGFloat {
+        let squareDistances = distancePoints.map { $0.sqrtDist }
+        return sqrt(squareDistances.max() ?? 0)
+    }
+}
+
+private extension SondeData {
     var distancePoints: [CGPoint] {
         var currentPoint: CGPoint = .zero
         var points: [CGPoint] = [currentPoint]
@@ -157,7 +232,7 @@ extension SondeData {
     ///     - item: SondeDataItem
     ///     - useTN: 真北を使うか
     /// - Returns: useTNで指定した角度
-    func degree(with item: SondeDataItem, useTN: Bool = false) -> CGFloat {
+    private func degree(with item: SondeDataItem, useTN: Bool = false) -> CGFloat {
         if useTN {
             return item.windheading
         } else {
