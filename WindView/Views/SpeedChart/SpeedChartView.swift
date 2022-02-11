@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import simd
 
 final class SpeedChartView: UIView {
     static let radiusRatio: CGFloat = 0.19
@@ -54,8 +55,9 @@ extension SpeedChartView {
         
         // distanceをrect中の長さに合わせるために掛ける定数
         let multiple = halfWidth / unit * Self.radiusRatio
-        // 最も高い高さ
+        // 最高と最低のheight
         let maxHeight = speedViewData.speedPoints.last?.altitude ?? 0
+        let minHeight = speedViewData.speedPoints.first?.altitude ?? 0
         // scaleされた点
         speedViewData.speedPoints.forEach { alt, vector in
             // scaleされた点
@@ -67,7 +69,7 @@ extension SpeedChartView {
             let shapeLayer = CAShapeLayer()
             shapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
             shapeLayer.lineWidth = 1
-            shapeLayer.strokeColor = UIColor.red.cgColor
+            shapeLayer.strokeColor = color(alt, max: maxHeight, min: minHeight).cgColor
             shapeLayer.fillColor = .none
             shapeLayer.path = path.cgPath
             drawingView.layer.addSublayer(shapeLayer)
@@ -146,5 +148,22 @@ private extension SondeData {
     var maxSpeed: CGFloat {
         values.map { $0.windspeed }.max() ?? 0
     }
+    
+    var min: CGFloat {
+        values.map { $0.windspeed }.min() ?? 0
+    }
 }
 
+private extension SpeedChartView {
+    // 青(低い高度)
+    static let minHueColor: CGFloat = 255
+    // 赤(高い高度)
+    static let maxHueColor: CGFloat = -15
+    
+    func color(_ number: CGFloat, max: CGFloat, min: CGFloat) -> UIColor {
+        let divisionRatio = (number - min) / (max - min)
+        let clamped = divisionRatio.clamped(min: 0, max: 1)
+        let hue = Self.minHueColor + clamped * (Self.maxHueColor - Self.minHueColor)
+        return UIColor(hueDegree: hue, saturation: 1, brightness: 1, alpha: 1)
+    }
+}

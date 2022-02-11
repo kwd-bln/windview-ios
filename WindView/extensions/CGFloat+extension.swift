@@ -14,6 +14,10 @@ extension CGFloat {
         self * CGFloat.pi / 180
     }
     
+    func clamped(min: CGFloat, max: CGFloat) -> CGFloat {
+        CGFloat.minimum(CGFloat.maximum(self, min), max)
+    }
+    
     /// 指定した有効数字で丸める関数
     /// precisionは1以上にする必要があり、そうしないとエラーが出てしまう。
     func toPrecition(_ precision: Int) -> CGFloat {

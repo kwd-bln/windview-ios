@@ -38,6 +38,17 @@ extension UIColor {
         self.init(hex: hex, alpha: 1.0)
     }
     
+    /// 角度でhueを表現する場合
+    convenience init(hueDegree: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
+        var mod360 = hueDegree.truncatingRemainder(dividingBy: 360)
+        if mod360 < 0 {
+            mod360 += 360
+        }
+        let hue = mod360 / 360
+        
+        self.init(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
+    }
+    
     /// 番号を色に変える
     static func number(_ index: Int, max: Int) -> UIColor {
         let step: CGFloat = min(1 / CGFloat(max), 0.12)
