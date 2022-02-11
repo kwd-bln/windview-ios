@@ -7,12 +7,13 @@
 
 import Foundation
 import FirebaseFirestore
+import CoreGraphics
 
-enum ChartSize {
-    case s
-    case m
-    case l
-    case ll
+enum ChartSize: CGFloat {
+    case s = 0.6
+    case m = 1.0
+    case l = 1.5
+    case ll = 2.0
 }
 
 struct DataSettings {
@@ -21,7 +22,7 @@ struct DataSettings {
     let useDataDuration: Int
     let selectedDate: Date?
     
-    init(useDataDuration: Int = 0, selectedDate: Date? = nil) {
+    init(useDataDuration: Int = 6, selectedDate: Date? = nil) {
         self.useDataDuration = useDataDuration
         self.selectedDate = selectedDate
     }
