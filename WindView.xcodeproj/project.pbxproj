@@ -159,6 +159,15 @@
 			path = childs;
 			sourceTree = "<group>";
 		};
+		C9072A6627B64A5A001397D6 /* DistanceChart */ = {
+			isa = PBXGroup;
+			children = (
+				C9072A4727B410FA001397D6 /* DistanceChartView.swift */,
+				C9072A6427B635A6001397D6 /* DistantChartViewData.swift */,
+			);
+			path = DistanceChart;
+			sourceTree = "<group>";
+		};
 		C95E30C727AC22F7001D9088 = {
 			isa = PBXGroup;
 			children = (
@@ -219,9 +228,8 @@
 		C9D64AE727B14D7600A9631E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				C9072A6627B64A5A001397D6 /* DistanceChart */,
 				C9D64AE827B14DA500A9631E /* CustomTextField.swift */,
-				C9072A4727B410FA001397D6 /* DistanceChartView.swift */,
-				C9072A6427B635A6001397D6 /* DistantChartViewData.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
