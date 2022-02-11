@@ -21,6 +21,7 @@ extension UIColor {
     class Palette {
         @Named("main") static var main
         @Named("text") static var text
+        @Named("grayText") static var grayText
     }
 }
 

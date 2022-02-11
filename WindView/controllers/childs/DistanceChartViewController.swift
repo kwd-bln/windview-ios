@@ -10,6 +10,8 @@ import UIKit
 
 final class DistanceChartViewController: UIViewController {
     private let distanceChartView = DistanceChartView()
+    private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
+                                                         font: .hiraginoSans(style: .light, size: 12))
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,6 +24,7 @@ final class DistanceChartViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        view.addSubview(timeLabel)
         view.addSubview(distanceChartView)
         distanceChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
@@ -29,9 +32,18 @@ final class DistanceChartViewController: UIViewController {
             $0.centerY.equalToSuperview()
             $0.width.equalTo(distanceChartView.snp.height)
         }
+        
+        timeLabel.snp.makeConstraints {
+            $0.bottom.equalTo(distanceChartView.snp.top).offset(-12)
+            $0.left.equalTo(distanceChartView).offset(16)
+        }
     }
     
-    func drawChart(by sondeData: [SondeData], with unit: CGFloat, isTo: Bool) {
-        distanceChartView.drawChart(by: sondeData, with: .m, isTo: isTo)
+    func drawChart(by sondeDataList: [SondeData], with unit: CGFloat, isTo: Bool) {
+        distanceChartView.drawChart(by: sondeDataList, with: .m, isTo: isTo)
+        if let sondeData = sondeDataList.first {
+            let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
+            timeLabel.text = "更新 \(timeText)"
+        }
     }
 }

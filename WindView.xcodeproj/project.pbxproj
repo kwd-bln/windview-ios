@@ -21,6 +21,7 @@
 		C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6027B5F168001397D6 /* HomeModel.swift */; };
 		C9072A6327B5FC80001397D6 /* FirebaseFireStore+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */; };
 		C9072A6527B635A6001397D6 /* DistantChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6427B635A6001397D6 /* DistantChartViewData.swift */; };
+		C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6727B64B49001397D6 /* UILabel+extension.swift */; };
 		C9072A6A27B64EAB001397D6 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6927B64EAA001397D6 /* DateUtil.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
@@ -83,6 +84,7 @@
 		C9072A6027B5F168001397D6 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseFireStore+extension.swift"; sourceTree = "<group>"; };
 		C9072A6427B635A6001397D6 /* DistantChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistantChartViewData.swift; sourceTree = "<group>"; };
+		C9072A6727B64B49001397D6 /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
 		C9072A6927B64EAA001397D6 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				C9072A5427B54CFE001397D6 /* CGFloat+extension.swift */,
 				C9072A5627B55249001397D6 /* CGPoint+extenstion.swift */,
 				C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */,
+				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
 				C9072A6927B64EAA001397D6 /* DateUtil.swift */,
 			);
 			path = extensions;
@@ -439,6 +442,7 @@
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
+				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
 				C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */,
 				C9072A6327B5FC80001397D6 /* FirebaseFireStore+extension.swift in Sources */,
