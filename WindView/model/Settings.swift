@@ -18,6 +18,11 @@ enum ChartSize {
 struct DataSettings {
     // MARK: 全体的な設定
     /// 指定したデータから何時間分のデータを取得するか
-    let useDataDuration: Int = 6
-    let selectedDate: Timestamp
+    let useDataDuration: Int
+    let selectedDate: Date?
+    
+    init(useDataDuration: Int = 0, selectedDate: Date? = nil) {
+        self.useDataDuration = useDataDuration
+        self.selectedDate = selectedDate
+    }
 }
