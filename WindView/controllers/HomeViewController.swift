@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 final class HomeViewController: UIViewController {
     // MARK: PageViewController系
@@ -67,6 +68,10 @@ final class HomeViewController: UIViewController {
             .drive { [weak self] sondeDataList in
                 self?.distanceChartViewController.drawChart(by: sondeDataList, with: 1, isTo: true)
             }.disposed(by: disposeBag)
+        distanceChartViewController
+            .zoomButtonTap
+            .bind(to: viewModel.inputs.zoomButtonTap)
+            .disposed(by: disposeBag)
 
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 
 final class DistanceChartViewController: UIViewController {
     private let distanceChartView = DistanceChartView()
@@ -23,6 +24,10 @@ final class DistanceChartViewController: UIViewController {
         button.layer.cornerRadius = 3
         return button
     }()
+    
+    var zoomButtonTap: ControlEvent<Void> {
+        zoomButton.rx.tap
+    }
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -57,8 +62,8 @@ final class DistanceChartViewController: UIViewController {
         }
     }
     
-    func drawChart(by sondeDataList: [SondeData], with unit: CGFloat, isTo: Bool) {
-        distanceChartView.drawChart(by: sondeDataList, with: .m, isTo: isTo)
+    func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool) {
+        distanceChartView.drawChart(by: sondeDataList, with: size, isTo: isTo)
         if let sondeData = sondeDataList.first {
             let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
             timeLabel.text = "更新 \(timeText)"

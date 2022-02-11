@@ -13,11 +13,13 @@ import RxCocoa
 
 protocol HomeViewModelInput {
     func loadView()
+    var zoomButtonTap: AnyObserver<Void> { get }
 }
 
 protocol HomeViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var dateSettings: Driver<DataSettings> { get }
+    var chartSize: Driver<ChartSize> { get }
 }
 
 protocol HomeViewModelType {
@@ -26,14 +28,32 @@ protocol HomeViewModelType {
 }
 
 final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
-    let _sondeDataList = PublishRelay<[SondeData]>()
+    // MARK: inputs
+    
+    var zoomButtonTap: AnyObserver<Void>
+    
+    // MARK: outputs
+    
+    private let _sondeDataList = PublishRelay<[SondeData]>()
     var sondeDataList: Driver<[SondeData]>
+    
+//    private let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
+    var chartSize: Driver<ChartSize>
     
     let model: HomeModelInput
     
     init(model: HomeModelInput = HomeModel()) {
-        self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
         self.model = model
+        
+        // output
+        self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
+        let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
+        self.chartSize = _chartSize.asDriver(onErrorJustReturn: .m)
+        
+        // input
+        self.zoomButtonTap = AnyObserver<Void>() { _ in
+            _chartSize.accept(_chartSize.value.next)
+        }
     }
     
     func loadView() {

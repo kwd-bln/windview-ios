@@ -14,6 +14,19 @@ enum ChartSize: CGFloat {
     case m = 1.0
     case l = 1.5
     case ll = 2.0
+    
+    var next: ChartSize {
+        switch self {
+        case .s:
+            return .m
+        case .m:
+            return .l
+        case .l:
+            return .ll
+        case .ll:
+            return .s
+        }
+    }
 }
 
 struct DataSettings {
