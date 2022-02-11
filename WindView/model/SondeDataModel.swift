@@ -15,24 +15,39 @@ enum SondeDataModelError: Error {
 
 protocol SondeDataModelInput {
     func fetchLatestSondeDataModel() async throws -> SondeData
+    /// 指定した日時から遡って`duration`だけデータを取得する
+    func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData]
 }
 
 final class SondeDataModel: SondeDataModelInput {
     static let fetchCount: Int = 10
     
     func fetchLatestSondeDataModel() async throws -> SondeData {
-        let snapshot  = try await Firestore.firestore()
-            .collection("sondeview")
-            .order(by: "measured_at", descending: true)
-            .limit(to: Self.fetchCount)
-            .getDocuments()
-        
-        do {
-            let sondeDataList = try snapshot.documents.compactMap { try $0.data(as: SondeData.self )}
-            return sondeDataList.first!
-        } catch {
-            print("error:", error)
-            throw SondeDataModelError.fetchError
+        let sondeDataList = try await fetchLatestSondeDataList()
+        return sondeDataList.first!
+    }
+    
+    private func fetchLatestSondeDataList() async throws -> [SondeData] {
+        let sondeDataList = try await Firestore.fetchSondeDateList(limitCount: Self.fetchCount)
+        return sondeDataList
+    }
+    
+    func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
+        if let date = date {
+            let fromDate = Date(timeInterval: -TimeInterval(hour: duration), since: date)
+            return try await Firestore.fetchSondeDateList(from: fromDate, to: date, limitCount: Self.fetchCount)
+        } else {
+            let latestSondeDataList = try await fetchLatestSondeDataList()
+            if let first = latestSondeDataList.first {
+                let toDate = first.measuredAt.dateValue()
+                let fromDate = Date(timeInterval: -TimeInterval(hour: duration), since: toDate)
+                return latestSondeDataList.filter { sondeData in
+                    let measuredAt = sondeData.measuredAt.dateValue()
+                    return fromDate < measuredAt && measuredAt <= toDate
+                }
+            } else {
+                return []
+            }
         }
     }
 }
@@ -40,7 +55,28 @@ final class SondeDataModel: SondeDataModelInput {
 final class StubSondeDataModel: SondeDataModelInput {
     func fetchLatestSondeDataModel() async throws -> SondeData {
         try await Task.sleep(nanoseconds: 1_000_000_000)
+        let sondeDataList = getDataList()
+        return sondeDataList.first!
+    }
+    
+    func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
+        try await Task.sleep(nanoseconds: 1_000_000_000)
         
+        let sondeDataList = getDataList()
+        let optionalTargetDate = date ?? sondeDataList.first?.measuredAt.dateValue()
+        
+        if let targetDate = optionalTargetDate {
+            let limitDate = Date(timeInterval: -TimeInterval(hour: duration), since: targetDate)
+            return sondeDataList.filter { sondeData in
+                let measuredAt = sondeData.measuredAt.dateValue()
+                return limitDate < measuredAt && measuredAt <= targetDate
+            }
+        } else {
+            return []
+        }
+    }
+    
+    private func getDataList() -> [SondeData] {
         guard let url = Bundle.main.url(forResource: "winds", withExtension: "json") else {
             fatalError("ファイルが見つからない")
         }
@@ -54,12 +90,17 @@ final class StubSondeDataModel: SondeDataModelInput {
             fatalError("JSON読み込みエラー")
         }
         
-        return sondeDataList.first!
-        
+        return sondeDataList
     }
 }
 
 
+extension TimeInterval {
+    init(hour: Int) {
+        // 60秒 * 60分 * hour時間
+        self.init(60 * 60 * hour)
+    }
+}
 
 // MARK: - モックデータの作成のためのextension
 
@@ -78,3 +119,4 @@ extension SondeDataModel {
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
     }
 }
+
