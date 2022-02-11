@@ -28,7 +28,9 @@ final class HomeModel: HomeModelInput {
     
     init(sondeDataModel: SondeDataModelInput = StubSondeDataModel()) {
         self.sondeDataModel = sondeDataModel
-        self.dataSettingBehaviorRelay = .init(value: DataSettings())
+        
+        let ds = DataSettings(useDataDuration: 6, selectedDate: Date(timeIntervalSince1970: 1640992367))
+        self.dataSettingBehaviorRelay = .init(value: ds)
     }
     
     func fetchCurrentSondeDataList() async throws -> [SondeData] {
