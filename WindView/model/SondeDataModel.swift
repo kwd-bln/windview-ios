@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 enum SondeDataModelError: Error {
     case fetchError
 }
+
 protocol SondeDataModelInput {
     func fetchLatestSondeDataModel() async throws -> SondeData
 }
