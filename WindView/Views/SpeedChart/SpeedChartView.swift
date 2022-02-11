@@ -34,6 +34,20 @@ final class SpeedChartView: UIView {
     }
 }
 
+// MARK: - draw chart
+
+extension SpeedChartView {
+    func drawChart(by sondeData: SondeData, isTo: Bool) {
+        // calculate max speed
+        let maxSpeed = sondeData.maxSpeed
+        // 単位となる速度
+        let unitSpeed = calcUnitSpeed(maxSpeed)
+        
+        drawScales(unitSpeed)
+        
+    }
+}
+
 // MARK: - 下地
 
 private extension SpeedChartView {
@@ -76,5 +90,34 @@ private extension SpeedChartView {
         path.close()
         UIColor.gray.setStroke()
         path.stroke()
+    }
+    
+    func calcUnitSpeed(_ maxSpeed: CGFloat) -> CGFloat {
+        let tmpUnitSpeed = min(maxSpeed * Self.radiusRatio, 0.1)
+        return tmpUnitSpeed.toPrecition(2)
+    }
+    
+    func drawScales(_ unitSpeed: CGFloat) {
+        let unitVector: CGPoint = .init(x: 0, y: bounds.width * 0.5 * Self.radiusRatio)
+        
+        let rounded = unitSpeed
+        
+        for i in 1...5 {
+            let scaleValue = rounded * CGFloat(i)
+            let text = scaleValue.stringFixedTo2
+            let textLayer = CATextLayer.createTextLayer("\(text)[m/s]", fontSize: 8)
+            let size = textLayer.preferredFrameSize()
+            textLayer.bounds = CGRect(origin: .zero, size: size)
+            textLayer.frame.origin = CGFloat(i) * unitVector + bounds.mid - .init(x: -4, y: size.height)
+            textLayer.contentsScale = UIScreen.main.scale
+            drawingView.layer.addSublayer(textLayer)
+        }
+    }
+}
+
+
+private extension SondeData {
+    var maxSpeed: CGFloat {
+        values.map { $0.windspeed }.max() ?? 0
     }
 }

@@ -45,4 +45,14 @@ extension CGFloat {
             return self.rounded()
         }
     }
+    
+    var stringFixedTo2: String {
+        if self >= 10 {
+            return String(format: "%.0f", self)
+        } else if self >= 1 {
+            return String(format: "%.1f", self)
+        } else {
+            return String(format: "%.2f", self)
+        }
+    }
 }

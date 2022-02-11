@@ -39,4 +39,8 @@ final class SpeedChartViewController: UIViewController {
             $0.left.equalTo(speedChartView).offset(16)
         }
     }
+    
+    func drawChart(by sondeData: SondeData, isTo: Bool) {
+        speedChartView.drawChart(by: sondeData, isTo: isTo)
+    }
 }
