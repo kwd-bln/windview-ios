@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol HomeModelInput {
-    func fetchLatestSondeDataModel() async throws -> SondeData
+    func fetchCurrentSondeDataList() async throws -> [SondeData]
     var dataSettingObservable: Observable<DataSettings> { get }
 }
 
@@ -31,7 +31,8 @@ final class HomeModel: HomeModelInput {
         self.dataSettingBehaviorRelay = .init(value: DataSettings())
     }
     
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        try await sondeDataModel.fetchLatestSondeDataModel()
+    func fetchCurrentSondeDataList() async throws -> [SondeData] {
+        try await sondeDataModel.fetchSondeDataList(at: dataSettings.selectedDate,
+                                                    duration: dataSettings.useDataDuration)
     }
 }
