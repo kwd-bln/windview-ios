@@ -18,6 +18,7 @@
 		C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */; };
 		C9072A5D27B56B02001397D6 /* winds.json in Resources */ = {isa = PBXBuildFile; fileRef = C9072A5C27B56B02001397D6 /* winds.json */; };
 		C9072A5F27B56D0B001397D6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A5E27B56D0B001397D6 /* Settings.swift */; };
+		C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6027B5F168001397D6 /* HomeModel.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E30DC27AC22F9001D9088 /* Images.xcassets */; };
@@ -76,6 +77,7 @@
 		C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+extension.swift"; sourceTree = "<group>"; };
 		C9072A5C27B56B02001397D6 /* winds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = winds.json; sourceTree = "<group>"; };
 		C9072A5E27B56D0B001397D6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C9072A6027B5F168001397D6 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -248,9 +250,10 @@
 			isa = PBXGroup;
 			children = (
 				C9072A5C27B56B02001397D6 /* winds.json */,
+				C9072A5E27B56D0B001397D6 /* Settings.swift */,
 				C9E5FB6E27B33C2900538B09 /* SondeData.swift */,
 				C9E5FB7A27B3F20000538B09 /* SondeDataModel.swift */,
-				C9072A5E27B56D0B001397D6 /* Settings.swift */,
+				C9072A6027B5F168001397D6 /* HomeModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			files = (
 				C9E5FB7B27B3F20000538B09 /* SondeDataModel.swift in Sources */,
 				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
+				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,

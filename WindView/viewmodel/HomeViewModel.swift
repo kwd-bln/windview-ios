@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+// MVVMの設計は https://qiita.com/REON/items/c7f3d72995170f472701 を参考にした
+
 protocol HomeViewModelInput {
 }
 
@@ -22,11 +24,10 @@ protocol HomeViewModelType {
 }
 
 final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
-    
     var sondeData: Driver<SondeData?>
-    let model: SondeDataModelInput
+    let model: HomeModelInput
     
-    init(model: SondeDataModelInput = StubSondeDataModel()) {
+    init(model: HomeModelInput = HomeModel()) {
         let _sondeData = PublishRelay<SondeData?>()
         self.sondeData = _sondeData.asDriver(onErrorJustReturn: nil)
         self.model = model
