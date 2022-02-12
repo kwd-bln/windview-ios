@@ -63,7 +63,8 @@ final class DistanceChartViewController: UIViewController {
     }
     
     func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool) {
-        distanceChartView.drawChart(by: sondeDataList, with: size, isTo: isTo)
+        distanceChartView.set(sondeDataList)
+        distanceChartView.set(size)
         if let sondeData = sondeDataList.first {
             let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
             timeLabel.text = "更新 \(timeText)"

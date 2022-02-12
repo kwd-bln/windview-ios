@@ -12,8 +12,6 @@ import SwiftUI
 final class SpeedChartView: UIView {
     static let radiusRatio: CGFloat = 0.19
     
-    private let drawingView = UIView()
-    
     private var sondeData: SondeData? {
         didSet {
             setNeedsDisplay()
@@ -28,10 +26,6 @@ final class SpeedChartView: UIView {
         layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 1
         clipsToBounds = true
-        addSubview(drawingView)
-        drawingView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -57,7 +51,7 @@ final class SpeedChartView: UIView {
 // MARK: - draw chart
 
 private extension SpeedChartView {
-    func drawChart(_ rect: CGRect,in context: CGContext, data sondeData: SondeData) {
+    func drawChart(_ rect: CGRect, in context: CGContext, data sondeData: SondeData) {
         // calculate max speed
         let maxSpeed = sondeData.maxSpeed
         // 単位となる速度
