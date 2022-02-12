@@ -103,7 +103,7 @@ final class HomeViewController: UIViewController {
             $0.left.right.bottom.equalToSuperview()
         }
         
-        pageViewController.setViewControllers([childControllers[1]],
+        pageViewController.setViewControllers([childControllers[0]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)

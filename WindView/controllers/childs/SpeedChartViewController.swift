@@ -41,7 +41,7 @@ final class SpeedChartViewController: UIViewController {
     }
     
     func drawChart(by sondeData: SondeData, isTo: Bool) {
-        speedChartView.drawChart(by: sondeData, isTo: isTo)
+        speedChartView.set(sondeData: sondeData)
         let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
         timeLabel.text = "更新 \(timeText)"
     }

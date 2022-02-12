@@ -7,11 +7,20 @@
 
 import UIKit
 import simd
+import SwiftUI
 
 final class SpeedChartView: UIView {
     static let radiusRatio: CGFloat = 0.19
     
     private let drawingView = UIView()
+    
+    private var sondeData: SondeData? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    private var isTo: Bool = true
     
     init() {
         super.init(frame: .zero)
@@ -27,52 +36,58 @@ final class SpeedChartView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        drawGrid(rect)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        drawGrid(in: context, with: rect)
+        
+        if let sondeData = sondeData {
+            drawChart(rect, in: context, data: sondeData)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func set(sondeData: SondeData) {
+        self.sondeData = sondeData
+    }
 }
 
 // MARK: - draw chart
 
-extension SpeedChartView {
-    func drawChart(by sondeData: SondeData, isTo: Bool) {
+private extension SpeedChartView {
+    func drawChart(_ rect: CGRect,in context: CGContext, data sondeData: SondeData) {
         // calculate max speed
         let maxSpeed = sondeData.maxSpeed
         // 単位となる速度
         let unitSpeed = calcUnitSpeed(maxSpeed)
-        drawScales(unitSpeed)
+        drawScales(rect, in: context, unitSpeed: unitSpeed)
         
         let speedViewData = SpeedChartViewData(from: sondeData)
-        drawChart(speedViewData, in: unitSpeed, isTo: isTo)
-
+        drawChartLines(in: context, with: rect, speedViewData: speedViewData, unit: unitSpeed)
     }
     
-    private func drawChart(_ speedViewData: SpeedChartViewData, in unit: CGFloat, isTo: Bool) {
-        let halfWidth = bounds.width * 0.5
+    func drawChartLines(in context: CGContext,
+                        with rect: CGRect,
+                        speedViewData: SpeedChartViewData,
+                        unit: CGFloat) {
+        let halfWidth = rect.width * 0.5
         
         // distanceをrect中の長さに合わせるために掛ける定数
         let multiple = halfWidth / unit * Self.radiusRatio
         // 最高と最低のheight
         let maxHeight = speedViewData.speedPoints.last?.altitude ?? 0
         let minHeight = speedViewData.speedPoints.first?.altitude ?? 0
-        // scaleされた点
+        
         speedViewData.speedPoints.forEach { alt, vector in
             // scaleされた点
             let scaledVector = vector * multiple
-            let path = UIBezierPath()
-            path.move(to: bounds.mid)
-            path.addLine(to:  bounds.mid + scaledVector)
             
-            let shapeLayer = CAShapeLayer()
-            shapeLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
-            shapeLayer.lineWidth = 1
-            shapeLayer.strokeColor = color(alt, max: maxHeight, min: minHeight).cgColor
-            shapeLayer.fillColor = .none
-            shapeLayer.path = path.cgPath
-            drawingView.layer.addSublayer(shapeLayer)
+            context.move(to: rect.mid)
+            context.setStrokeColor(color(alt, max: maxHeight, min: minHeight).cgColor)
+            context.addLine(to: rect.mid + scaledVector)
+            context.strokePath()
         }
     }
 }
@@ -80,45 +95,42 @@ extension SpeedChartView {
 // MARK: - 下地
 
 private extension SpeedChartView {
-    func drawGrid(_ rect: CGRect) {
-        let path = UIBezierPath()
-
-        path.lineWidth = 1
+    func drawGrid(in context: CGContext, with rect: CGRect) {
+        // 初期設定
         let halfWidth = rect.width / 2
         let length30 = halfWidth * tan(CGFloat(30).toRadian)
-        
+        context.setLineWidth(1)
+        context.setStrokeColor(UIColor.gray.cgColor)
         // 縦
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        context.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        context.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
         // 横
-        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.maxY, y: rect.midY))
+        context.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        context.addLine(to: CGPoint(x: rect.maxY, y: rect.midY))
         
         // 斜めの線を描く
-        path.move(to: CGPoint(x: rect.minX, y: rect.midY + length30))
-        path.addLine(to: CGPoint(x: rect.maxY, y: rect.midY - length30))
+        context.move(to: CGPoint(x: rect.minX, y: rect.midY + length30))
+        context.addLine(to: CGPoint(x: rect.maxY, y: rect.midY - length30))
         
-        path.move(to: CGPoint(x: rect.minX, y: rect.midY - length30))
-        path.addLine(to: CGPoint(x: rect.maxY, y: rect.midY + length30))
+        context.move(to: CGPoint(x: rect.minX, y: rect.midY - length30))
+        context.addLine(to: CGPoint(x: rect.maxY, y: rect.midY + length30))
         
-        path.move(to: CGPoint(x: rect.midX - length30, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX + length30, y: rect.maxY))
+        context.move(to: CGPoint(x: rect.midX - length30, y: rect.minY))
+        context.addLine(to: CGPoint(x: rect.midX + length30, y: rect.maxY))
         
-        path.move(to: CGPoint(x: rect.midX + length30, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX - length30, y: rect.maxY))
+        context.move(to: CGPoint(x: rect.midX + length30, y: rect.minY))
+        context.addLine(to: CGPoint(x: rect.midX - length30, y: rect.maxY))
         
         // 円を描く
-        path.move(to: rect.mid)
+        context.move(to: rect.mid)
         let radius = halfWidth * Self.radiusRatio
-        path.addCircle(center: rect.mid, with: radius * 1)
-        path.addCircle(center: rect.mid, with: radius * 2)
-        path.addCircle(center: rect.mid, with: radius * 3)
-        path.addCircle(center: rect.mid, with: radius * 4)
-        path.addCircle(center: rect.mid, with: radius * 5)
+        context.addCircle(center: rect.mid, with: radius * 1)
+        context.addCircle(center: rect.mid, with: radius * 2)
+        context.addCircle(center: rect.mid, with: radius * 3)
+        context.addCircle(center: rect.mid, with: radius * 4)
+        context.addCircle(center: rect.mid, with: radius * 5)
         
-        path.close()
-        UIColor.gray.setStroke()
-        path.stroke()
+        context.strokePath()
     }
     
     func calcUnitSpeed(_ maxSpeed: CGFloat) -> CGFloat {
@@ -126,20 +138,20 @@ private extension SpeedChartView {
         return tmpUnitSpeed.ceiledPrecition(2)
     }
     
-    func drawScales(_ unitSpeed: CGFloat) {
-        let unitVector: CGPoint = .init(x: 0, y: bounds.width * 0.5 * Self.radiusRatio)
+    func drawScales(_ rect: CGRect, in context: CGContext, unitSpeed: CGFloat) {
+        let unitVector: CGPoint = .init(x: 0, y: rect.width * 0.5 * Self.radiusRatio)
         
-        let rounded = unitSpeed
+        var attrs: [NSAttributedString.Key : Any] = [:]
+        attrs[.foregroundColor] = UIColor.gray
+        attrs[.font] = UIFont.systemFont(ofSize: 9)
         
         for i in 1...5 {
-            let scaleValue = rounded * CGFloat(i)
-            let text = scaleValue.stringFixedTo2
-            let textLayer = CATextLayer.createTextLayer("\(text)[m/s]", fontSize: 8)
-            let size = textLayer.preferredFrameSize()
-            textLayer.bounds = CGRect(origin: .zero, size: size)
-            textLayer.frame.origin = CGFloat(i) * unitVector + bounds.mid - .init(x: -4, y: size.height)
-            textLayer.contentsScale = UIScreen.main.scale
-            drawingView.layer.addSublayer(textLayer)
+            let scaleValue = unitSpeed * CGFloat(i)
+            let text = "\(scaleValue.stringFixedTo2)[m/s]"
+            let point: CGPoint = CGFloat(i) * unitVector + rect.mid
+            let size = text.size(withAttributes: attrs)
+            
+            context.drawText(text, at: point - .init(x: -3, y: size.height * 0.5), align: .left, angleRadians: 0, attributes: attrs)
         }
     }
 }
@@ -167,3 +179,4 @@ private extension SpeedChartView {
         return UIColor(hueDegree: hue, saturation: 1, brightness: 1, alpha: 1)
     }
 }
+
