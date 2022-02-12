@@ -9,6 +9,22 @@ import Foundation
 import UIKit
 
 final class SpeedChartViewController: UIViewController {
+    // 時間を選択するためのscrollView
+    private let timeSelectorScrollView = UIScrollView()
+    private let timeSelectorStack: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment = .center
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.spacing = 8
+        return stack
+    }()
+    
+    private var timeList: [Date] = [] {
+        didSet {
+            updateTimeButtons()
+        }
+    }
     
     private let speedChartView = SpeedChartView()
     private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
@@ -38,6 +54,19 @@ final class SpeedChartViewController: UIViewController {
             $0.bottom.equalTo(speedChartView.snp.top).offset(-12)
             $0.left.equalTo(speedChartView).offset(16)
         }
+    }
+    
+    // MARK: viewの更新
+    private func updateTimeButtons() {
+        
+    }
+    
+}
+
+// MARK: - 外部に公開
+extension SpeedChartViewController {
+    func set(_ sondeDataList: [SondeData]) {
+        timeList = sondeDataList.map { $0.measuredAt.dateValue() }
     }
     
     func drawChart(by sondeData: SondeData, isTo: Bool) {
