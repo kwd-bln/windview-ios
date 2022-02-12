@@ -26,6 +26,7 @@
 		C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */; };
 		C9072A6F27B69A78001397D6 /* SondeData+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A6E27B69A77001397D6 /* SondeData+extension.swift */; };
 		C9072A7127B69B82001397D6 /* SpeedChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */; };
+		C9072A7427B7B12E001397D6 /* CGContext+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9072A7327B7B12E001397D6 /* CGContext+extension.swift */; };
 		C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D327AC22F7001D9088 /* AppDelegate.swift */; };
 		C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E30D527AC22F7001D9088 /* SceneDelegate.swift */; };
 		C95E30DD27AC22F9001D9088 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E30DC27AC22F9001D9088 /* Images.xcassets */; };
@@ -92,6 +93,7 @@
 		C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartView.swift; sourceTree = "<group>"; };
 		C9072A6E27B69A77001397D6 /* SondeData+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SondeData+extension.swift"; sourceTree = "<group>"; };
 		C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartViewData.swift; sourceTree = "<group>"; };
+		C9072A7327B7B12E001397D6 /* CGContext+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+extension.swift"; sourceTree = "<group>"; };
 		C95E30D027AC22F7001D9088 /* WindView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WindView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95E30D327AC22F7001D9088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C95E30D527AC22F7001D9088 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
 				C9072A6927B64EAA001397D6 /* DateUtil.swift */,
 				C9072A6E27B69A77001397D6 /* SondeData+extension.swift */,
+				C9072A7327B7B12E001397D6 /* CGContext+extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				C9072A4D27B53099001397D6 /* DistanceChartViewController.swift in Sources */,
 				C9E5FB6C27B33ADD00538B09 /* HomeViewController.swift in Sources */,
 				C9E5FB7127B3EE9000538B09 /* HomeViewModel.swift in Sources */,
+				C9072A7427B7B12E001397D6 /* CGContext+extension.swift in Sources */,
 				C9D64AEE27B150D400A9631E /* Utils.swift in Sources */,
 				C9072A4F27B53169001397D6 /* SpeedChartViewController.swift in Sources */,
 				C9072A6F27B69A78001397D6 /* SondeData+extension.swift in Sources */,
