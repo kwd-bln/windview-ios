@@ -58,6 +58,63 @@ final class DistanceChartView: UIView {
     }
 }
 
+// MARK: - draw chart
+
+extension DistanceChartView {
+    func drawChart(_ rect: CGRect, in context: CGContext, scale: ChartSize) {
+        let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0) }
+        let maxDistance = distanceDataList.map { $0.maxDistance }
+        let maxDist = maxDistance.max() ?? 0
+        // 単位となる距離
+        let unitDistance = calculateUnitDist(by: maxDist, size: scale)
+        drawScales(rect, in: context, unitDistance: unitDistance)
+        
+        let numOfData = distanceDataList.count
+        distanceDataList.reversed().enumerated().forEach { index, distanceData in
+            drawUnitDistChart(rect,
+                              in: context,
+                              distData: distanceData,
+                              unit: unitDistance,
+                              color: UIColor.number(index, max: numOfData))
+        }
+    }
+    
+    /// 1つの`DistantChartViewData`を描画する
+    func drawUnitDistChart(_ rect: CGRect,
+                           in context: CGContext,
+                           distData: DistantChartViewData,
+                           unit: CGFloat,
+                           color: UIColor) {
+        let halfWidth = rect.width / 2
+        
+        // distanceをrect中の長さに合わせるために掛ける定数
+        let multiple = halfWidth / unit * Self.radiusRatio
+        // scaleされた点
+        let scaledPoints = distData.distancePoints.map { $0 * multiple }
+        
+        // 線を描く処理
+        context.move(to: rect.mid)
+        scaledPoints.forEach { point in
+            if point != .zero {
+                context.addLine(to: point + rect.mid)
+            }
+        }
+        context.setStrokeColor(color.cgColor)
+        context.strokePath()
+        
+        // 点を描く処理
+        scaledPoints.forEach { point in
+            let drawingPoint = point + bounds.mid
+            context.move(to: drawingPoint)
+            context.addCircle(center: drawingPoint, with: 2)
+        }
+        
+        context.setFillColor(color.cgColor)
+        context.fillPath()
+    }
+}
+
+
 // MARK: - 下地
 
 private extension DistanceChartView {
@@ -120,61 +177,5 @@ private extension DistanceChartView {
             
             context.drawText(text, at: point - .init(x: -4, y: size.height * 0.6), align: .left, angleRadians: 0, attributes: attrs)
         }
-    }
-}
-
-// MARK: - draw chart
-
-extension DistanceChartView {
-    func drawChart(_ rect: CGRect, in context: CGContext, scale: ChartSize) {
-        let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0) }
-        let maxDistance = distanceDataList.map { $0.maxDistance }
-        let maxDist = maxDistance.max() ?? 0
-        // 単位となる距離
-        let unitDistance = calculateUnitDist(by: maxDist, size: scale)
-        drawScales(rect, in: context, unitDistance: unitDistance)
-        
-        let numOfData = distanceDataList.count
-        distanceDataList.reversed().enumerated().forEach { index, distanceData in
-            drawUnitDistChart(rect,
-                              in: context,
-                              distData: distanceData,
-                              unit: unitDistance,
-                              color: UIColor.number(index, max: numOfData))
-        }
-    }
-    
-    /// 1つの`DistantChartViewData`を描画する
-    func drawUnitDistChart(_ rect: CGRect,
-                           in context: CGContext,
-                           distData: DistantChartViewData,
-                           unit: CGFloat,
-                           color: UIColor) {
-        let halfWidth = rect.width / 2
-        
-        // distanceをrect中の長さに合わせるために掛ける定数
-        let multiple = halfWidth / unit * Self.radiusRatio
-        // scaleされた点
-        let scaledPoints = distData.distancePoints.map { $0 * multiple }
-        
-        // 線を描く処理
-        context.move(to: rect.mid)
-        scaledPoints.forEach { point in
-            if point != .zero {
-                context.addLine(to: point + rect.mid)
-            }
-        }
-        context.setStrokeColor(color.cgColor)
-        context.strokePath()
-        
-        // 点を描く処理
-        scaledPoints.forEach { point in
-            let drawingPoint = point + bounds.mid
-            context.move(to: drawingPoint)
-            context.addCircle(center: drawingPoint, with: 2)
-        }
-        
-        context.setFillColor(color.cgColor)
-        context.fillPath()
     }
 }
