@@ -113,7 +113,7 @@ extension DistanceChartView {
     
     /// 目盛りを描画
     func drawScales(_ unitDistance: CGFloat) {
-        let unitVector: CGPoint = .init(x: 0, y: bounds.width * 0.5 * 0.32)
+        let unitVector: CGPoint = .init(x: 0, y: bounds.width * 0.5 * Self.radiusRatio)
         
         let rounded = Int(unitDistance)
         
@@ -135,7 +135,7 @@ extension DistanceChartView {
         let halfWidth = bounds.width / 2
         
         // distanceをrect中の長さに合わせるために掛ける定数
-        let multiple = halfWidth / unit / 3
+        let multiple = halfWidth / unit * Self.radiusRatio
         // scaleされた点
         let scaledPoints = distData.distancePoints.map { $0 * multiple }
         

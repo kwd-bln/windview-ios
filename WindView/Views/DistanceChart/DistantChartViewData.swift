@@ -48,18 +48,4 @@ private extension SondeData {
         }
         return points
     }
-    
-    /// SondeDataItemの角度を求める
-    ///
-    /// - Parameters:
-    ///     - item: SondeDataItem
-    ///     - useTN: 真北を使うか
-    /// - Returns: useTNで指定した角度
-    private func degree(with item: SondeDataItem, useTN: Bool = false) -> CGFloat {
-        if useTN {
-            return item.windheading
-        } else {
-            return item.windheading - self.magDeclination
-        }
-    }
 }

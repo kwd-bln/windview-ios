@@ -32,6 +32,10 @@ final class HomeViewController: UIViewController {
         childControllers[0] as! DistanceChartViewController
     }
     
+    private var speedChartViewController: SpeedChartViewController {
+        childControllers[1] as! SpeedChartViewController
+    }
+    
     let viewModel: HomeViewModelType
     
     // MARK: views
@@ -70,6 +74,7 @@ final class HomeViewController: UIViewController {
         ).drive { [weak self] sondeDataList, csize in
             if sondeDataList.count == 0 { return }
             self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: true)
+            self?.speedChartViewController.drawChart(by: sondeDataList.first!, isTo: true)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
@@ -98,7 +103,7 @@ final class HomeViewController: UIViewController {
             $0.left.right.bottom.equalToSuperview()
         }
         
-        pageViewController.setViewControllers([childControllers[0]],
+        pageViewController.setViewControllers([childControllers[1]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
