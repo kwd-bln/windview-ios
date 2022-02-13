@@ -151,7 +151,7 @@ extension SpeedChartViewController: UICollectionViewDataSource {
         let text = DateUtil.timeText(from: timeList[indexPath.row])
         TextCell.feed(text: text,
                       to: textCell,
-                      color: UIColor.number(numOfTimeList - indexPath.row, max: numOfTimeList))
+                      color: UIColor.number(numOfTimeList - indexPath.row - 1, max: numOfTimeList))
         return textCell
     }
 }
