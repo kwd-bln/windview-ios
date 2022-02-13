@@ -75,13 +75,13 @@ final class HomeViewController: UIViewController {
             if sondeDataList.count == 0 { return }
             self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: true)
             self?.speedChartViewController.drawChart(by: sondeDataList.first!, isTo: true)
+            self?.speedChartViewController.set(sondeDataList)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
             .zoomButtonTap
             .bind(to: viewModel.inputs.zoomButtonTap)
             .disposed(by: disposeBag)
-
     }
     
     private func setupPVC() {
@@ -108,6 +108,16 @@ final class HomeViewController: UIViewController {
                                               animated: true,
                                               completion: nil)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        for view in self.pageViewController.view.subviews {
+            if view is UIScrollView {
+                (view as? UIScrollView)!.delaysContentTouches = false
+            }
+        }
     }
 }
 
