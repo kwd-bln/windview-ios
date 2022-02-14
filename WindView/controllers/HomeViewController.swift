@@ -70,16 +70,25 @@ final class HomeViewController: UIViewController {
         
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
-            viewModel.outputs.chartSize
-        ).drive { [weak self] sondeDataList, csize in
+            viewModel.outputs.chartSize,
+            viewModel.outputs.isDistFrom
+        ).drive { [weak self] sondeDataList, csize, isDistFrom in
             if sondeDataList.count == 0 { return }
-            self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: true)
+            self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: !isDistFrom)
+        }.disposed(by: disposeBag)
+        
+        viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
             .zoomButtonTap
             .bind(to: viewModel.inputs.zoomButtonTap)
+            .disposed(by: disposeBag)
+        
+        distanceChartViewController
+            .fromButtonTap
+            .bind(to: viewModel.inputs.distFromButtonTap)
             .disposed(by: disposeBag)
     }
     

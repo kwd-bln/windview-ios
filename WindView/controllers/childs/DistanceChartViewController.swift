@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RxCocoa
+import RxSwift
 
 final class DistanceChartViewController: UIViewController {
     private let distanceChartView = DistanceChartView()
@@ -25,8 +26,30 @@ final class DistanceChartViewController: UIViewController {
         return button
     }()
     
+    private let fromButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("From", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.setTitleColor(.Palette.text, for: .normal)
+        button.setBackgroundImage(UIColor.clear.image, for: .normal)
+        button.setBackgroundImage(UIColor.red.withAlphaComponent(0.5).image, for: .selected)
+        button.contentEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
+        button.layer.cornerRadius = 3
+        
+        button.layer.borderColor = UIColor(hex: "444444").cgColor
+        button.layer.borderWidth = 1
+        button.clipsToBounds = true
+        
+        return button
+    }()
+    
+    
     var zoomButtonTap: ControlEvent<Void> {
         zoomButton.rx.tap
+    }
+    
+    var fromButtonTap: ControlEvent<Void> {
+        fromButton.rx.tap
     }
     
     init() {
@@ -43,6 +66,7 @@ final class DistanceChartViewController: UIViewController {
         view.addSubview(timeLabel)
         view.addSubview(distanceChartView)
         view.addSubview(zoomButton)
+        view.addSubview(fromButton)
         distanceChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().offset(-16)
@@ -55,6 +79,11 @@ final class DistanceChartViewController: UIViewController {
             $0.left.equalTo(distanceChartView).offset(16)
         }
         
+        fromButton.snp.makeConstraints {
+            $0.bottom.equalTo(distanceChartView.snp.top).offset(-8)
+            $0.right.equalTo(distanceChartView).offset(-12)
+        }
+        
         zoomButton.snp.makeConstraints {
             $0.size.equalTo(CGSize(width: 24, height: 24))
             $0.right.equalTo(distanceChartView).offset(-8)
@@ -65,6 +94,8 @@ final class DistanceChartViewController: UIViewController {
     func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool) {
         distanceChartView.set(sondeDataList)
         distanceChartView.set(size)
+        distanceChartView.set(isTo)
+        fromButton.isSelected = !isTo
         if let sondeData = sondeDataList.first {
             let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
             timeLabel.text = "更新 \(timeText)"
