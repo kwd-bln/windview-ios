@@ -41,6 +41,11 @@
 		C95E310D27AC2A97001D9088 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C95E310C27AC2A97001D9088 /* FirebaseFirestore */; };
 		C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E310E27AC2AAA001D9088 /* LoginViewController.swift */; };
 		C95E311227AC2C93001D9088 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C95E311127AC2C93001D9088 /* SnapKit */; };
+		C9AE00FE27B7D79300277E0F /* TimeSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE00FD27B7D79300277E0F /* TimeSelectorButton.swift */; };
+		C9AE010227B9272200277E0F /* SelfResizingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */; };
+		C9AE010427B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		C9AE010627B927A000277E0F /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010527B927A000277E0F /* TextCell.swift */; };
+		C9AE010827B95B0E00277E0F /* SpeedChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -107,6 +112,11 @@
 		C95E30F627AC22FA001D9088 /* WindViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C95E310327AC273E001D9088 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C95E310E27AC2AAA001D9088 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C9AE00FD27B7D79300277E0F /* TimeSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectorButton.swift; sourceTree = "<group>"; };
+		C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfResizingCollectionView.swift; sourceTree = "<group>"; };
+		C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		C9AE010527B927A000277E0F /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
+		C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartViewModel.swift; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -176,6 +186,7 @@
 			children = (
 				C9072A4727B410FA001397D6 /* DistanceChartView.swift */,
 				C9072A6427B635A6001397D6 /* DistantChartViewData.swift */,
+				C9AE00FD27B7D79300277E0F /* TimeSelectorButton.swift */,
 			);
 			path = DistanceChart;
 			sourceTree = "<group>";
@@ -252,6 +263,8 @@
 				C9072A6B27B68BD2001397D6 /* SpeedChart */,
 				C9072A6627B64A5A001397D6 /* DistanceChart */,
 				C9D64AE827B14DA500A9631E /* CustomTextField.swift */,
+				C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */,
+				C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -259,19 +272,19 @@
 		C9D64AEA27B14E9C00A9631E /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */,
 				C9D64AED27B150D400A9631E /* Utils.swift */,
-				C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */,
-				C9D64AEF27B1520800A9631E /* NSAttributedString+extension.swift */,
-				C9D048F727B160BA0061D252 /* UIColor+extension.swift */,
-				C9072A4927B52E5A001397D6 /* CGRect+extension.swift */,
+				C9072A7327B7B12E001397D6 /* CGContext+extension.swift */,
 				C9072A5427B54CFE001397D6 /* CGFloat+extension.swift */,
 				C9072A5627B55249001397D6 /* CGPoint+extenstion.swift */,
-				C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */,
-				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
+				C9072A4927B52E5A001397D6 /* CGRect+extension.swift */,
 				C9072A6927B64EAA001397D6 /* DateUtil.swift */,
+				C9072A6227B5FC80001397D6 /* FirebaseFireStore+extension.swift */,
+				C9D64AEF27B1520800A9631E /* NSAttributedString+extension.swift */,
 				C9072A6E27B69A77001397D6 /* SondeData+extension.swift */,
-				C9072A7327B7B12E001397D6 /* CGContext+extension.swift */,
+				C9072A5827B5575C001397D6 /* UIBezierPath+extension.swift */,
+				C9D048F727B160BA0061D252 /* UIColor+extension.swift */,
+				C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */,
+				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -282,6 +295,7 @@
 				C9072A4B27B53081001397D6 /* childs */,
 				C95E310E27AC2AAA001D9088 /* LoginViewController.swift */,
 				C9E5FB6B27B33ADD00538B09 /* HomeViewController.swift */,
+				C9AE010527B927A000277E0F /* TextCell.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -302,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E5FB7027B3EE9000538B09 /* HomeViewModel.swift */,
+				C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -459,9 +474,11 @@
 			files = (
 				C9E5FB7B27B3F20000538B09 /* SondeDataModel.swift in Sources */,
 				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
+				C9AE010627B927A000277E0F /* TextCell.swift in Sources */,
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
 				C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */,
+				C9AE010827B95B0E00277E0F /* SpeedChartViewModel.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
@@ -470,6 +487,9 @@
 				C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */,
 				C9072A4A27B52E5A001397D6 /* CGRect+extension.swift in Sources */,
 				C9D64AF027B1520800A9631E /* NSAttributedString+extension.swift in Sources */,
+				C9AE00FE27B7D79300277E0F /* TimeSelectorButton.swift in Sources */,
+				C9AE010427B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				C9AE010227B9272200277E0F /* SelfResizingCollectionView.swift in Sources */,
 				C9072A6527B635A6001397D6 /* DistantChartViewData.swift in Sources */,
 				C9072A4D27B53099001397D6 /* DistanceChartViewController.swift in Sources */,
 				C9E5FB6C27B33ADD00538B09 /* HomeViewController.swift in Sources */,

@@ -55,3 +55,31 @@ extension UIColor {
         return UIColor(hue: step * CGFloat(max - index - 1), saturation: 1, brightness: 1, alpha: 1)
     }
 }
+
+extension UIColor {
+    private var convertedImage: UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
+        context.setFillColor(self.cgColor)
+        context.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
+    }
+    
+    var image: UIImage? {
+        let image = UIImage()
+        let appearances: [UIUserInterfaceStyle] = [.light, .dark]
+        appearances.forEach {
+            let traitCollection = UITraitCollection(userInterfaceStyle: $0)
+            image.imageAsset?.register(
+                self.resolvedColor(with: traitCollection).convertedImage,
+                with: traitCollection
+            ) // ライトモードとダークモードの色を直接指定してImageを生成している
+        }
+        return image
+    }
+}
