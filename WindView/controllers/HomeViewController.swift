@@ -74,8 +74,7 @@ final class HomeViewController: UIViewController {
         ).drive { [weak self] sondeDataList, csize in
             if sondeDataList.count == 0 { return }
             self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: true)
-            self?.speedChartViewController.drawChart(by: sondeDataList.first!, isTo: true)
-            self?.speedChartViewController.set(sondeDataList)
+            self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
         }.disposed(by: disposeBag)
         
         distanceChartViewController

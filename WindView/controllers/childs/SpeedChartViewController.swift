@@ -7,15 +7,11 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class SpeedChartViewController: UIViewController {
-    // 時間を選択するためのscrollView
-    private let timeSelectorScrollView: UIScrollView = {
-        let sv = UIScrollView()
-        sv.delaysContentTouches = false
-        return sv
-    }()
-    
+    // MARK: View
     private let timeCollectionView: SelfResizingCollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -24,34 +20,24 @@ final class SpeedChartViewController: UIViewController {
         layout.minimumLineSpacing = 8
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = SelfResizingCollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delaysContentTouches = false
         collectionView.backgroundColor = .none
         return collectionView
     }()
     
-    private let timeSelectorStack: UIStackView = {
-        let stack = UIStackView()
-        stack.alignment = .center
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 8
-        return stack
-    }()
+    // viewModel:
     
-    private var timeList: [Date] = [] {
-        didSet {
-            timeCollectionView.reloadData()
-        }
-    }
-    
-    private var numOfTimeList: Int {
-        timeList.count
-    }
+    let viewModel: SpeedViewModelType
     
     private let speedChartView = SpeedChartView()
     private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
                                                          font: .hiraginoSans(style: .light, size: 12))
     
-    init() {
+    // MARK: その他
+    let disposeBag = DisposeBag()
+    
+    init(viewModel: SpeedViewModelType = SpeedChartViewModel()) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,8 +52,22 @@ final class SpeedChartViewController: UIViewController {
         timeCollectionView.delegate = self
         timeCollectionView.dataSource = self
         
-        timeSelectorScrollView.addSubview(timeSelectorStack)
+        setupSubviews()
         
+        Driver.combineLatest(
+            viewModel.outputs.sondeDataList,
+            viewModel.outputs.selectedIndex
+        ).drive { [weak self] sondeDataList, selectedIndex in
+            if sondeDataList.count == 0 { return }
+            self?.speedChartView.set(sondeData: sondeDataList[selectedIndex])
+        }.disposed(by: disposeBag)
+    }
+}
+
+// MARK: - setup subviews
+
+private extension SpeedChartViewController {
+    func setupSubviews() {
         view.addSubview(timeLabel)
         view.addSubview(speedChartView)
         view.addSubview(timeCollectionView)
@@ -92,10 +92,6 @@ final class SpeedChartViewController: UIViewController {
 
 // MARK: - 外部に公開
 extension SpeedChartViewController {
-    func set(_ sondeDataList: [SondeData]) {
-        timeList = sondeDataList.map { $0.measuredAt.dateValue() }
-    }
-    
     func drawChart(by sondeData: SondeData, isTo: Bool) {
         speedChartView.set(sondeData: sondeData)
         let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
@@ -107,7 +103,9 @@ extension SpeedChartViewController {
 // MARK: - UICollectionViewDelegate
 extension SpeedChartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("clicked", indexPath)
+        viewModel.inputs.timeButtonTap.onNext(indexPath.row)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(TextCell.self)", for: indexPath)
+        cell.isSelected = true
     }
 }
 
@@ -127,7 +125,8 @@ extension SpeedChartViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let label = UILabel(frame: CGRect.zero)
         label.font = UIFont.systemFont(ofSize: 12)
-        label.text = DateUtil.timeText(from: timeList[indexPath.row])
+        let date = viewModel.presenter.sondeData(at: indexPath.row).measuredAt.dateValue()
+        label.text = DateUtil.timeText(from: date)
         label.sizeToFit()
         let size = label.frame.size
         return CGSize(width: size.width + 8, height: size.height + 9)
@@ -141,17 +140,19 @@ extension SpeedChartViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        numOfTimeList
+        viewModel.presenter.numOfSondeData
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(TextCell.self)", for: indexPath)
         guard let textCell = cell as? TextCell else { return cell }
-        let text = DateUtil.timeText(from: timeList[indexPath.row])
+        let date = viewModel.presenter.sondeData(at: indexPath.row).measuredAt.dateValue()
+        let text = DateUtil.timeText(from: date)
         TextCell.feed(text: text,
                       to: textCell,
-                      color: UIColor.number(numOfTimeList - indexPath.row - 1, max: numOfTimeList))
+                      color: UIColor.number(viewModel.presenter.numOfSondeData - indexPath.row - 1,
+                                            max: viewModel.presenter.numOfSondeData))
         return textCell
     }
 }

@@ -45,6 +45,7 @@
 		C9AE010227B9272200277E0F /* SelfResizingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */; };
 		C9AE010427B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		C9AE010627B927A000277E0F /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010527B927A000277E0F /* TextCell.swift */; };
+		C9AE010827B95B0E00277E0F /* SpeedChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -115,6 +116,7 @@
 		C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfResizingCollectionView.swift; sourceTree = "<group>"; };
 		C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C9AE010527B927A000277E0F /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
+		C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedChartViewModel.swift; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E5FB7027B3EE9000538B09 /* HomeViewModel.swift */,
+				C9AE010727B95B0E00277E0F /* SpeedChartViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
 				C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */,
+				C9AE010827B95B0E00277E0F /* SpeedChartViewModel.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
