@@ -60,7 +60,13 @@ final class SpeedChartViewController: UIViewController {
         ).drive { [weak self] sondeDataList, selectedIndex in
             if sondeDataList.count == 0 { return }
             self?.speedChartView.set(sondeData: sondeDataList[selectedIndex])
+            self?.updateText(by: sondeDataList[selectedIndex])
         }.disposed(by: disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        timeCollectionView.reloadData()
     }
 }
 
@@ -72,11 +78,8 @@ private extension SpeedChartViewController {
         view.addSubview(speedChartView)
         view.addSubview(timeCollectionView)
         
-        speedChartView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-16)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(speedChartView.snp.height)
+        timeCollectionView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
         }
         
         timeLabel.snp.makeConstraints {
@@ -84,16 +87,18 @@ private extension SpeedChartViewController {
             $0.left.equalTo(speedChartView).offset(16)
         }
         
-        timeCollectionView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
+        speedChartView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(16)
+            $0.right.equalToSuperview().offset(-16)
+            $0.top.equalTo(timeCollectionView.snp.bottom).offset(32)
+            $0.width.equalTo(speedChartView.snp.height)
         }
     }
 }
 
 // MARK: - 外部に公開
-extension SpeedChartViewController {
-    func drawChart(by sondeData: SondeData, isTo: Bool) {
-        speedChartView.set(sondeData: sondeData)
+private extension SpeedChartViewController {
+    func updateText(by sondeData: SondeData) {
         let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
         timeLabel.text = "更新 \(timeText)"
     }
