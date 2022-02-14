@@ -14,12 +14,14 @@ import RxCocoa
 protocol HomeViewModelInput {
     func loadView()
     var zoomButtonTap: AnyObserver<Void> { get }
+    var distFromButtonTap: AnyObserver<Void> { get }
 }
 
 protocol HomeViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var dateSettings: Driver<DataSettings> { get }
     var chartSize: Driver<ChartSize> { get }
+    var isDistFrom: Driver<Bool> { get }
 }
 
 protocol HomeViewModelType {
@@ -31,11 +33,13 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     // MARK: inputs
     
     var zoomButtonTap: AnyObserver<Void>
+    var distFromButtonTap: AnyObserver<Void>
     
     // MARK: outputs
     
     private let _sondeDataList = PublishRelay<[SondeData]>()
     var sondeDataList: Driver<[SondeData]>
+    var isDistFrom: Driver<Bool>
     
 //    private let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
     var chartSize: Driver<ChartSize>
@@ -50,9 +54,17 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
         self.chartSize = _chartSize.asDriver(onErrorJustReturn: .m)
         
+        let _isDistFrom: BehaviorRelay<Bool> = .init(value: false)
+        self.isDistFrom = _isDistFrom.asDriver(onErrorJustReturn: false)
+        
         // input
         self.zoomButtonTap = AnyObserver<Void>() { _ in
             _chartSize.accept(_chartSize.value.next)
+        }
+        
+        // input
+        self.distFromButtonTap = AnyObserver<Void>() { _ in
+            _isDistFrom.accept(!_isDistFrom.value)
         }
     }
     

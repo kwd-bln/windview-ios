@@ -25,7 +25,13 @@ final class DistanceChartView: UIView {
         }
     }
     
-    private var isTo: Bool = true
+    private var isTo: Bool = true {
+        didSet {
+            if isTo != oldValue {
+                setNeedsDisplay()
+            }
+        }
+    }
     
     init() {
         super.init(frame: .zero)
@@ -56,6 +62,10 @@ final class DistanceChartView: UIView {
     func set(_ chartSize: ChartSize) {
         self.size = chartSize
     }
+    
+    func set(_ isTo: Bool) {
+        self.isTo = isTo
+    }
 }
 
 // MARK: - draw chart
@@ -77,6 +87,15 @@ extension DistanceChartView {
                               unit: unitDistance,
                               color: UIColor.number(index, max: numOfData))
         }
+        
+        if !isTo, let firstData = distanceDataList.first {
+            drawUnitDistChart(rect,
+                              in: context,
+                              distData: firstData,
+                              unit: unitDistance,
+                              isTo: false,
+                              color: .black)
+        }
     }
     
     /// 1つの`DistantChartViewData`を描画する
@@ -84,8 +103,10 @@ extension DistanceChartView {
                            in context: CGContext,
                            distData: DistantChartViewData,
                            unit: CGFloat,
+                           isTo: Bool = true,
                            color: UIColor) {
         let halfWidth = rect.width / 2
+        let sign: CGFloat = isTo ? 1 : -1
         
         // distanceをrect中の長さに合わせるために掛ける定数
         let multiple = halfWidth / unit * Self.radiusRatio
@@ -96,7 +117,7 @@ extension DistanceChartView {
         context.move(to: rect.mid)
         scaledPoints.forEach { point in
             if point != .zero {
-                context.addLine(to: point + rect.mid)
+                context.addLine(to: sign * point + rect.mid)
             }
         }
         context.setStrokeColor(color.cgColor)
@@ -104,7 +125,7 @@ extension DistanceChartView {
         
         // 点を描く処理
         scaledPoints.forEach { point in
-            let drawingPoint = point + bounds.mid
+            let drawingPoint = sign * point + bounds.mid
             context.move(to: drawingPoint)
             context.addCircle(center: drawingPoint, with: 2)
         }
