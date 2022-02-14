@@ -16,6 +16,12 @@ class TextCell: UICollectionViewCell {
         }
     }
     
+    override var isSelected: Bool {
+        didSet {
+            label.textColor = isSelected ? UIColor.Palette.main : titleColor
+        }
+    }
+    
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
@@ -32,8 +38,12 @@ class TextCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        clipsToBounds = true
         contentView.layer.cornerRadius = 4
         setupSubviews()
+        let selected = UIView()
+        self.selectedBackgroundView = selected
+        
     }
     
     required init?(coder _: NSCoder) {
@@ -52,17 +62,18 @@ class TextCell: UICollectionViewCell {
     }
     
     private var currentBackgroundColor: UIColor? {
-        isSelected ? targetColor : nil
+        nil
     }
     
     private var titleColor: UIColor {
-        isSelected ? .Palette.main : targetColor
+        targetColor
     }
     
     private func updateColor() {
         layer.borderColor = targetColor.cgColor
         label.textColor = titleColor
-        backgroundColor = backgroundColor
+        backgroundColor = currentBackgroundColor
+        selectedBackgroundView?.backgroundColor = targetColor
     }
 }
 
