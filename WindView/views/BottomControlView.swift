@@ -12,13 +12,14 @@ class BottomControlView: UIView {
     let settingView = BottomButtonView(
         frame: .zero,
         width: 44,
-        image: UIImage(systemName: "calendar"),
+        image: UIImage(systemName: "gear"),
         imageWidth: 28
     )
+    
     let historyButton = BottomButtonView(
         frame: .zero,
         width: 44,
-        image: UIImage(systemName: "gear"),
+        image: UIImage(systemName: "calendar"),
         imageWidth: 28
     )
     

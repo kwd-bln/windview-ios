@@ -69,7 +69,7 @@ final class HomeViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .Palette.main
         
         setupPVC()
         setupSubviews()
@@ -97,6 +97,13 @@ final class HomeViewController: UIViewController {
         distanceChartViewController
             .fromButtonTap
             .bind(to: viewModel.inputs.distFromButtonTap)
+            .disposed(by: disposeBag)
+        
+        bottomControlView.historyButton.button.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.showHistoryViewController()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -164,6 +171,15 @@ extension HomeViewController: UIPageViewControllerDataSource {
         } else {
             return nil
         }
+    }
+}
+
+// MARK: - show history and setting
+
+extension HomeViewController {
+    func showHistoryViewController() {
+        let histroyViewController = HistoryViewController()
+        present(histroyViewController, animated: true, completion: nil)
     }
 }
 
