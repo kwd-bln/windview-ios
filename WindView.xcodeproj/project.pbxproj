@@ -50,6 +50,9 @@
 		C9AE010F27BB210A00277E0F /* LayerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE010E27BB210A00277E0F /* LayerStackView.swift */; };
 		C9AE011327BBD4C700277E0F /* TextLayerBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011227BBD4C700277E0F /* TextLayerBlock.swift */; };
 		C9AE011527BBDC6400277E0F /* HeightLayerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011427BBDC6400277E0F /* HeightLayerStackView.swift */; };
+		C9AE011727BBE0B700277E0F /* BoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011627BBE0B700277E0F /* BoundButton.swift */; };
+		C9AE011927BBE12D00277E0F /* BottomControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011827BBE12D00277E0F /* BottomControlView.swift */; };
+		C9AE011B27BBE63600277E0F /* UIImage++extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011A27BBE63600277E0F /* UIImage++extension.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -125,6 +128,9 @@
 		C9AE010E27BB210A00277E0F /* LayerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerStackView.swift; sourceTree = "<group>"; };
 		C9AE011227BBD4C700277E0F /* TextLayerBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLayerBlock.swift; sourceTree = "<group>"; };
 		C9AE011427BBDC6400277E0F /* HeightLayerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightLayerStackView.swift; sourceTree = "<group>"; };
+		C9AE011627BBE0B700277E0F /* BoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundButton.swift; sourceTree = "<group>"; };
+		C9AE011827BBE12D00277E0F /* BottomControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomControlView.swift; sourceTree = "<group>"; };
+		C9AE011A27BBE63600277E0F /* UIImage++extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++extension.swift"; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -285,6 +291,8 @@
 				C9D64AE827B14DA500A9631E /* CustomTextField.swift */,
 				C9AE010127B9272200277E0F /* SelfResizingCollectionView.swift */,
 				C9AE010327B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift */,
+				C9AE011627BBE0B700277E0F /* BoundButton.swift */,
+				C9AE011827BBE12D00277E0F /* BottomControlView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -305,6 +313,7 @@
 				C9D048F727B160BA0061D252 /* UIColor+extension.swift */,
 				C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */,
 				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
+				C9AE011A27BBE63600277E0F /* UIImage++extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -502,12 +511,14 @@
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
+				C9AE011927BBE12D00277E0F /* BottomControlView.swift in Sources */,
 				C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */,
 				C9072A6327B5FC80001397D6 /* FirebaseFireStore+extension.swift in Sources */,
 				C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */,
 				C9072A4A27B52E5A001397D6 /* CGRect+extension.swift in Sources */,
 				C9D64AF027B1520800A9631E /* NSAttributedString+extension.swift in Sources */,
 				C9AE010D27BAAC9200277E0F /* ColorLayerBlock.swift in Sources */,
+				C9AE011727BBE0B700277E0F /* BoundButton.swift in Sources */,
 				C9AE00FE27B7D79300277E0F /* TimeSelectorButton.swift in Sources */,
 				C9AE010427B9273D00277E0F /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				C9AE010227B9272200277E0F /* SelfResizingCollectionView.swift in Sources */,
@@ -523,6 +534,7 @@
 				C9072A4827B410FA001397D6 /* DistanceChartView.swift in Sources */,
 				C9072A5527B54CFE001397D6 /* CGFloat+extension.swift in Sources */,
 				C95E30D627AC22F7001D9088 /* SceneDelegate.swift in Sources */,
+				C9AE011B27BBE63600277E0F /* UIImage++extension.swift in Sources */,
 				C9AE010F27BB210A00277E0F /* LayerStackView.swift in Sources */,
 				C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */,
 				C9072A7127B69B82001397D6 /* SpeedChartViewData.swift in Sources */,

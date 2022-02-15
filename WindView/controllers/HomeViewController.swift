@@ -48,6 +48,8 @@ final class HomeViewController: UIViewController {
         view.safeAreaLayoutGuide
     }
     
+    let bottomControlView = BottomControlView(frame: .zero)
+    
     // MARK: その他
     let disposeBag = DisposeBag()
     
@@ -70,6 +72,7 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .blue
         
         setupPVC()
+        setupSubviews()
         viewModel.inputs.loadView()
         
         Driver.combineLatest(
@@ -113,14 +116,22 @@ final class HomeViewController: UIViewController {
         
         pageViewController.view.snp.makeConstraints {
             $0.top.equalTo(safeAreaGuide).offset(45)
-            $0.left.right.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(safeAreaGuide).offset(-60)
         }
         
         pageViewController.setViewControllers([childControllers[2]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
-        
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(bottomControlView)
+        bottomControlView.snp.makeConstraints { make in
+            make.top.equalTo(pageViewController.view.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
