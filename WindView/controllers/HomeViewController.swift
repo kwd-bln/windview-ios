@@ -36,6 +36,10 @@ final class HomeViewController: UIViewController {
         childControllers[1] as! SpeedChartViewController
     }
     
+    private var colorLayerTableViewController: ColorLayerTableViewController {
+        childControllers[2] as! ColorLayerTableViewController
+    }
+    
     let viewModel: HomeViewModelType
     
     // MARK: views
@@ -79,6 +83,7 @@ final class HomeViewController: UIViewController {
         
         viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
+            self?.colorLayerTableViewController.set(sondeDataList)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
@@ -111,7 +116,7 @@ final class HomeViewController: UIViewController {
             $0.left.right.bottom.equalToSuperview()
         }
         
-        pageViewController.setViewControllers([childControllers[0]],
+        pageViewController.setViewControllers([childControllers[2]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
