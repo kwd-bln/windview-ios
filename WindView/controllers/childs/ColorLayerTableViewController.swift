@@ -46,6 +46,7 @@ final class ColorLayerTableViewController: UIViewController {
     
     private func updateViews() {
         let maxCount: Int = sondeDataList.map { $0.values.count }.max() ?? 0
+        let maxSpeed = sondeDataList.flatMap { $0.values.map { $0.windspeed } }.max() ?? 0
         layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount) }
         layerStackViews.forEach { v in
             horizontalStack.addArrangedSubview(v)
