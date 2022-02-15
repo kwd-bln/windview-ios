@@ -9,6 +9,24 @@ import Foundation
 import UIKit
 
 final class ColorLayerTableViewController: UIViewController {
+    
+    private var sondeDataList: [SondeData] = [] {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    private let horizontalStack: UIStackView = {
+        let stack = UIStackView(frame: .zero)
+        stack.axis = .horizontal
+        stack.alignment = .bottom
+        stack.distribution = .fill
+        stack.spacing = 1
+        return stack
+    }()
+    
+    private var layerStackViews: [LayerStackView] = []
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -19,6 +37,26 @@ final class ColorLayerTableViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .yellow
+        
+        view.addSubview(horizontalStack)
+        horizontalStack.snp.makeConstraints { make in
+            make.top.left.equalToSuperview()
+        }
+    }
+    
+    private func updateViews() {
+        guard let maxHeightSondeData = sondeDataList.max(by: { $0.values.count < $1.values.count }) else { return }
+        let heightStack = HeightLayerStackView(maxHeightSondeData)
+        horizontalStack.addArrangedSubview(heightStack)
+        
+        let maxCount: Int = maxHeightSondeData.values.count
+        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount) }
+        layerStackViews.forEach { v in
+            horizontalStack.addArrangedSubview(v)
+        }
+    }
+    
+    func set(_ sondeDataList: [SondeData]) {
+        self.sondeDataList = sondeDataList
     }
 }

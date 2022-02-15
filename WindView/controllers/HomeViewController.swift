@@ -36,6 +36,10 @@ final class HomeViewController: UIViewController {
         childControllers[1] as! SpeedChartViewController
     }
     
+    private var colorLayerTableViewController: ColorLayerTableViewController {
+        childControllers[2] as! ColorLayerTableViewController
+    }
+    
     let viewModel: HomeViewModelType
     
     // MARK: views
@@ -43,6 +47,8 @@ final class HomeViewController: UIViewController {
     var safeAreaGuide: UILayoutGuide {
         view.safeAreaLayoutGuide
     }
+    
+    let bottomControlView = BottomControlView(frame: .zero)
     
     // MARK: その他
     let disposeBag = DisposeBag()
@@ -63,9 +69,10 @@ final class HomeViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .Palette.main
         
         setupPVC()
+        setupSubviews()
         viewModel.inputs.loadView()
         
         Driver.combineLatest(
@@ -79,6 +86,7 @@ final class HomeViewController: UIViewController {
         
         viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
+            self?.colorLayerTableViewController.set(sondeDataList)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
@@ -89,6 +97,13 @@ final class HomeViewController: UIViewController {
         distanceChartViewController
             .fromButtonTap
             .bind(to: viewModel.inputs.distFromButtonTap)
+            .disposed(by: disposeBag)
+        
+        bottomControlView.historyButton.button.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.showHistoryViewController()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -108,14 +123,22 @@ final class HomeViewController: UIViewController {
         
         pageViewController.view.snp.makeConstraints {
             $0.top.equalTo(safeAreaGuide).offset(45)
-            $0.left.right.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(safeAreaGuide).offset(-60)
         }
         
-        pageViewController.setViewControllers([childControllers[0]],
+        pageViewController.setViewControllers([childControllers[2]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
-        
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(bottomControlView)
+        bottomControlView.snp.makeConstraints { make in
+            make.top.equalTo(pageViewController.view.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -148,6 +171,15 @@ extension HomeViewController: UIPageViewControllerDataSource {
         } else {
             return nil
         }
+    }
+}
+
+// MARK: - show history and setting
+
+extension HomeViewController {
+    func showHistoryViewController() {
+        let histroyViewController = HistoryViewController()
+        present(histroyViewController, animated: true, completion: nil)
     }
 }
 
