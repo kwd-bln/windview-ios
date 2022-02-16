@@ -17,5 +17,11 @@ final class DateUtil {
     static func timeText(from date: Date) -> String {
         dateFormatter.string(from: date)
     }
+    
+    static func dateText(from date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy/MM/dd"
+        return df.string(from: date)
+    }
 }
 

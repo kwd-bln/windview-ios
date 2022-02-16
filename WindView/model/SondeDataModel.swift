@@ -17,6 +17,8 @@ protocol SondeDataModelInput {
     func fetchLatestSondeDataModel() async throws -> SondeData
     /// 指定した日時から遡って`duration`だけデータを取得する
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData]
+    /// 全てのsondeDataを取得する
+    func fetchSAllSondeDataList() async throws -> [SondeData]
 }
 
 final class SondeDataModel: SondeDataModelInput {
@@ -50,6 +52,10 @@ final class SondeDataModel: SondeDataModelInput {
             }
         }
     }
+    
+    func fetchSAllSondeDataList() async throws -> [SondeData] {
+        try await Firestore.fetchSondeDateList(from: nil, to: nil, limitCount: 50)
+    }
 }
 
 final class StubSondeDataModel: SondeDataModelInput {
@@ -74,6 +80,11 @@ final class StubSondeDataModel: SondeDataModelInput {
         } else {
             return []
         }
+    }
+    
+    func fetchSAllSondeDataList() async throws -> [SondeData] {
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+        return getDataList()
     }
     
     private func getDataList() -> [SondeData] {
