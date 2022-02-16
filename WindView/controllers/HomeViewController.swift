@@ -44,6 +44,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: views
     
+    var menuButtons: [UIButton] = []
+    
     var safeAreaGuide: UILayoutGuide {
         view.safeAreaLayoutGuide
     }
@@ -71,7 +73,6 @@ final class HomeViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .Palette.main
         
-        setupPVC()
         setupSubviews()
         viewModel.inputs.loadView()
         
@@ -107,7 +108,30 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setupPVC() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        for view in self.pageViewController.view.subviews {
+            if view is UIScrollView {
+                (view as? UIScrollView)!.delaysContentTouches = false
+            }
+        }
+    }
+}
+
+// MARK: - UI
+
+private extension HomeViewController {
+    func setupSubviews() {
+        setupPVC()
+        view.addSubview(bottomControlView)
+        bottomControlView.snp.makeConstraints { make in
+            make.top.equalTo(pageViewController.view.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+    }
+    
+    func setupPVC() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
@@ -124,24 +148,6 @@ final class HomeViewController: UIViewController {
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
-    }
-    
-    private func setupSubviews() {
-        view.addSubview(bottomControlView)
-        bottomControlView.snp.makeConstraints { make in
-            make.top.equalTo(pageViewController.view.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        for view in self.pageViewController.view.subviews {
-            if view is UIScrollView {
-                (view as? UIScrollView)!.delaysContentTouches = false
-            }
-        }
     }
 }
 
