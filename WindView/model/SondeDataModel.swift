@@ -18,7 +18,17 @@ protocol SondeDataModelInput {
     /// 指定した日時から遡って`duration`だけデータを取得する
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData]
     /// 全てのsondeDataを取得する
-    func fetchSAllSondeDataList() async throws -> [SondeData]
+    func fetchAllSondeDataList() async throws -> [SondeData]
+    /// UserDefaultsのselectedDateを設定する
+    func setSelectedDate(_ date: Date?)
+}
+
+// MARK: - デフォルト実装
+
+extension SondeDataModelInput {
+    func setSelectedDate(_ date: Date?) {
+        UserDefaults.standard.selectedDate = date
+    }
 }
 
 final class SondeDataModel: SondeDataModelInput {
@@ -53,7 +63,7 @@ final class SondeDataModel: SondeDataModelInput {
         }
     }
     
-    func fetchSAllSondeDataList() async throws -> [SondeData] {
+    func fetchAllSondeDataList() async throws -> [SondeData] {
         try await Firestore.fetchSondeDateList(from: nil, to: nil, limitCount: 50)
     }
 }
@@ -82,7 +92,7 @@ final class StubSondeDataModel: SondeDataModelInput {
         }
     }
     
-    func fetchSAllSondeDataList() async throws -> [SondeData] {
+    func fetchAllSondeDataList() async throws -> [SondeData] {
         try await Task.sleep(nanoseconds: 1_000_000_000)
         return getDataList()
     }
