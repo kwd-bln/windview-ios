@@ -114,13 +114,6 @@ final class HomeViewController: UIViewController {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
-        NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 45),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pageViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            pageViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        
         pageViewController.view.snp.makeConstraints {
             $0.top.equalTo(safeAreaGuide).offset(45)
             $0.left.right.equalToSuperview()
