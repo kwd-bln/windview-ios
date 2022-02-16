@@ -54,6 +54,7 @@
 		C9AE011927BBE12D00277E0F /* BottomControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011827BBE12D00277E0F /* BottomControlView.swift */; };
 		C9AE011B27BBE63600277E0F /* UIImage++extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011A27BBE63600277E0F /* UIImage++extension.swift */; };
 		C9AE011D27BBE90200277E0F /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011C27BBE90200277E0F /* HistoryViewController.swift */; };
+		C9AE012027BCFE6E00277E0F /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011F27BCFE6E00277E0F /* HistoryCell.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -133,6 +134,7 @@
 		C9AE011827BBE12D00277E0F /* BottomControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomControlView.swift; sourceTree = "<group>"; };
 		C9AE011A27BBE63600277E0F /* UIImage++extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++extension.swift"; sourceTree = "<group>"; };
 		C9AE011C27BBE90200277E0F /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		C9AE011F27BCFE6E00277E0F /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -284,9 +286,18 @@
 			path = ColorLayerTable;
 			sourceTree = "<group>";
 		};
+		C9AE011E27BCFE5600277E0F /* History */ = {
+			isa = PBXGroup;
+			children = (
+				C9AE011F27BCFE6E00277E0F /* HistoryCell.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		C9D64AE727B14D7600A9631E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				C9AE011E27BCFE5600277E0F /* History */,
 				C9072A6B27B68BD2001397D6 /* SpeedChart */,
 				C9072A6627B64A5A001397D6 /* DistanceChart */,
 				C9AE010B27BAAC7800277E0F /* ColorLayerTable */,
@@ -514,6 +525,7 @@
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,
 				C9072A5327B531A0001397D6 /* ColorLayerTableViewController.swift in Sources */,
+				C9AE012027BCFE6E00277E0F /* HistoryCell.swift in Sources */,
 				C9AE011927BBE12D00277E0F /* BottomControlView.swift in Sources */,
 				C95E30D427AC22F7001D9088 /* AppDelegate.swift in Sources */,
 				C9072A6327B5FC80001397D6 /* FirebaseFireStore+extension.swift in Sources */,

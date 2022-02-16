@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HistoryViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
@@ -24,10 +25,10 @@ final class HistoryViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .Palette.main
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: "\(HistoryCell.self)")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.style
+        tableView.backgroundColor = .clear
         
         fetchLatestSondeDataList()
         view.addSubview(tableView)
@@ -70,12 +71,17 @@ private extension HistoryViewController {
 
 extension HistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let date = sondeDataListWithDate[indexPath.section].dataList[indexPath.row].measuredAt.dateValue()
-        cell.textLabel?.text = DateUtil.timeText(from: date)
-        cell.accessoryType = .disclosureIndicator // > 表示
-        cell.textLabel?.numberOfLines = 0 // これを設定しないと文字数が多くなった時に改行しない
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(HistoryCell.self)", for: indexPath)
+        
+        guard let historyCell = cell as? HistoryCell else { return cell }
+        
+        let sondeData = sondeDataListWithDate[indexPath.section].dataList[indexPath.row]
+        let date = sondeData.measuredAt.dateValue()
+        let time = DateUtil.timeText(from: date)
+        let place = sondeData.locationText
+        
+        historyCell.set(time: time, place: place)
+        return historyCell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,10 +101,10 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        24
+        30
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        30
+        34
     }
 }
