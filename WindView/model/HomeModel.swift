@@ -10,8 +10,10 @@ import RxSwift
 import RxCocoa
 
 protocol HomeModelInput {
-    func fetchCurrentSondeDataList() async throws -> [SondeData]
     var dataSettingObservable: Observable<DataSettings> { get }
+    
+    func fetchCurrentSondeDataList() async throws -> [SondeData]
+    func updateCurrentDate()
 }
 
 final class HomeModel: HomeModelInput {
@@ -36,5 +38,14 @@ final class HomeModel: HomeModelInput {
     func fetchCurrentSondeDataList() async throws -> [SondeData] {
         try await sondeDataModel.fetchSondeDataList(at: dataSettings.selectedDate,
                                                     duration: dataSettings.useDataDuration)
+    }
+    
+    func updateCurrentDate() {
+        guard let selectedDate = UserDefaults.standard.selectedDate else { return }
+        if dataSettings.selectedDate != selectedDate {
+            let newSettings = DataSettings(useDataDuration: dataSettings.useDataDuration,
+                                           selectedDate: selectedDate)
+            dataSettingBehaviorRelay.accept(newSettings)
+        }
     }
 }

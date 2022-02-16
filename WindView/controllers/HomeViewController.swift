@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController {
         let pvc = UIPageViewController(transitionStyle: .scroll,
                                        navigationOrientation: .horizontal,
                                        options: nil)
-        pvc.view.backgroundColor = .white
+        pvc.view.backgroundColor = .clear
         return pvc
     }()
     
@@ -171,8 +171,9 @@ extension HomeViewController: UIPageViewControllerDataSource {
 
 extension HomeViewController {
     func showHistoryViewController() {
-        let histroyViewController = HistoryViewController()
-        present(histroyViewController, animated: true, completion: nil)
+        let historyViewController = HistoryViewController()
+        historyViewController.presentationController?.delegate = self
+        present(historyViewController, animated: true, completion: nil)
     }
 }
 
@@ -192,3 +193,8 @@ extension HomeViewController: UIPageViewControllerDelegate {
     }
 }
 
+extension HomeViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        viewModel.inputs.reAppearView()
+    }
+}

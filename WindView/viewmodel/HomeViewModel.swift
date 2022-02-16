@@ -13,6 +13,8 @@ import RxCocoa
 
 protocol HomeViewModelInput {
     func loadView()
+    func reAppearView()
+    
     var zoomButtonTap: AnyObserver<Void> { get }
     var distFromButtonTap: AnyObserver<Void> { get }
 }
@@ -30,6 +32,8 @@ protocol HomeViewModelType {
 }
 
 final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
+    let disposeBag = DisposeBag()
+    
     // MARK: inputs
     
     var zoomButtonTap: AnyObserver<Void>
@@ -66,13 +70,27 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         self.distFromButtonTap = AnyObserver<Void>() { _ in
             _isDistFrom.accept(!_isDistFrom.value)
         }
+        
+        model.dataSettingObservable
+            .subscribe(onNext: { [weak self] _ in
+                self?.updateSondeDataList()
+            })
+            .disposed(by: disposeBag)
     }
     
     func loadView() {
+        updateSondeDataList()
+    }
+    
+    private func updateSondeDataList() {
         Task {
             let currentDataList = try await model.fetchCurrentSondeDataList()
             self._sondeDataList.accept(currentDataList)
         }
+    }
+    
+    func reAppearView() {
+        model.updateCurrentDate()
     }
     
     var dateSettings: Driver<DataSettings> {
