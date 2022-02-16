@@ -43,6 +43,15 @@ final class HomeViewController: UIViewController {
     let viewModel: HomeViewModelType
     
     // MARK: views
+    /// menuButtonを置くためのStackView
+    var menuStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
+        stack.spacing = 8
+        return stack
+    }()
     
     var menuButtons: [UIButton] = []
     
@@ -124,6 +133,15 @@ final class HomeViewController: UIViewController {
 private extension HomeViewController {
     func setupSubviews() {
         setupPVC()
+        setupMenuStackView()
+        view.addSubview(menuStackView)
+        menuStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(pageViewController.view.snp.top)
+            make.left.greaterThanOrEqualToSuperview().priority(.low)
+            make.right.lessThanOrEqualToSuperview().priority(.low)
+            make.centerX.equalToSuperview().priority(.medium)
+        }
+        
         view.addSubview(bottomControlView)
         bottomControlView.snp.makeConstraints { make in
             make.top.equalTo(pageViewController.view.snp.bottom)
@@ -148,6 +166,25 @@ private extension HomeViewController {
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
+    }
+    
+    func setupMenuStackView() {
+        menuTitles.forEach { menuTitle in
+            let menuButton = UIButton.createMenuButton(text: menuTitle)
+            menuStackView.addArrangedSubview(menuButton)
+            menuButton.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+            }
+        }
+    }
+}
+
+// MARK: childs
+
+extension HomeViewController {
+    ///
+    var menuTitles: [String] {
+        childVCList.map { $0.menuTitle }
     }
 }
 
