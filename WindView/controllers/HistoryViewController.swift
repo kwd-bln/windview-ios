@@ -41,7 +41,10 @@ final class HistoryViewController: UIViewController {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         
+        closeButton.addTarget(self, action: #selector(didPushCloseButton), for: .touchUpInside)
+        
         fetchLatestSondeDataList()
+        
         view.addSubview(tableView)
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
@@ -60,13 +63,23 @@ final class HistoryViewController: UIViewController {
             make.top.equalToSuperview().offset(44)
         }
     }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else { return }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+    }
 }
 
 
 private extension HistoryViewController {
+    @objc func didPushCloseButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func fetchLatestSondeDataList() {
         Task {
-            sondeDataList = try await model.fetchSAllSondeDataList()
+            sondeDataList = try await model.fetchAllSondeDataList()
         }
     }
     
@@ -129,5 +142,11 @@ extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         34
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sondeData = sondeDataListWithDate[indexPath.section].dataList[indexPath.row]
+        model.setSelectedDate(sondeData.measuredAt.dateValue())
+        dismiss(animated: true, completion: nil)
     }
 }
