@@ -9,6 +9,17 @@ import UIKit
 import RxSwift
 
 final class HistoryViewController: UIViewController {
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 13, weight: .bold)
+        label.textColor = .Palette.text
+        label.text = "履歴"
+        return label
+    }()
+    
+    private let closeButton: UIButton = CloseButton(frame: .zero)
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private var sondeDataList: [SondeData] = [] {
         didSet {
@@ -32,9 +43,21 @@ final class HistoryViewController: UIViewController {
         
         fetchLatestSondeDataList()
         view.addSubview(tableView)
+        view.addSubview(titleLabel)
+        view.addSubview(closeButton)
+        titleLabel.snp.makeConstraints { make in
+            make.top.centerX.equalToSuperview()
+            make.height.equalTo(44)
+        }
+        
+        closeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
         tableView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.top.equalToSuperview().offset(36)
+            make.top.equalToSuperview().offset(44)
         }
     }
 }
