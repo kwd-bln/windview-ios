@@ -56,6 +56,7 @@
 		C9AE011D27BBE90200277E0F /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011C27BBE90200277E0F /* HistoryViewController.swift */; };
 		C9AE012027BCFE6E00277E0F /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE011F27BCFE6E00277E0F /* HistoryCell.swift */; };
 		C9AE012227BD07CF00277E0F /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE012127BD07CF00277E0F /* CloseButton.swift */; };
+		C9AE012427BD0CD800277E0F /* UserDefaults+properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE012327BD0CD800277E0F /* UserDefaults+properties.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -137,6 +138,7 @@
 		C9AE011C27BBE90200277E0F /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		C9AE011F27BCFE6E00277E0F /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		C9AE012127BD07CF00277E0F /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		C9AE012327BD0CD800277E0F /* UserDefaults+properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+properties.swift"; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */,
 				C9072A6727B64B49001397D6 /* UILabel+extension.swift */,
 				C9AE011A27BBE63600277E0F /* UIImage++extension.swift */,
+				C9AE012327BD0CD800277E0F /* UserDefaults+properties.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				C9E5FB6C27B33ADD00538B09 /* HomeViewController.swift in Sources */,
 				C9E5FB7127B3EE9000538B09 /* HomeViewModel.swift in Sources */,
 				C9072A7427B7B12E001397D6 /* CGContext+extension.swift in Sources */,
+				C9AE012427BD0CD800277E0F /* UserDefaults+properties.swift in Sources */,
 				C9D64AEE27B150D400A9631E /* Utils.swift in Sources */,
 				C9AE012227BD07CF00277E0F /* CloseButton.swift in Sources */,
 				C9072A4F27B53169001397D6 /* SpeedChartViewController.swift in Sources */,
