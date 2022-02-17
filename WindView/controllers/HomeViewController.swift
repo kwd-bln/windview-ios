@@ -41,6 +41,7 @@ final class HomeViewController: UIViewController {
     }
     
     let viewModel: HomeViewModelType
+    var firstOpen: Bool = true
     
     // MARK: views
     /// menuButtonを置くためのStackView
@@ -49,8 +50,27 @@ final class HomeViewController: UIViewController {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .fill
-        stack.spacing = 8
+        stack.spacing = 0
         return stack
+    }()
+    
+    /// holeの中だけ見えるScrollView
+    private let hiddenMenuStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
+        stack.spacing = 0
+        stack.backgroundColor = .Palette.text
+        return stack
+    }()
+    
+    /// 選ばれているmenuを示すmask
+    var currentHole: CAShapeLayer = {
+        let maskLayer = CAShapeLayer()
+        maskLayer.fillRule = .evenOdd
+        maskLayer.fillColor = UIColor.white.cgColor
+        return maskLayer
     }()
     
     var menuButtons: [UIButton] = []
@@ -126,6 +146,14 @@ final class HomeViewController: UIViewController {
             }
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if firstOpen, menuButtons[1].frame.origin.x > 0 {
+            updateCurrentHole(currentIndex: 0, moveToIndex: 1, ratio: 0)
+            firstOpen = false
+        }
+    }
 }
 
 // MARK: - UI
@@ -134,13 +162,6 @@ private extension HomeViewController {
     func setupSubviews() {
         setupPVC()
         setupMenuStackView()
-        view.addSubview(menuStackView)
-        menuStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(pageViewController.view.snp.top)
-            make.left.greaterThanOrEqualToSuperview().priority(.low)
-            make.right.lessThanOrEqualToSuperview().priority(.low)
-            make.centerX.equalToSuperview().priority(.medium)
-        }
         
         view.addSubview(bottomControlView)
         bottomControlView.snp.makeConstraints { make in
@@ -152,6 +173,11 @@ private extension HomeViewController {
     func setupPVC() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
+        pageViewController.view.subviews
+            .filter { $0 is UIScrollView }
+            .forEach {
+                ($0 as? UIScrollView)?.delegate = self
+            }
         
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
@@ -162,19 +188,43 @@ private extension HomeViewController {
             $0.bottom.equalTo(safeAreaGuide).offset(-60)
         }
         
-        pageViewController.setViewControllers([childControllers[2]],
+        pageViewController.setViewControllers([childControllers[0]],
                                               direction: .forward,
                                               animated: true,
                                               completion: nil)
     }
     
     func setupMenuStackView() {
+        hiddenMenuStackView.layer.mask = currentHole
         menuTitles.forEach { menuTitle in
-            let menuButton = UIButton.createMenuButton(text: menuTitle)
+            let menuButton = UIButton.createMenuButton(text: menuTitle, textColor: .Palette.text)
             menuStackView.addArrangedSubview(menuButton)
             menuButton.snp.makeConstraints { make in
                 make.top.bottom.equalToSuperview()
             }
+            menuButtons.append(menuButton)
+            
+            let hiddenButton = UIButton.createMenuButton(text: menuTitle, textColor: .Palette.main)
+            hiddenMenuStackView.addArrangedSubview(hiddenButton)
+            hiddenButton.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+            }
+        }
+        
+        view.addSubview(menuStackView)
+        menuStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(pageViewController.view.snp.top)
+            make.left.greaterThanOrEqualToSuperview().priority(.low)
+            make.right.lessThanOrEqualToSuperview().priority(.low)
+            make.centerX.equalToSuperview().priority(.medium)
+        }
+        
+        view.addSubview(hiddenMenuStackView)
+        hiddenMenuStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(pageViewController.view.snp.top)
+            make.left.greaterThanOrEqualToSuperview().priority(.low)
+            make.right.lessThanOrEqualToSuperview().priority(.low)
+            make.centerX.equalToSuperview().priority(.medium)
         }
     }
 }
@@ -236,8 +286,48 @@ extension HomeViewController: UIPageViewControllerDelegate {
     }
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
+
 extension HomeViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         viewModel.inputs.reAppearView()
     }
 }
+
+// MARK: - UIScrollViewDelegate
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // viewControllerがsetViewControllersによってアニメーション中には以下を呼ばない。
+        let parentWidth = view.frame.width
+        let leftRightJug = parentWidth - scrollView.contentOffset.x
+        if leftRightJug == 0 {
+            return
+        }
+
+        let moveToIndex = leftRightJug > 0 ? currentPageIndex - 1 : currentPageIndex + 1
+
+        // スクロール量に合わせてメニュータブの位置をコントロールする。
+        if moveToIndex >= 0, moveToIndex <= childControllers.count - 1 {
+            let moveRatio = abs(leftRightJug) / parentWidth
+            updateCurrentHole(currentIndex: currentPageIndex, moveToIndex: moveToIndex, ratio: moveRatio)
+        }
+    }
+    
+    private func updateCurrentHole(currentIndex: Int, moveToIndex: Int, ratio: CGFloat) {
+        let currentMenuButton = menuButtons[currentIndex]
+        let moveToButton = menuButtons[moveToIndex]
+        
+        let leftRatio = currentIndex < moveToIndex ? 1 - ratio : ratio
+        let currentX = currentMenuButton.frame.minX * leftRatio + currentMenuButton.frame.maxX * (1 - leftRatio)
+        let moveToX = moveToButton.frame.minX * leftRatio + moveToButton.frame.maxX * (1 - leftRatio)
+        let x = min(currentX, moveToX)
+        let width = abs(moveToX - currentX)
+        
+        let rect: CGRect = .init(x: x, y: currentMenuButton.frame.minY, width: width, height: currentMenuButton.frame.height)
+        
+        let maskPath = UIBezierPath(roundedRect: rect, cornerRadius: currentMenuButton.frame.height / 2)
+        currentHole.path = maskPath.cgPath
+    }
+}
+
