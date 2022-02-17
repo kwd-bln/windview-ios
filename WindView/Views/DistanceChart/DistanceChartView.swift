@@ -94,7 +94,7 @@ extension DistanceChartView {
                               distData: firstData,
                               unit: unitDistance,
                               isTo: false,
-                              color: .black)
+                              color: .Palette.text)
         }
     }
     
