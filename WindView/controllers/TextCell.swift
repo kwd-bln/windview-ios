@@ -16,16 +16,16 @@ class TextCell: UICollectionViewCell {
         }
     }
     
-    override var isSelected: Bool {
+    var isFeatured: Bool = false {
         didSet {
-            label.textColor = isSelected ? UIColor.Palette.main : titleColor
+            updateColor()
         }
     }
     
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = UIColor.Palette.grayText
         return label
     }()
@@ -62,18 +62,17 @@ class TextCell: UICollectionViewCell {
     }
     
     private var currentBackgroundColor: UIColor? {
-        nil
+        isFeatured ? targetColor : nil
     }
     
     private var titleColor: UIColor {
-        targetColor
+        isFeatured ? UIColor.Palette.main : targetColor
     }
     
     private func updateColor() {
         layer.borderColor = targetColor.cgColor
         label.textColor = titleColor
         backgroundColor = currentBackgroundColor
-        selectedBackgroundView?.backgroundColor = targetColor
     }
 }
 

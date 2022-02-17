@@ -21,7 +21,7 @@ final class DistanceChartViewController: UIViewController {
         button.tintColor = UIColor.Palette.grayText
         button.layer.borderColor = UIColor(hex: "444444").cgColor
         button.layer.borderWidth = 1
-        button.contentEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
+        button.contentEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
         button.layer.cornerRadius = 3
         return button
     }()
@@ -85,7 +85,7 @@ final class DistanceChartViewController: UIViewController {
         }
         
         zoomButton.snp.makeConstraints {
-            $0.size.equalTo(CGSize(width: 24, height: 24))
+            $0.size.equalTo(CGSize(width: 40, height: 40))
             $0.right.equalTo(distanceChartView).offset(-8)
             $0.bottom.equalTo(distanceChartView).offset(-8)
         }

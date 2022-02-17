@@ -61,6 +61,7 @@ final class SpeedChartViewController: UIViewController {
             if sondeDataList.count == 0 { return }
             self?.speedChartView.set(sondeData: sondeDataList[selectedIndex])
             self?.updateText(by: sondeDataList[selectedIndex])
+            self?.timeCollectionView.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -79,7 +80,8 @@ private extension SpeedChartViewController {
         view.addSubview(timeCollectionView)
         
         timeCollectionView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.top.greaterThanOrEqualToSuperview().offset(12)
         }
         
         timeLabel.snp.makeConstraints {
@@ -90,7 +92,7 @@ private extension SpeedChartViewController {
         speedChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().offset(-16)
-            $0.top.equalTo(timeCollectionView.snp.bottom).offset(32)
+            $0.top.equalTo(timeCollectionView.snp.bottom).offset(40)
             $0.width.equalTo(speedChartView.snp.height)
         }
     }
@@ -129,12 +131,12 @@ extension SpeedChartViewController: UICollectionViewDelegateFlowLayout {
                         layout _: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let label = UILabel(frame: CGRect.zero)
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 16)
         let date = viewModel.presenter.sondeData(at: indexPath.row).measuredAt.dateValue()
         label.text = DateUtil.timeText(from: date)
         label.sizeToFit()
         let size = label.frame.size
-        return CGSize(width: size.width + 8, height: size.height + 9)
+        return CGSize(width: size.width + 12, height: size.height + 8)
     }
 }
 
@@ -158,6 +160,7 @@ extension SpeedChartViewController: UICollectionViewDataSource {
                       to: textCell,
                       color: UIColor.number(viewModel.presenter.numOfSondeData - indexPath.row - 1,
                                             max: viewModel.presenter.numOfSondeData))
+        textCell.isFeatured = viewModel.presenter.selectedIndexValue == indexPath.row
         return textCell
     }
 }

@@ -11,16 +11,16 @@ class BottomControlView: UIView {
     
     let settingView = BottomButtonView(
         frame: .zero,
-        width: 44,
+        width: 50,
         image: UIImage(systemName: "gear"),
-        imageWidth: 28
+        imageWidth: 32
     )
     
     let historyButton = BottomButtonView(
         frame: .zero,
-        width: 44,
+        width: 50,
         image: UIImage(systemName: "calendar"),
-        imageWidth: 28
+        imageWidth: 32
     )
     
     override init(frame: CGRect) {

@@ -183,9 +183,9 @@ private extension HomeViewController {
         view.addSubview(pageViewController.view)
         
         pageViewController.view.snp.makeConstraints {
-            $0.top.equalTo(safeAreaGuide).offset(45)
+            $0.top.equalTo(safeAreaGuide).offset(60)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(safeAreaGuide).offset(-60)
+            $0.bottom.equalTo(safeAreaGuide).offset(-72)
         }
         
         pageViewController.setViewControllers([childControllers[0]],
