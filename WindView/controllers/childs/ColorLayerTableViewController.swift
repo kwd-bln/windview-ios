@@ -40,7 +40,7 @@ final class ColorLayerTableViewController: UIViewController {
         
         view.addSubview(horizontalStack)
         horizontalStack.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-24)
             make.left.equalToSuperview().offset(16)
         }
     }

@@ -36,7 +36,7 @@ final class DistanceChartViewController: UIViewController {
         button.tintColor = UIColor.Palette.grayText
         button.layer.borderColor = UIColor(hex: "444444").cgColor
         button.layer.borderWidth = 1
-        button.contentEdgeInsets = .init(top: 6, left: 8, bottom: 6, right: 8)
+        button.contentEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
         button.layer.cornerRadius = 3
         return button
     }()

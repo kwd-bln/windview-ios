@@ -10,7 +10,7 @@ import UIKit
 final class TextLayerBlock: UIView {
     let textLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "222222")
+        label.textColor = .Palette.text
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
@@ -29,7 +29,7 @@ final class TextLayerBlock: UIView {
         addSubview(textLabel)
         
         snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 44, height: 17))
+            make.size.equalTo(CGSize(width: 50, height: 20))
         }
         
         textLabel.snp.makeConstraints {

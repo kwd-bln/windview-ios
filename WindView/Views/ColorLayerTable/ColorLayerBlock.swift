@@ -11,16 +11,16 @@ import UIKit
 final class ColorLayerBlock: UIView {
     let degreeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "222222")
-        label.font = .systemFont(ofSize: 11)
+        label.textColor = .Palette.text
+        label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
     }()
     
     let speedLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "222222")
-        label.font = .systemFont(ofSize: 9)
+        label.textColor = .Palette.text
+        label.font = .systemFont(ofSize: 10)
         label.textAlignment = .center
         return label
     }()
@@ -48,7 +48,7 @@ final class ColorLayerBlock: UIView {
         addSubview(speedLabel)
         
         snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 44, height: 17))
+            make.size.equalTo(CGSize(width: 50, height: 20))
         }
         
         centerBorderView.snp.makeConstraints { make in
@@ -59,7 +59,7 @@ final class ColorLayerBlock: UIView {
         }
         
         degreeLabel.snp.makeConstraints {
-            $0.width.equalTo(23)
+            $0.width.equalTo(26)
             $0.top.left.bottom.equalToSuperview()
         }
         
