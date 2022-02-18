@@ -109,13 +109,13 @@ final class DistanceChartViewController: UIViewController {
         
         timeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.greaterThanOrEqualToSuperview().offset(12)
+            $0.top.equalTo(distanceChartView.snp.bottom).offset(16)
         }
         
         distanceChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().offset(-16)
-            $0.top.equalTo(timeCollectionView.snp.bottom).offset(40)
+            $0.top.equalToSuperview().offset(60)
             $0.width.equalTo(distanceChartView.snp.height)
         }
         
