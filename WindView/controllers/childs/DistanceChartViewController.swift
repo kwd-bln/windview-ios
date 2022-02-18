@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 import RxCocoa
 import RxSwift
+import BetterSegmentedControl
 
 final class DistanceChartViewController: UIViewController {
-    // View
+    // MARK: View
     private let distanceChartView = DistanceChartView()
     private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
                                                          font: .hiraginoSans(style: .light, size: 12))
     
-    // MARK: View
     private let timeCollectionView: SelfResizingCollectionView = {
         let layout = LeftAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -40,6 +40,16 @@ final class DistanceChartViewController: UIViewController {
         button.layer.cornerRadius = 3
         return button
     }()
+    
+    private let toFromSegmentedControl = BetterSegmentedControl(
+        frame: .zero,
+        segments: LabelSegment.segments(withTitles: ["TO", "FROM"],
+                                        normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
+                                        selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
+        options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
+                  .indicatorViewBackgroundColor(.white),
+                  .cornerRadius(18)]
+    )
     
     private let fromButton: UIButton = {
         let button = UIButton()
@@ -68,6 +78,8 @@ final class DistanceChartViewController: UIViewController {
         fromButton.rx.tap
     }
     
+    var isFromSegmentSelectedRelay: BehaviorRelay<Bool> = .init(value: false)
+    
     private(set) var sondeDataList: [SondeData] = []
     
     init() {
@@ -85,11 +97,15 @@ final class DistanceChartViewController: UIViewController {
         timeCollectionView.delegate = self
         timeCollectionView.dataSource = self
         
+        toFromSegmentedControl.addTarget(self,
+                                         action: #selector(toFromSegmentedControlValueChanged(_:)),
+                                         for: .valueChanged)
+        
         view.addSubview(timeCollectionView)
         view.addSubview(timeLabel)
         view.addSubview(distanceChartView)
         view.addSubview(zoomButton)
-        view.addSubview(fromButton)
+        view.addSubview(toFromSegmentedControl)
         
         timeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -108,9 +124,10 @@ final class DistanceChartViewController: UIViewController {
             $0.left.equalTo(distanceChartView).offset(16)
         }
         
-        fromButton.snp.makeConstraints {
-            $0.bottom.equalTo(distanceChartView.snp.top).offset(-8)
-            $0.right.equalTo(distanceChartView).offset(-12)
+        toFromSegmentedControl.snp.makeConstraints { make in
+            make.bottom.equalTo(distanceChartView.snp.top).offset(-8)
+            make.right.equalTo(distanceChartView).offset(-12)
+            make.height.equalTo(36)
         }
         
         zoomButton.snp.makeConstraints {
@@ -133,6 +150,15 @@ final class DistanceChartViewController: UIViewController {
             timeLabel.text = "更新 \(timeText)"
         }
     }
+}
+
+// MARK: - segment control
+
+extension DistanceChartViewController {
+    @objc private func toFromSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        isFromSegmentSelectedRelay.accept(sender.index == 1)
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

@@ -125,8 +125,8 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
         
         distanceChartViewController
-            .fromButtonTap
-            .bind(to: viewModel.inputs.distFromButtonTap)
+            .isFromSegmentSelectedRelay
+            .bind(to: viewModel.inputs.distIsFromSegment)
             .disposed(by: disposeBag)
         
         bottomControlView.historyButton.button.rx.tap

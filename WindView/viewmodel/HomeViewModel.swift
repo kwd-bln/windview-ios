@@ -16,7 +16,7 @@ protocol HomeViewModelInput {
     func reAppearView()
     
     var zoomButtonTap: AnyObserver<Void> { get }
-    var distFromButtonTap: AnyObserver<Void> { get }
+    var distIsFromSegment: AnyObserver<Bool> { get }
 }
 
 protocol HomeViewModelOutput {
@@ -37,7 +37,7 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     // MARK: inputs
     
     var zoomButtonTap: AnyObserver<Void>
-    var distFromButtonTap: AnyObserver<Void>
+    var distIsFromSegment: AnyObserver<Bool>
     
     // MARK: outputs
     
@@ -67,8 +67,8 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         }
         
         // input
-        self.distFromButtonTap = AnyObserver<Void>() { _ in
-            _isDistFrom.accept(!_isDistFrom.value)
+        self.distIsFromSegment = AnyObserver<Bool>() { event in
+            _isDistFrom.accept(event.element ?? false)
         }
         
         model.dataSettingObservable
