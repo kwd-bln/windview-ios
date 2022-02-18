@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import BetterSegmentedControl
 
 final class SpeedChartViewController: UIViewController {
     // MARK: View
@@ -25,7 +26,17 @@ final class SpeedChartViewController: UIViewController {
         return collectionView
     }()
     
-    // viewModel:
+    private let toFromSegmentedControl = BetterSegmentedControl(
+        frame: .zero,
+        segments: LabelSegment.segments(withTitles: ["TO", "FROM"],
+                                        normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
+                                        selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
+        options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
+                  .indicatorViewBackgroundColor(.white),
+                  .cornerRadius(18)]
+    )
+    
+    // MARK: - viewModel
     
     let viewModel: SpeedViewModelType
     
@@ -52,14 +63,17 @@ final class SpeedChartViewController: UIViewController {
         timeCollectionView.delegate = self
         timeCollectionView.dataSource = self
         
+        toFromSegmentedControl.addTarget(self, action: #selector(toFromSegmentedControlValueChanged(_:)), for: .valueChanged)
+        
         setupSubviews()
         
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
-            viewModel.outputs.selectedIndex
-        ).drive { [weak self] sondeDataList, selectedIndex in
+            viewModel.outputs.selectedIndex,
+            viewModel.outputs.isFrom
+        ).drive { [weak self] sondeDataList, selectedIndex, isFrom in
             if sondeDataList.count == 0 { return }
-            self?.speedChartView.set(sondeData: sondeDataList[selectedIndex])
+            self?.speedChartView.set(sondeData: sondeDataList[selectedIndex], isFrom: isFrom)
             self?.updateText(by: sondeDataList[selectedIndex])
             self?.timeCollectionView.reloadData()
         }.disposed(by: disposeBag)
@@ -78,6 +92,7 @@ private extension SpeedChartViewController {
         view.addSubview(timeLabel)
         view.addSubview(speedChartView)
         view.addSubview(timeCollectionView)
+        view.addSubview(toFromSegmentedControl)
         
         timeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -95,6 +110,12 @@ private extension SpeedChartViewController {
             $0.top.equalTo(timeCollectionView.snp.bottom).offset(40)
             $0.width.equalTo(speedChartView.snp.height)
         }
+        
+        toFromSegmentedControl.snp.makeConstraints { make in
+            make.bottom.equalTo(speedChartView.snp.top).offset(-8)
+            make.right.equalTo(speedChartView).offset(-12)
+            make.height.equalTo(36)
+        }
     }
 }
 
@@ -103,6 +124,13 @@ private extension SpeedChartViewController {
     func updateText(by sondeData: SondeData) {
         let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
         timeLabel.text = "更新 \(timeText)"
+    }
+}
+
+// MARK: - objc
+private extension SpeedChartViewController {
+    @objc func toFromSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        viewModel.inputs.isFromSegmentControlChanged.onNext(sender.index == 1)
     }
 }
 

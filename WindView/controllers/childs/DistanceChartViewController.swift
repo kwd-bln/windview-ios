@@ -158,7 +158,6 @@ extension DistanceChartViewController {
     @objc private func toFromSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
         isFromSegmentSelectedRelay.accept(sender.index == 1)
     }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

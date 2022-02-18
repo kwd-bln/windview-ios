@@ -43,8 +43,9 @@ final class SpeedChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(sondeData: SondeData) {
+    func set(sondeData: SondeData, isFrom: Bool) {
         self.sondeData = sondeData
+        self.isTo = !isFrom
     }
 }
 
@@ -74,13 +75,15 @@ private extension SpeedChartView {
         let maxHeight = speedViewData.speedPoints.last?.altitude ?? 0
         let minHeight = speedViewData.speedPoints.first?.altitude ?? 0
         
+        let sign: CGFloat = isTo ? 1 : -1
+        
         speedViewData.speedPoints.forEach { alt, vector in
             // scaleされた点
             let scaledVector = vector * multiple
             
             context.move(to: rect.mid)
             context.setStrokeColor(color(alt, max: maxHeight, min: minHeight).cgColor)
-            context.addLine(to: rect.mid + scaledVector)
+            context.addLine(to: rect.mid + sign * scaledVector)
             context.strokePath()
         }
     }

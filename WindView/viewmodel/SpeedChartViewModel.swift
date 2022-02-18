@@ -11,12 +11,14 @@ import RxCocoa
 
 protocol SpeedViewModelInput {
     var timeButtonTap: AnyObserver<Int> { get }
+    var isFromSegmentControlChanged: AnyObserver<Bool> { get }
     func updateSondeDataList(_ values: [SondeData])
 }
 
 protocol SpeedViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var selectedIndex: Driver<Int> { get }
+    var isFrom: Driver<Bool> { get }
 }
 
 protocol SpeedViewModelPresenterOutput {
@@ -35,6 +37,7 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     // MARK: inputs
     
     var timeButtonTap: AnyObserver<Int>
+    var isFromSegmentControlChanged: AnyObserver<Bool>
     
     // MARK: outputs
     
@@ -44,6 +47,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     private let _selectedIndex: BehaviorRelay<Int>
     let selectedIndex: Driver<Int>
     
+    private let _isFrom: BehaviorRelay<Bool>
+    let isFrom: Driver<Bool>
+    
     init() {
         // outputs
         self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
@@ -51,11 +57,20 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         let _selectedIndex = BehaviorRelay<Int>.init(value: 0)
         self.selectedIndex = _selectedIndex.asDriver(onErrorJustReturn: 0)
         
+        let _isFrom = BehaviorRelay<Bool>.init(value: false)
+        self.isFrom = _isFrom.asDriver(onErrorJustReturn: false)
+        
         // inputs
         self.timeButtonTap = AnyObserver<Int>() { event in
             _selectedIndex.accept(event.element ?? 0)
         }
+        
+        self.isFromSegmentControlChanged = AnyObserver<Bool> { event in
+            _isFrom.accept(event.element ?? false)
+        }
+        
         self._selectedIndex = _selectedIndex
+        self._isFrom = _isFrom
     }
     
     func updateSondeDataList(_ values: [SondeData]) {
