@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import PKHUD
 
 final class HomeViewController: UIViewController {
     // MARK: PageViewController系
@@ -104,6 +105,7 @@ final class HomeViewController: UIViewController {
         
         setupSubviews()
         viewModel.inputs.loadView()
+        HUD.show(.progress, onView: view)
         
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
@@ -111,6 +113,7 @@ final class HomeViewController: UIViewController {
             viewModel.outputs.isDistFrom
         ).drive { [weak self] sondeDataList, csize, isDistFrom in
             if sondeDataList.count == 0 { return }
+            HUD.hide(afterDelay: 0.5)
             self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: !isDistFrom)
         }.disposed(by: disposeBag)
         

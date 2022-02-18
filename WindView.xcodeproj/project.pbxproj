@@ -59,6 +59,7 @@
 		C9AE012427BD0CD800277E0F /* UserDefaults+properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE012327BD0CD800277E0F /* UserDefaults+properties.swift */; };
 		C9AE012927BD38E200277E0F /* UIButton+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE012827BD38E100277E0F /* UIButton+extension.swift */; };
 		C9AE012C27BEAE6800277E0F /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = C9AE012B27BEAE6800277E0F /* BetterSegmentedControl */; };
+		C9AE013727BFBC2900277E0F /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C9AE013627BFBC2900277E0F /* PKHUD */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -168,6 +169,7 @@
 				C9AE012C27BEAE6800277E0F /* BetterSegmentedControl in Frameworks */,
 				C95E311227AC2C93001D9088 /* SnapKit in Frameworks */,
 				C9072A4227B401BE001397D6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				C9AE013727BFBC2900277E0F /* PKHUD in Frameworks */,
 				C9E5FB7727B3F0D500538B09 /* RxRelay in Frameworks */,
 				C9E5FB6927B2BEBC00538B09 /* GoogleSignIn in Frameworks */,
 			);
@@ -411,6 +413,7 @@
 				C9E5FB7827B3F0D500538B09 /* RxSwift */,
 				C9072A4127B401BE001397D6 /* FirebaseFirestoreSwift-Beta */,
 				C9AE012B27BEAE6800277E0F /* BetterSegmentedControl */,
+				C9AE013627BFBC2900277E0F /* PKHUD */,
 			);
 			productName = WindView;
 			productReference = C95E30D027AC22F7001D9088 /* WindView.app */;
@@ -490,6 +493,7 @@
 				C9E5FB6727B2BEBC00538B09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				C9E5FB7327B3F0D500538B09 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				C9AE012A27BEAE6700277E0F /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
+				C9AE013527BFBC2900277E0F /* XCRemoteSwiftPackageReference "PKHUD" */,
 			);
 			productRefGroup = C95E30D127AC22F7001D9088 /* Products */;
 			projectDirPath = "";
@@ -944,6 +948,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		C9AE013527BFBC2900277E0F /* XCRemoteSwiftPackageReference "PKHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkluz/PKHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		C9E5FB6727B2BEBC00538B09 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -997,6 +1009,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9AE012A27BEAE6700277E0F /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */;
 			productName = BetterSegmentedControl;
+		};
+		C9AE013627BFBC2900277E0F /* PKHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9AE013527BFBC2900277E0F /* XCRemoteSwiftPackageReference "PKHUD" */;
+			productName = PKHUD;
 		};
 		C9E5FB6827B2BEBC00538B09 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
