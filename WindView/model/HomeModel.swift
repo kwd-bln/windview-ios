@@ -13,7 +13,7 @@ protocol HomeModelInput {
     var dataSettingObservable: Observable<DataSettings> { get }
     
     func fetchCurrentSondeDataList() async throws -> [SondeData]
-    func updateCurrentDate()
+    func updateCurrentSettings()
 }
 
 final class HomeModel: HomeModelInput {
@@ -31,7 +31,9 @@ final class HomeModel: HomeModelInput {
     init(sondeDataModel: SondeDataModelInput = StubSondeDataModel()) {
         self.sondeDataModel = sondeDataModel
         
-        let ds = DataSettings(useDataDuration: 6, selectedDate: Date(timeIntervalSince1970: 1640992367))
+        let ds = DataSettings(useDataDuration: UserDefaults.standard.chartDisplayDuration,
+                              selectedDate: UserDefaults.standard.selectedDate,
+                              isTrueNorth: UserDefaults.standard.isTrueNorth)
         self.dataSettingBehaviorRelay = .init(value: ds)
     }
     
@@ -40,11 +42,16 @@ final class HomeModel: HomeModelInput {
                                                     duration: dataSettings.useDataDuration)
     }
     
-    func updateCurrentDate() {
+    func updateCurrentSettings() {
         guard let selectedDate = UserDefaults.standard.selectedDate else { return }
-        if dataSettings.selectedDate != selectedDate {
-            let newSettings = DataSettings(useDataDuration: dataSettings.useDataDuration,
-                                           selectedDate: selectedDate)
+        let isTrueNorth = UserDefaults.standard.isTrueNorth
+        let useDataDuration = UserDefaults.standard.chartDisplayDuration
+        if dataSettings.selectedDate != selectedDate
+            || dataSettings.isTrueNorth != isTrueNorth
+            || dataSettings.useDataDuration != useDataDuration {
+            let newSettings = DataSettings(useDataDuration: useDataDuration,
+                                           selectedDate: selectedDate,
+                                           isTrueNorth: isTrueNorth)
             dataSettingBehaviorRelay.accept(newSettings)
         }
     }

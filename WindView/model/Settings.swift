@@ -34,9 +34,13 @@ struct DataSettings {
     /// 指定したデータから何時間分のデータを取得するか
     let useDataDuration: Int
     let selectedDate: Date?
+    let isTrueNorth: Bool
     
-    init(useDataDuration: Int = 6, selectedDate: Date? = nil) {
+    init(useDataDuration: Int = 6,
+         selectedDate: Date? = nil,
+         isTrueNorth: Bool = true) {
         self.useDataDuration = useDataDuration
         self.selectedDate = selectedDate
+        self.isTrueNorth = isTrueNorth
     }
 }

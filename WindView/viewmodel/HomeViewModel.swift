@@ -90,7 +90,7 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     }
     
     func reAppearView() {
-        model.updateCurrentDate()
+        model.updateCurrentSettings()
     }
     
     var dateSettings: Driver<DataSettings> {
