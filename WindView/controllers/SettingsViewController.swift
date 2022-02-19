@@ -51,6 +51,7 @@ final class SettingsViewController: UIViewController {
         label.text = "6時間"
         return label
     }()
+    
     /// チャート表示期間
     let chartDurationSlider: UISlider = {
         let slider = UISlider()
@@ -64,6 +65,14 @@ final class SettingsViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .Palette.main
         closeButton.addTarget(self, action: #selector(didPushCloseButton), for: .touchUpInside)
+        directionSegmentedControl.addTarget(self,
+                                         action: #selector(directionSegmentedControlValueChanged(_:)),
+                                         for: .valueChanged)
+        
+        chartDurationSlider.addTarget(self, action: #selector(chartDurationSliderValueChanged(_:)), for: .valueChanged)
+        
+        setupFirstValue()
+        
         
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
@@ -118,6 +127,12 @@ private extension SettingsViewController {
             make.width.equalTo(200)
         }
     }
+    
+    func setupFirstValue() {
+        directionSegmentedControl.setIndex(UserDefaults.standard.isTrueNorth ? 0 : 1)
+        chartDurationSlider.value = Float(UserDefaults.standard.chartDisplayDuration)
+        chartDurationSliderLabel.text = "\(UserDefaults.standard.chartDisplayDuration)時間"
+    }
 }
 
 // MARK: - objc method
@@ -125,6 +140,21 @@ private extension SettingsViewController {
 private extension SettingsViewController {
     @objc func didPushCloseButton() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func directionSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        UserDefaults.standard.isTrueNorth = sender.index == 0
+    }
+    
+    @objc private func chartDurationSliderValueChanged(_ sender: UISlider) {
+        let roundValue = roundf(sender.value)
+                
+        // set round value
+        sender.value = roundValue
+        let intValue = Int(roundValue)
+        chartDurationSliderLabel.text = "\(intValue)時間"
+        
+        UserDefaults.standard.chartDisplayDuration = intValue
     }
 }
 
