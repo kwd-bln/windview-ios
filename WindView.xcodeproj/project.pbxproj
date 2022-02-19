@@ -61,6 +61,7 @@
 		C9AE012C27BEAE6800277E0F /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = C9AE012B27BEAE6800277E0F /* BetterSegmentedControl */; };
 		C9AE013727BFBC2900277E0F /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = C9AE013627BFBC2900277E0F /* PKHUD */; };
 		C9AE013927BFED1900277E0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013827BFED1800277E0F /* SettingsViewController.swift */; };
+		C9AE013B27C1464100277E0F /* HeightMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013A27C1464100277E0F /* HeightMap.swift */; };
 		C9D048F827B160BA0061D252 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D048F727B160BA0061D252 /* UIColor+extension.swift */; };
 		C9D64AE927B14DA500A9631E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AE827B14DA500A9631E /* CustomTextField.swift */; };
 		C9D64AEC27B14EB200A9631E /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */; };
@@ -145,6 +146,7 @@
 		C9AE012327BD0CD800277E0F /* UserDefaults+properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+properties.swift"; sourceTree = "<group>"; };
 		C9AE012827BD38E100277E0F /* UIButton+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+extension.swift"; sourceTree = "<group>"; };
 		C9AE013827BFED1800277E0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C9AE013A27C1464100277E0F /* HeightMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightMap.swift; sourceTree = "<group>"; };
 		C9D048F727B160BA0061D252 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		C9D64AE827B14DA500A9631E /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C9D64AEB27B14EB200A9631E /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				C9072A6C27B68BE4001397D6 /* SpeedChartView.swift */,
 				C9072A7027B69B82001397D6 /* SpeedChartViewData.swift */,
+				C9AE013A27C1464100277E0F /* HeightMap.swift */,
 			);
 			path = SpeedChart;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,
 				C9E5FB6F27B33C2900538B09 /* SondeData.swift in Sources */,
 				C9072A6D27B68BE4001397D6 /* SpeedChartView.swift in Sources */,
+				C9AE013B27C1464100277E0F /* HeightMap.swift in Sources */,
 				C9AE010827B95B0E00277E0F /* SpeedChartViewModel.swift in Sources */,
 				C9072A5927B5575C001397D6 /* UIBezierPath+extension.swift in Sources */,
 				C9072A6827B64B49001397D6 /* UILabel+extension.swift in Sources */,

@@ -36,14 +36,15 @@ final class SpeedChartViewController: UIViewController {
                   .cornerRadius(18)]
     )
     
-    // MARK: - viewModel
-    
-    let viewModel: SpeedViewModelType
-    
     private let speedChartView = SpeedChartView()
     private let timeLabel: UILabel = .createDefaultLabel("", color: .Palette.grayText,
                                                          font: .hiraginoSans(style: .light, size: 12))
+    private let heightMap = HeightMap(frame: .zero)
     
+    // MARK: - viewModel
+    
+    let viewModel: SpeedViewModelType
+
     // MARK: その他
     let disposeBag = DisposeBag()
     
@@ -77,6 +78,17 @@ final class SpeedChartViewController: UIViewController {
             self?.updateText(by: sondeDataList[selectedIndex])
             self?.timeCollectionView.reloadData()
         }.disposed(by: disposeBag)
+        
+        Driver.combineLatest(
+            viewModel.outputs.sondeDataList,
+            viewModel.outputs.selectedIndex
+        ).drive { [weak self] sondeDataList, selectedIndex in
+            if sondeDataList.count == 0 { return }
+            let sondeData = sondeDataList[selectedIndex]
+            let spdData = SpeedChartViewData(from: sondeData)
+            self?.heightMap.set(speedViewData: spdData)
+        }.disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +102,7 @@ final class SpeedChartViewController: UIViewController {
 private extension SpeedChartViewController {
     func setupSubviews() {
         view.addSubview(timeLabel)
+        view.addSubview(heightMap)
         view.addSubview(speedChartView)
         view.addSubview(timeCollectionView)
         view.addSubview(toFromSegmentedControl)
@@ -104,9 +117,14 @@ private extension SpeedChartViewController {
             $0.left.equalTo(speedChartView).offset(16)
         }
         
+        heightMap.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-8)
+            make.bottom.equalTo(speedChartView.snp.bottom).offset(-8)
+        }
+        
         speedChartView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(16)
-            $0.right.equalToSuperview().offset(-16)
+            $0.right.equalTo(heightMap.snp.left).offset(-4)
             $0.top.equalToSuperview().offset(60)
             $0.width.equalTo(speedChartView.snp.height)
         }
