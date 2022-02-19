@@ -138,6 +138,13 @@ final class HomeViewController: UIViewController {
                 self?.showHistoryViewController()
             })
             .disposed(by: disposeBag)
+        
+        bottomControlView.settingView.button.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.showSettingsViewController()
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -270,6 +277,12 @@ extension HomeViewController {
         let historyViewController = HistoryViewController()
         historyViewController.presentationController?.delegate = self
         present(historyViewController, animated: true, completion: nil)
+    }
+    
+    func showSettingsViewController() {
+        let settingsViewController = SettingsViewController()
+        settingsViewController.presentationController?.delegate = self
+        present(settingsViewController, animated: true, completion: nil)
     }
 }
 
