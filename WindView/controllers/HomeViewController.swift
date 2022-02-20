@@ -117,10 +117,18 @@ final class HomeViewController: UIViewController {
             self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: !isDistFrom)
         }.disposed(by: disposeBag)
         
-        viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
+        Driver.combineLatest(
+            viewModel.outputs.sondeDataList,
+            viewModel.outputs.dateSettings
+        ).drive { [weak self] sondeDataList, dataSettings in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
-            self?.colorLayerTableViewController.set(sondeDataList)
+            self?.speedChartViewController.viewModel.inputs.updateUseTrueNorth(dataSettings.isTrueNorth)
         }.disposed(by: disposeBag)
+        
+//        viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
+//            self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
+//            self?.colorLayerTableViewController.set(sondeDataList)
+//        }.disposed(by: disposeBag)
         
         distanceChartViewController
             .zoomButtonTap

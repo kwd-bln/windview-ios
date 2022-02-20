@@ -76,12 +76,14 @@ final class SpeedChartViewController: UIViewController {
             viewModel.outputs.sondeDataList,
             viewModel.outputs.selectedIndex,
             viewModel.outputs.isFrom,
-            viewModel.outputs.selectedHeightIndex
-        ).drive { [weak self] sondeDataList, selectedIndex, isFrom, selectedHeightIndex in
+            viewModel.outputs.selectedHeightIndex,
+            viewModel.outputs.useTN
+        ).drive { [weak self] sondeDataList, selectedIndex, isFrom, selectedHeightIndex, useTN in
             if sondeDataList.count == 0 { return }
             self?.speedChartView.set(sondeData: sondeDataList[selectedIndex],
                                      isFrom: isFrom,
-                                     featuredIndex: selectedHeightIndex)
+                                     featuredIndex: selectedHeightIndex,
+                                     useTN: useTN)
             self?.updateText(by: sondeDataList[selectedIndex])
             self?.timeCollectionView.reloadData()
         }.disposed(by: disposeBag)
@@ -92,7 +94,7 @@ final class SpeedChartViewController: UIViewController {
         ).drive { [weak self] sondeDataList, selectedIndex in
             if sondeDataList.count == 0 { return }
             let sondeData = sondeDataList[selectedIndex]
-            let spdData = SpeedChartViewData(from: sondeData)
+            let spdData = SpeedChartViewData(from: sondeData, useTN: true)
             self?.heightMap.set(speedViewData: spdData)
         }.disposed(by: disposeBag)
         

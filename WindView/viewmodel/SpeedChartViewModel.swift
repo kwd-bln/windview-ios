@@ -14,6 +14,7 @@ protocol SpeedViewModelInput {
     var isFromSegmentControlChanged: AnyObserver<Bool> { get }
     var selectedHieightIndexValueChanged: AnyObserver<Int?> { get }
     func updateSondeDataList(_ values: [SondeData])
+    func updateUseTrueNorth(_ bool: Bool)
 }
 
 protocol SpeedViewModelOutput {
@@ -21,6 +22,7 @@ protocol SpeedViewModelOutput {
     var selectedIndex: Driver<Int> { get }
     var selectedHeightIndex: Driver<Int?> { get }
     var isFrom: Driver<Bool> { get }
+    var useTN: Driver<Bool> { get }
 }
 
 protocol SpeedViewModelPresenterOutput {
@@ -51,6 +53,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     let selectedIndex: Driver<Int>
     
     private let _isFrom: BehaviorRelay<Bool>
+    let useTN: Driver<Bool>
+    
+    private let _useTN: BehaviorRelay<Bool>
     let isFrom: Driver<Bool>
     
     private let _selectedHeightIndex: BehaviorRelay<Int?>
@@ -65,6 +70,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         
         let _isFrom = BehaviorRelay<Bool>.init(value: false)
         self.isFrom = _isFrom.asDriver(onErrorJustReturn: false)
+        
+        let _useTN = BehaviorRelay<Bool>.init(value: true)
+        self.useTN = _useTN.asDriver(onErrorJustReturn: true)
         
         let _selectedHeightIndex = BehaviorRelay<Int?>.init(value: nil)
         self.selectedHeightIndex = _selectedHeightIndex.asDriver(onErrorJustReturn: nil)
@@ -84,11 +92,16 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         
         self._selectedIndex = _selectedIndex
         self._isFrom = _isFrom
+        self._useTN = _useTN
         self._selectedHeightIndex = _selectedHeightIndex
     }
     
     func updateSondeDataList(_ values: [SondeData]) {
         _sondeDataList.accept(values)
+    }
+    
+    func updateUseTrueNorth(_ bool: Bool) {
+        _useTN.accept(bool)
     }
 }
 

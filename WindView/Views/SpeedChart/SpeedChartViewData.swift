@@ -12,16 +12,16 @@ struct SpeedChartViewData {
     let magDeclination: CGFloat
     let speedPoints: [(altitude: CGFloat, speedPoint: CGPoint)]
     
-    init(from sondeData: SondeData) {
+    init(from sondeData: SondeData, useTN: Bool) {
         self.magDeclination = sondeData.magDeclination
-        self.speedPoints = sondeData.speedPoint()
+        self.speedPoints = sondeData.speedPoint(useTN: useTN)
     }
 }
 
 private extension SondeData {
-    func speedPoint() -> [(altitude: CGFloat, speedPoint: CGPoint)] {
+    func speedPoint(useTN: Bool = true) -> [(altitude: CGFloat, speedPoint: CGPoint)] {
         values.map { item in
-            let degree: CGFloat = degree(with: item).toRadian
+            let degree: CGFloat = degree(with: item, useTN: useTN).toRadian
             let vx = item.windspeed * sin(degree)
             let vy = -item.windspeed * cos(degree)
             let v = CGPoint(x: vx, y: vy)

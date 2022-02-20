@@ -20,6 +20,8 @@ final class SpeedChartView: UIView {
     
     private var isTo: Bool = true
     private var featuredIndex: Int? = nil
+    /// 真北を使うかどうか
+    private var useTN: Bool = true
     
     init() {
         super.init(frame: .zero)
@@ -46,10 +48,12 @@ final class SpeedChartView: UIView {
     
     func set(sondeData: SondeData,
              isFrom: Bool,
-             featuredIndex: Int?) {
+             featuredIndex: Int?,
+             useTN: Bool) {
         self.sondeData = sondeData
         self.isTo = !isFrom
         self.featuredIndex = featuredIndex
+        self.useTN = useTN
     }
 }
 
@@ -63,7 +67,7 @@ private extension SpeedChartView {
         let unitSpeed = calcUnitSpeed(maxSpeed)
         drawScales(rect, in: context, unitSpeed: unitSpeed)
         
-        let speedViewData = SpeedChartViewData(from: sondeData)
+        let speedViewData = SpeedChartViewData(from: sondeData, useTN: useTN)
         drawChartLines(in: context, with: rect, speedViewData: speedViewData, unit: unitSpeed)
         
         if let featuredIndex = featuredIndex {
