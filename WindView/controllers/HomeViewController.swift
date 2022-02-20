@@ -123,6 +123,7 @@ final class HomeViewController: UIViewController {
         ).drive { [weak self] sondeDataList, dataSettings in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
             self?.speedChartViewController.viewModel.inputs.updateUseTrueNorth(dataSettings.isTrueNorth)
+            self?.colorLayerTableViewController.set(sondeDataList, useTN: dataSettings.isTrueNorth)
         }.disposed(by: disposeBag)
         
 //        viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in

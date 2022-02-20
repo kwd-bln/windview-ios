@@ -26,6 +26,7 @@ final class ColorLayerTableViewController: UIViewController {
     }()
     
     private var layerStackViews: [LayerStackView] = []
+    private var useTN: Bool = true
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -53,13 +54,14 @@ final class ColorLayerTableViewController: UIViewController {
         horizontalStack.addArrangedSubview(heightStack)
         
         let maxCount: Int = maxHeightSondeData.values.count
-        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount) }
+        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount, useTN: useTN) }
         layerStackViews.forEach { v in
             horizontalStack.addArrangedSubview(v)
         }
     }
     
-    func set(_ sondeDataList: [SondeData]) {
+    func set(_ sondeDataList: [SondeData], useTN: Bool) {
         self.sondeDataList = sondeDataList
+        self.useTN = useTN
     }
 }
