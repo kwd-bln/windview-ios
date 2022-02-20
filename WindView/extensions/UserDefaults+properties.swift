@@ -12,6 +12,8 @@ extension UserDefaults {
         case selectedDate
         case isTrueNorth
         case chartDisplayDuration
+        case speedUnit
+        case altUnit
     }
     
     private subscript<T: Any>(key: Key) -> T? {
@@ -34,6 +36,28 @@ extension UserDefaults {
     var chartDisplayDuration: Int {
         get { integer(forKey: Key.chartDisplayDuration.rawValue) }
         set { set(newValue, forKey: Key.chartDisplayDuration.rawValue) }
+    }
+    
+    /// speedの単位
+    var speedUnit: SpeedUnit {
+        get {
+            let speedStr = string(forKey: Key.speedUnit.rawValue) ?? ""
+            return SpeedUnit(rawValue: speedStr) ?? .mps
+        }
+        set {
+            set(newValue.rawValue, forKey: Key.speedUnit.rawValue)
+        }
+    }
+    
+    /// speedの単位
+    var altUnit: AltUnit {
+        get {
+            let altStr = string(forKey: Key.altUnit.rawValue) ?? ""
+            return AltUnit(rawValue: altStr) ?? .m
+        }
+        set {
+            set(newValue.rawValue, forKey: Key.altUnit.rawValue)
+        }
     }
     
     private func load(key: String) -> Date? {
