@@ -119,15 +119,27 @@ private extension SpeedChartView {
         context.drawText(text1, at: point1, align: .left, angleRadians: 0, attributes: attrs)
         y += size1.height + 2
         
-        let windHeadingText = String(format: "%.0f", item.windheading)
-        let text2 = "真北: \(windHeadingText)°"
-        let size2 = text2.size(withAttributes: attrs)
-        let point2: CGPoint = .init(x: rect.maxX - size2.width - offsetX, y: y)
-        context.drawText(text2, at: point2, align: .left, angleRadians: 0, attributes: attrs)
-        y += size2.height + 2
+        let textMSL = "MSL: \(item.altitude)[m]"
+        let sizeMSL = textMSL.size(withAttributes: attrs)
+        let pointMSL: CGPoint = .init(x: rect.maxX - sizeMSL.width - offsetX, y: y)
+        context.drawText(textMSL, at: pointMSL, align: .left, angleRadians: 0, attributes: attrs)
+        y += sizeMSL.height + 2
+        
+        if let sondeData = sondeData {
+            let deg = sondeData.degree(with: item, useTN: useTN, isFrom: !isTo)
+            let windHeadingText = String(format: "%.0f", deg)
+            let directionText = isTo ? "To" : "FROM"
+            let northText = useTN ? "真北" : "磁北"
+            
+            let textWindHeading = "風向[\(directionText), \(northText)]: \(windHeadingText)°"
+            let size2 = textWindHeading.size(withAttributes: attrs)
+            let point2: CGPoint = .init(x: rect.maxX - size2.width - offsetX, y: y)
+            context.drawText(textWindHeading, at: point2, align: .left, angleRadians: 0, attributes: attrs)
+            y += size2.height + 2
+        }
         
         let windSpeedText = String(format: "%.1f", item.windspeed)
-        let text3 = "Speed: \(windSpeedText)°"
+        let text3 = "Speed: \(windSpeedText)[m/s]"
         let size3 = text3.size(withAttributes: attrs)
         let point3: CGPoint = .init(x: rect.maxX - size3.width - offsetX, y: y)
         context.drawText(text3, at: point3, align: .left, angleRadians: 0, attributes: attrs)
