@@ -89,7 +89,7 @@ final class ColorLayerTableViewController: UIViewController {
         horizontalStack.addArrangedSubview(heightStack)
         
         let maxCount: Int = maxHeightSondeData.values.count
-        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount, useTN: useTN, isFrom: isFrom) }
+        layerStackViews = sondeDataList.reversed().map { LayerStackView($0, count: maxCount, useTN: useTN, isFrom: isFrom) }
         layerStackViews.forEach { v in
             horizontalStack.addArrangedSubview(v)
         }
