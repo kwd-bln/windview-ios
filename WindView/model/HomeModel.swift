@@ -46,12 +46,18 @@ final class HomeModel: HomeModelInput {
         guard let selectedDate = UserDefaults.standard.selectedDate else { return }
         let isTrueNorth = UserDefaults.standard.isTrueNorth
         let useDataDuration = UserDefaults.standard.chartDisplayDuration
+        let speedUnit = UserDefaults.standard.speedUnit
+        let altUnit = UserDefaults.standard.altUnit
         if dataSettings.selectedDate != selectedDate
             || dataSettings.isTrueNorth != isTrueNorth
-            || dataSettings.useDataDuration != useDataDuration {
+            || dataSettings.useDataDuration != useDataDuration
+            || dataSettings.speedUnit != speedUnit
+            || dataSettings.altUnit != altUnit {
             let newSettings = DataSettings(useDataDuration: useDataDuration,
                                            selectedDate: selectedDate,
-                                           isTrueNorth: isTrueNorth)
+                                           isTrueNorth: isTrueNorth,
+                                           speedUnit: speedUnit,
+                                           altUnit: altUnit)
             dataSettingBehaviorRelay.accept(newSettings)
         }
     }

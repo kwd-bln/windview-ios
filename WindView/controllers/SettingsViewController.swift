@@ -211,6 +211,8 @@ private extension SettingsViewController {
     
     func setupFirstValue() {
         directionSegmentedControl.setIndex(tmpIsTrueNorth ? 0 : 1)
+        speedUnitSegmentedControl.setIndex(SpeedUnit.allCases.firstIndex(of: tmpSpeedUnit) ?? 0)
+        altUnitSegmentedControl.setIndex(AltUnit.allCases.firstIndex(of: tmpAltUnit) ?? 0)
         chartDurationSlider.value = Float(tmpChartDisplayDuration)
         chartDurationSliderLabel.text = "\(tmpChartDisplayDuration)時間"
     }

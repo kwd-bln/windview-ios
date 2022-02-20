@@ -20,6 +20,8 @@ final class ColorLayerTableViewController: UIViewController {
     }
     
     private var useTN: Bool = true
+    private var speedUnit: SpeedUnit = UserDefaults.standard.speedUnit
+    private var altUnit: AltUnit = UserDefaults.standard.altUnit
     
     private var isFrom: Bool = false {
         didSet {
@@ -85,21 +87,32 @@ final class ColorLayerTableViewController: UIViewController {
         horizontalStack.subviews.forEach { $0.removeFromSuperview() }
         
         guard let maxHeightSondeData = sondeDataList.max(by: { $0.values.count < $1.values.count }) else { return }
-        let heightStack = HeightLayerStackView(maxHeightSondeData, isHeight: true)
+        let heightStack = HeightLayerStackView(maxHeightSondeData, isHeight: true, altUnit: altUnit)
         horizontalStack.addArrangedSubview(heightStack)
-        let altStack = HeightLayerStackView(maxHeightSondeData, isHeight: false)
+        let altStack = HeightLayerStackView(maxHeightSondeData, isHeight: false, altUnit: altUnit)
         horizontalStack.addArrangedSubview(altStack)
         
         let maxCount: Int = maxHeightSondeData.values.count
-        layerStackViews = sondeDataList.reversed().map { LayerStackView($0, count: maxCount, useTN: useTN, isFrom: isFrom) }
+        layerStackViews = sondeDataList.reversed().map { LayerStackView($0,
+                                                                        count: maxCount,
+                                                                        useTN: useTN,
+                                                                        isFrom: isFrom,
+                                                                        speedUnit: speedUnit) }
         layerStackViews.forEach { v in
             horizontalStack.addArrangedSubview(v)
         }
     }
     
-    func set(_ sondeDataList: [SondeData], useTN: Bool) {
+    func set(
+        _ sondeDataList: [SondeData],
+        useTN: Bool,
+        speedUnit: SpeedUnit,
+        altUnit: AltUnit
+    ) {
         self.sondeDataList = sondeDataList
         self.useTN = useTN
+        self.speedUnit = speedUnit
+        self.altUnit = altUnit
     }
 }
 

@@ -33,6 +33,17 @@ enum SpeedUnit: String, CaseIterable {
     case mps = "m/s"
     case kmph = "km/h"
     case kt = "kt"
+    
+    func converted(from mps: CGFloat) -> CGFloat {
+        switch self {
+        case .mps:
+            return mps
+        case .kmph:
+            return UnitConverter.mpsTokmph(mps)
+        case .kt:
+            return UnitConverter.mpsToKt(mps)
+        }
+    }
 }
 
 enum AltUnit: String, CaseIterable {
