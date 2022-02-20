@@ -110,11 +110,15 @@ final class HomeViewController: UIViewController {
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
             viewModel.outputs.chartSize,
-            viewModel.outputs.isDistFrom
-        ).drive { [weak self] sondeDataList, csize, isDistFrom in
+            viewModel.outputs.isDistFrom,
+            viewModel.outputs.dateSettings
+        ).drive { [weak self] sondeDataList, csize, isDistFrom, dataSettings in
             if sondeDataList.count == 0 { return }
             HUD.hide(afterDelay: 0.5)
-            self?.distanceChartViewController.drawChart(by: sondeDataList, with: csize, isTo: !isDistFrom)
+            self?.distanceChartViewController.drawChart(by: sondeDataList,
+                                                        with: csize,
+                                                        isTo: !isDistFrom,
+                                                        useTN: dataSettings.isTrueNorth)
         }.disposed(by: disposeBag)
         
         Driver.combineLatest(
@@ -125,11 +129,6 @@ final class HomeViewController: UIViewController {
             self?.speedChartViewController.viewModel.inputs.updateUseTrueNorth(dataSettings.isTrueNorth)
             self?.colorLayerTableViewController.set(sondeDataList, useTN: dataSettings.isTrueNorth)
         }.disposed(by: disposeBag)
-        
-//        viewModel.outputs.sondeDataList.drive { [weak self] sondeDataList in
-//            self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
-//            self?.colorLayerTableViewController.set(sondeDataList)
-//        }.disposed(by: disposeBag)
         
         distanceChartViewController
             .zoomButtonTap

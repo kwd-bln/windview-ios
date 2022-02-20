@@ -33,6 +33,14 @@ final class DistanceChartView: UIView {
         }
     }
     
+    private var useTN: Bool = true {
+        didSet {
+            if useTN != oldValue {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .Palette.main
@@ -66,13 +74,17 @@ final class DistanceChartView: UIView {
     func set(_ isTo: Bool) {
         self.isTo = isTo
     }
+    
+    func set(useTN: Bool) {
+        self.useTN = useTN
+    }
 }
 
 // MARK: - draw chart
 
 extension DistanceChartView {
     func drawChart(_ rect: CGRect, in context: CGContext, scale: ChartSize) {
-        let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0) }
+        let distanceDataList = sondeDataList.map { DistantChartViewData(from: $0, useTN: useTN) }
         let maxDistance = distanceDataList.map { $0.maxDistance }
         let maxDist = maxDistance.max() ?? 0
         // 単位となる距離

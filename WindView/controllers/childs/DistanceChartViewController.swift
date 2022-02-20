@@ -137,13 +137,14 @@ final class DistanceChartViewController: UIViewController {
         }
     }
     
-    func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool) {
+    func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool, useTN: Bool) {
         self.sondeDataList = sondeDataList
         timeCollectionView.reloadData()
         
         distanceChartView.set(sondeDataList)
         distanceChartView.set(size)
         distanceChartView.set(isTo)
+        distanceChartView.set(useTN: useTN)
         fromButton.isSelected = !isTo
         if let sondeData = sondeDataList.first {
             let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
