@@ -40,10 +40,36 @@ final class SettingsViewController: UIViewController {
                                         selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
         options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
                   .indicatorViewBackgroundColor(.white),
-                  .cornerRadius(18)]
+                  .cornerRadius(4)]
     )
     
+    private let unitLabel = createTitleLabel("単位", size: 20)
+    private let speedUnitLabel = createTitleLabel("風速")
+    /// 風速の単位を変更するSegmentedControl
+    private let speedUnitSegmentedControl = BetterSegmentedControl(
+        frame: .zero,
+        segments: LabelSegment.segments(withTitles: SpeedUnit.allCases.map { $0.rawValue },
+                                        normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
+                                        selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
+        options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
+                  .indicatorViewBackgroundColor(.white),
+                  .cornerRadius(4)]
+    )
+    private let altUnitLabel = createTitleLabel("高度")
+    /// 高度の単位を変更するSegmentedControl
+    private let altUnitSegmentedControl = BetterSegmentedControl(
+        frame: .zero,
+        segments: LabelSegment.segments(withTitles: AltUnit.allCases.map { $0.rawValue },
+                                        normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
+                                        selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
+        options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
+                  .indicatorViewBackgroundColor(.white),
+                  .cornerRadius(4)]
+    )
+    
+    
     private let chartDurationTitleLabel = createTitleLabel("チャート表示期間")
+    /// チャート表示期間を変更するスライダー
     private let chartDurationSliderLabel: UILabel = {
         let label = UILabel()
         label.textColor = .Palette.text
@@ -107,15 +133,40 @@ private extension SettingsViewController {
             make.left.right.equalToSuperview()
         }
         
+        // 風向き
         stack.addArrangedSubview(directionLabel)
         directionLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
         }
         stack.addArrangedSubview(directionSegmentedControl)
         directionSegmentedControl.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 100, height: 36))
+            make.size.equalTo(CGSize(width: 200, height: 36))
         }
         
+        // 単位
+        stack.addArrangedSubview(unitLabel)
+        unitLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+        }
+        stack.addArrangedSubview(speedUnitLabel)
+        speedUnitLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+        }
+        stack.addArrangedSubview(speedUnitSegmentedControl)
+        speedUnitSegmentedControl.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 200, height: 36))
+        }
+        
+        stack.addArrangedSubview(altUnitLabel)
+        altUnitLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+        }
+        stack.addArrangedSubview(altUnitSegmentedControl)
+        altUnitSegmentedControl.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 200, height: 36))
+        }
+        
+        // チャート表示期間
         stack.addArrangedSubview(chartDurationTitleLabel)
         chartDurationTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
@@ -159,7 +210,7 @@ private extension SettingsViewController {
 }
 
 private extension SettingsViewController {
-    static func createTitleLabel(_ text: String) -> UIView {
+    static func createTitleLabel(_ text: String, size: CGFloat = 16) -> UIView {
         let parent = UIView(frame: .zero)
         parent.snp.makeConstraints { make in
             make.height.equalTo(32)
@@ -167,7 +218,7 @@ private extension SettingsViewController {
         
         let label = UILabel()
         label.textColor = .Palette.text
-        label.font = .hiraginoSans(style: .bold, size: 16)
+        label.font = .hiraginoSans(style: .bold, size: size)
         label.text = text
         parent.addSubview(label)
         label.snp.makeConstraints { make in
