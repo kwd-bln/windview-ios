@@ -12,6 +12,9 @@ import RxSwift
 class HeightMap: UIStackView {
     private let disposeBag = DisposeBag()
     private let selectedIndexRelay: BehaviorRelay<Int?> = .init(value: nil)
+    var selectedIndexSignal: ControlEvent<Int?> {
+        ControlEvent(events: selectedIndexRelay)
+    }
     private var heightBoxes: [HeightBox] = []
     
     

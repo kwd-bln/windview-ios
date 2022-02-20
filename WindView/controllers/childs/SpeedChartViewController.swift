@@ -66,15 +66,22 @@ final class SpeedChartViewController: UIViewController {
         
         toFromSegmentedControl.addTarget(self, action: #selector(toFromSegmentedControlValueChanged(_:)), for: .valueChanged)
         
+        heightMap.selectedIndexSignal
+            .bind(to: viewModel.inputs.selectedHieightIndexValueChanged)
+            .disposed(by: disposeBag)
+        
         setupSubviews()
         
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
             viewModel.outputs.selectedIndex,
-            viewModel.outputs.isFrom
-        ).drive { [weak self] sondeDataList, selectedIndex, isFrom in
+            viewModel.outputs.isFrom,
+            viewModel.outputs.selectedHeightIndex
+        ).drive { [weak self] sondeDataList, selectedIndex, isFrom, selectedHeightIndex in
             if sondeDataList.count == 0 { return }
-            self?.speedChartView.set(sondeData: sondeDataList[selectedIndex], isFrom: isFrom)
+            self?.speedChartView.set(sondeData: sondeDataList[selectedIndex],
+                                     isFrom: isFrom,
+                                     featuredIndex: selectedHeightIndex)
             self?.updateText(by: sondeDataList[selectedIndex])
             self?.timeCollectionView.reloadData()
         }.disposed(by: disposeBag)

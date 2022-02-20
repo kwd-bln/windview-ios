@@ -12,12 +12,14 @@ import RxCocoa
 protocol SpeedViewModelInput {
     var timeButtonTap: AnyObserver<Int> { get }
     var isFromSegmentControlChanged: AnyObserver<Bool> { get }
+    var selectedHieightIndexValueChanged: AnyObserver<Int?> { get }
     func updateSondeDataList(_ values: [SondeData])
 }
 
 protocol SpeedViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var selectedIndex: Driver<Int> { get }
+    var selectedHeightIndex: Driver<Int?> { get }
     var isFrom: Driver<Bool> { get }
 }
 
@@ -38,6 +40,7 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     
     var timeButtonTap: AnyObserver<Int>
     var isFromSegmentControlChanged: AnyObserver<Bool>
+    var selectedHieightIndexValueChanged: AnyObserver<Int?>
     
     // MARK: outputs
     
@@ -50,6 +53,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     private let _isFrom: BehaviorRelay<Bool>
     let isFrom: Driver<Bool>
     
+    private let _selectedHeightIndex: BehaviorRelay<Int?>
+    let selectedHeightIndex: Driver<Int?>
+    
     init() {
         // outputs
         self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
@@ -60,6 +66,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         let _isFrom = BehaviorRelay<Bool>.init(value: false)
         self.isFrom = _isFrom.asDriver(onErrorJustReturn: false)
         
+        let _selectedHeightIndex = BehaviorRelay<Int?>.init(value: nil)
+        self.selectedHeightIndex = _selectedHeightIndex.asDriver(onErrorJustReturn: nil)
+        
         // inputs
         self.timeButtonTap = AnyObserver<Int>() { event in
             _selectedIndex.accept(event.element ?? 0)
@@ -69,8 +78,13 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
             _isFrom.accept(event.element ?? false)
         }
         
+        self.selectedHieightIndexValueChanged = AnyObserver<Int?> { event in
+            _selectedHeightIndex.accept(event.element ?? nil)
+        }
+        
         self._selectedIndex = _selectedIndex
         self._isFrom = _isFrom
+        self._selectedHeightIndex = _selectedHeightIndex
     }
     
     func updateSondeDataList(_ values: [SondeData]) {

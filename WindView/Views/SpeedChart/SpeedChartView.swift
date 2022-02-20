@@ -19,6 +19,7 @@ final class SpeedChartView: UIView {
     }
     
     private var isTo: Bool = true
+    private var featuredIndex: Int? = nil
     
     init() {
         super.init(frame: .zero)
@@ -43,9 +44,12 @@ final class SpeedChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(sondeData: SondeData, isFrom: Bool) {
+    func set(sondeData: SondeData,
+             isFrom: Bool,
+             featuredIndex: Int?) {
         self.sondeData = sondeData
         self.isTo = !isFrom
+        self.featuredIndex = featuredIndex
     }
 }
 
@@ -77,10 +81,14 @@ private extension SpeedChartView {
         
         let sign: CGFloat = isTo ? 1 : -1
         
-        speedViewData.speedPoints.forEach { alt, vector in
+        speedViewData.speedPoints.enumerated().forEach { index, point in
+            let alt = point.altitude
+            let vector = point.speedPoint
             // scaleされた点
             let scaledVector = vector * multiple
             
+            let lineWidth: CGFloat = index == featuredIndex ? 4 : 1
+            context.setLineWidth(lineWidth)
             context.move(to: rect.mid)
             context.setStrokeColor(color(alt, max: maxHeight, min: minHeight).cgColor)
             context.addLine(to: rect.mid + sign * scaledVector)
