@@ -20,10 +20,10 @@ extension SondeData {
         if useTN {
             toDegree = item.windheading
         } else {
-            toDegree = item.windheading - self.magDeclination
+            toDegree = item.windheading - self.magDeclination + 360
         }
         
-        if !isFrom { return toDegree }
+        if !isFrom { return toDegree.truncatingRemainder(dividingBy: 360) }
         let fromDegree = (toDegree + 180).truncatingRemainder(dividingBy: 360)
         return fromDegree
     }
