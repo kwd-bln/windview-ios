@@ -9,6 +9,14 @@ import UIKit
 import BetterSegmentedControl
 
 final class SettingsViewController: UIViewController {
+    // MARK: - temporary values
+    var tmpIsTrueNorth: Bool = UserDefaults.standard.isTrueNorth
+    var tmpChartDisplayDuration = UserDefaults.standard.chartDisplayDuration
+    var tmpSpeedUnit = UserDefaults.standard.speedUnit
+    var tmpAltUnit = UserDefaults.standard.altUnit
+    
+    // MARK: - views
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -20,6 +28,13 @@ final class SettingsViewController: UIViewController {
     
     private let closeButton: UIButton = CloseButton(frame: .zero)
     
+    private let saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("保存", for: .normal)
+        button.titleLabel?.font = .hiraginoSans(style: .light, size: 14)
+        return button
+    }()
+    
     private let stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -28,8 +43,6 @@ final class SettingsViewController: UIViewController {
         stack.alignment = .center
         return stack
     }()
-    
-    // MARK: - views
     
     private let directionLabel = createTitleLabel("方角")
     /// 磁北・真北
@@ -91,17 +104,28 @@ final class SettingsViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .Palette.main
         closeButton.addTarget(self, action: #selector(didPushCloseButton), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(didPushSaveButton), for: .touchUpInside)
         directionSegmentedControl.addTarget(self,
-                                         action: #selector(directionSegmentedControlValueChanged(_:)),
-                                         for: .valueChanged)
+                                            action: #selector(directionSegmentedControlValueChanged(_:)),
+                                            for: .valueChanged)
         
         chartDurationSlider.addTarget(self, action: #selector(chartDurationSliderValueChanged(_:)), for: .valueChanged)
+        
+        speedUnitSegmentedControl.addTarget(self,
+                                            action: #selector(speedUnitSegmentedControlValueChanged(_:)),
+                                            for: .valueChanged)
+        
+        altUnitSegmentedControl.addTarget(self,
+                                          action: #selector(altUnitSegmentedControlValueChanged(_:)),
+                                          for: .valueChanged)
+        
         
         setupFirstValue()
         
         
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
+        view.addSubview(saveButton)
         
         titleLabel.snp.makeConstraints { make in
             make.top.centerX.equalToSuperview()
@@ -111,6 +135,12 @@ final class SettingsViewController: UIViewController {
         closeButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
+        }
+        
+        saveButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
+            make.left.equalToSuperview().offset(8)
+            make.size.equalTo(CGSize(width: 50, height: 40))
         }
         
         setupStackViews()
@@ -180,9 +210,9 @@ private extension SettingsViewController {
     }
     
     func setupFirstValue() {
-        directionSegmentedControl.setIndex(UserDefaults.standard.isTrueNorth ? 0 : 1)
-        chartDurationSlider.value = Float(UserDefaults.standard.chartDisplayDuration)
-        chartDurationSliderLabel.text = "\(UserDefaults.standard.chartDisplayDuration)時間"
+        directionSegmentedControl.setIndex(tmpIsTrueNorth ? 0 : 1)
+        chartDurationSlider.value = Float(tmpChartDisplayDuration)
+        chartDurationSliderLabel.text = "\(tmpChartDisplayDuration)時間"
     }
 }
 
@@ -193,8 +223,16 @@ private extension SettingsViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func didPushSaveButton() {
+        UserDefaults.standard.isTrueNorth = tmpIsTrueNorth
+        UserDefaults.standard.chartDisplayDuration = tmpChartDisplayDuration
+        UserDefaults.standard.speedUnit = tmpSpeedUnit
+        UserDefaults.standard.altUnit = tmpAltUnit
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func directionSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
-        UserDefaults.standard.isTrueNorth = sender.index == 0
+        tmpIsTrueNorth = sender.index == 0
     }
     
     @objc private func chartDurationSliderValueChanged(_ sender: UISlider) {
@@ -205,7 +243,15 @@ private extension SettingsViewController {
         let intValue = Int(roundValue)
         chartDurationSliderLabel.text = "\(intValue)時間"
         
-        UserDefaults.standard.chartDisplayDuration = intValue
+        tmpChartDisplayDuration = intValue
+    }
+    
+    @objc private func speedUnitSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        tmpSpeedUnit = SpeedUnit.allCases[sender.index]
+    }
+    
+    @objc private func altUnitSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        tmpAltUnit = AltUnit.allCases[sender.index]
     }
 }
 
