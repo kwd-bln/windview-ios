@@ -22,14 +22,14 @@ final class TextLayerBlock: UIView {
         return view
     }()
     
-    init(_ text: String, bgColor: UIColor) {
+    init(_ text: String, bgColor: UIColor, width: CGFloat = 50) {
         super.init(frame: .zero)
         textLabel.text = text
         backgroundColor = bgColor
         addSubview(textLabel)
         
         snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 50, height: 20))
+            make.size.equalTo(CGSize(width: width, height: 20))
         }
         
         textLabel.snp.makeConstraints {

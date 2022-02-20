@@ -9,9 +9,12 @@ import UIKit
 
 final class HeightLayerStackView: UIStackView {
     let maxHeightSondeData: SondeData
+    /// true -> AGL false -> MSL
+    let isHeight: Bool
     
-    init(_ maxHeightSondeData: SondeData) {
+    init(_ maxHeightSondeData: SondeData, isHeight: Bool) {
         self.maxHeightSondeData = maxHeightSondeData
+        self.isHeight = isHeight
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -22,13 +25,15 @@ final class HeightLayerStackView: UIStackView {
         distribution = .fill
         alignment = .center
         
-        let timeBlock = TextLayerBlock("", bgColor: .lightGray.withAlphaComponent(0.4))
+        let titleText = isHeight ? "AGL" : "MSL"
+        let timeBlock = TextLayerBlock(titleText, bgColor: .lightGray.withAlphaComponent(0.4), width: 40)
         addArrangedSubview(timeBlock)
         
         maxHeightSondeData.values.reversed().forEach { dataItem in
-            let text = String(format: "%.0f", dataItem.height)
+            let usedHeight = isHeight ? dataItem.height : dataItem.altitude
+            let text = String(format: "%.0f", usedHeight)
             
-            let textLayerBlock = TextLayerBlock(text, bgColor: .lightGray.withAlphaComponent(0.4))
+            let textLayerBlock = TextLayerBlock(text, bgColor: .lightGray.withAlphaComponent(0.4), width: 40)
             addArrangedSubview(textLayerBlock)
         }
     }

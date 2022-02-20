@@ -85,8 +85,10 @@ final class ColorLayerTableViewController: UIViewController {
         horizontalStack.subviews.forEach { $0.removeFromSuperview() }
         
         guard let maxHeightSondeData = sondeDataList.max(by: { $0.values.count < $1.values.count }) else { return }
-        let heightStack = HeightLayerStackView(maxHeightSondeData)
+        let heightStack = HeightLayerStackView(maxHeightSondeData, isHeight: true)
         horizontalStack.addArrangedSubview(heightStack)
+        let altStack = HeightLayerStackView(maxHeightSondeData, isHeight: false)
+        horizontalStack.addArrangedSubview(altStack)
         
         let maxCount: Int = maxHeightSondeData.values.count
         layerStackViews = sondeDataList.reversed().map { LayerStackView($0, count: maxCount, useTN: useTN, isFrom: isFrom) }
