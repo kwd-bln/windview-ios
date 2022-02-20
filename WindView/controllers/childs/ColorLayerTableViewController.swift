@@ -7,14 +7,29 @@
 
 import Foundation
 import UIKit
+import BetterSegmentedControl
 
 final class ColorLayerTableViewController: UIViewController {
+    
+    // MARK: - data
     
     private var sondeDataList: [SondeData] = [] {
         didSet {
             updateViews()
         }
     }
+    
+    private var useTN: Bool = true
+    
+    private var isFrom: Bool = false {
+        didSet {
+            if isFrom != oldValue {
+                updateViews()
+            }
+        }
+    }
+    
+    // MARK: - views
     
     private let horizontalStack: UIStackView = {
         let stack = UIStackView(frame: .zero)
@@ -26,7 +41,16 @@ final class ColorLayerTableViewController: UIViewController {
     }()
     
     private var layerStackViews: [LayerStackView] = []
-    private var useTN: Bool = true
+    
+    private let toFromSegmentedControl = BetterSegmentedControl(
+        frame: .zero,
+        segments: LabelSegment.segments(withTitles: ["TO", "FROM"],
+                                        normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
+                                        selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
+        options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
+                  .indicatorViewBackgroundColor(.white),
+                  .cornerRadius(18)]
+    )
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -39,10 +63,21 @@ final class ColorLayerTableViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        toFromSegmentedControl.addTarget(self,
+                                         action: #selector(toFromSegmentedControlValueChanged(_:)),
+                                         for: .valueChanged)
+        
         view.addSubview(horizontalStack)
         horizontalStack.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-24)
             make.left.equalToSuperview().offset(16)
+        }
+        
+        view.addSubview(toFromSegmentedControl)
+        toFromSegmentedControl.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalTo(horizontalStack.snp.top).offset(-8)
+            make.height.equalTo(36)
         }
     }
     
@@ -54,7 +89,7 @@ final class ColorLayerTableViewController: UIViewController {
         horizontalStack.addArrangedSubview(heightStack)
         
         let maxCount: Int = maxHeightSondeData.values.count
-        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount, useTN: useTN) }
+        layerStackViews = sondeDataList.map { LayerStackView($0, count: maxCount, useTN: useTN, isFrom: isFrom) }
         layerStackViews.forEach { v in
             horizontalStack.addArrangedSubview(v)
         }
@@ -63,5 +98,13 @@ final class ColorLayerTableViewController: UIViewController {
     func set(_ sondeDataList: [SondeData], useTN: Bool) {
         self.sondeDataList = sondeDataList
         self.useTN = useTN
+    }
+}
+
+// MARK: - segment control
+
+extension ColorLayerTableViewController {
+    @objc private func toFromSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        isFrom = sender.index == 1
     }
 }

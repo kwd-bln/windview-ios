@@ -21,7 +21,7 @@ struct SpeedChartViewData {
 private extension SondeData {
     func speedPoint(useTN: Bool = true) -> [(altitude: CGFloat, speedPoint: CGPoint)] {
         values.map { item in
-            let degree: CGFloat = degree(with: item, useTN: useTN).toRadian
+            let degree: CGFloat = degree(with: item, useTN: useTN, isFrom: false).toRadian
             let vx = item.windspeed * sin(degree)
             let vy = -item.windspeed * cos(degree)
             let v = CGPoint(x: vx, y: vy)

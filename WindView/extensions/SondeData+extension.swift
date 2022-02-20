@@ -15,12 +15,17 @@ extension SondeData {
     ///     - item: SondeDataItem
     ///     - useTN: 真北を使うか
     /// - Returns: useTNで指定した角度
-    func degree(with item: SondeDataItem, useTN: Bool = false) -> CGFloat {
+    func degree(with item: SondeDataItem, useTN: Bool = false, isFrom: Bool) -> CGFloat {
+        let toDegree: CGFloat
         if useTN {
-            return item.windheading
+            toDegree = item.windheading
         } else {
-            return item.windheading - self.magDeclination
+            toDegree = item.windheading - self.magDeclination
         }
+        
+        if !isFrom { return toDegree }
+        let fromDegree = (toDegree + 180).truncatingRemainder(dividingBy: 360)
+        return fromDegree
     }
     
     var locationText: String {

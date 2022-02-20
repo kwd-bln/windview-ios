@@ -37,7 +37,7 @@ private extension SondeData {
             // 前回測定分との時間の差(s): 1分で100m上昇するという仮定のもと
             let dt = 60 * dH / 100
             
-            let degree: CGFloat = degree(with: item).toRadian
+            let degree: CGFloat = degree(with: item, isFrom: false).toRadian
             // y軸負の方向に向いたとき0度になることを注意する。
             let dx = item.windspeed * dt * sin(degree)
             let dy = -item.windspeed * dt * cos(degree)

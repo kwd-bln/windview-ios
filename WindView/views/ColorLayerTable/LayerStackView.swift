@@ -16,11 +16,13 @@ final class LayerStackView: UIStackView {
     let sondeData: SondeData
     let count: Int
     let useTN: Bool
+    let isFrom: Bool
     
-    init(_ sondeData: SondeData, count: Int, useTN: Bool) {
+    init(_ sondeData: SondeData, count: Int, useTN: Bool, isFrom: Bool) {
         self.count = count
         self.sondeData = sondeData
         self.useTN = useTN
+        self.isFrom = isFrom
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -41,7 +43,7 @@ final class LayerStackView: UIStackView {
         for i in (0 ..< count).reversed() {
             if i < valueCounts {
                 let dataItem = sondeData.values[i]
-                let windHeading = sondeData.degree(with: dataItem, useTN: useTN)
+                let windHeading = sondeData.degree(with: dataItem, useTN: useTN, isFrom: isFrom)
                 let deg = String(Int(windHeading.rounded()))
                 let speed = String(format: "%.1f", dataItem.windspeed)
                 let color = calcColor(from: dataItem)
