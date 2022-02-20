@@ -65,6 +65,11 @@ private extension SpeedChartView {
         
         let speedViewData = SpeedChartViewData(from: sondeData)
         drawChartLines(in: context, with: rect, speedViewData: speedViewData, unit: unitSpeed)
+        
+        if let featuredIndex = featuredIndex {
+            let item = sondeData.values[featuredIndex]
+            drawInfo(rect, in: context, for: item)
+        }
     }
     
     func drawChartLines(in context: CGContext,
@@ -94,6 +99,34 @@ private extension SpeedChartView {
             context.addLine(to: rect.mid + sign * scaledVector)
             context.strokePath()
         }
+    }
+    
+    func drawInfo(_ rect: CGRect, in context: CGContext, for item: SondeDataItem) {
+        var attrs: [NSAttributedString.Key : Any] = [:]
+        attrs[.foregroundColor] = UIColor.Palette.text
+        attrs[.font] = UIFont.systemFont(ofSize: 9)
+        
+        var y: CGFloat = 5
+        let offsetX: CGFloat = 10
+        
+        let text1 = "AGL: \(item.height)[m]"
+        let size1 = text1.size(withAttributes: attrs)
+        let point1: CGPoint = .init(x: rect.maxX - size1.width - offsetX, y: y)
+        context.drawText(text1, at: point1, align: .left, angleRadians: 0, attributes: attrs)
+        y += size1.height + 2
+        
+        let windHeadingText = String(format: "%.0f", item.windheading)
+        let text2 = "真北: \(windHeadingText)°"
+        let size2 = text2.size(withAttributes: attrs)
+        let point2: CGPoint = .init(x: rect.maxX - size2.width - offsetX, y: y)
+        context.drawText(text2, at: point2, align: .left, angleRadians: 0, attributes: attrs)
+        y += size2.height + 2
+        
+        let windSpeedText = String(format: "%.1f", item.windspeed)
+        let text3 = "Speed: \(windSpeedText)°"
+        let size3 = text3.size(withAttributes: attrs)
+        let point3: CGPoint = .init(x: rect.maxX - size3.width - offsetX, y: y)
+        context.drawText(text3, at: point3, align: .left, angleRadians: 0, attributes: attrs)
     }
 }
 
