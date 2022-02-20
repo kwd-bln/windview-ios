@@ -25,6 +25,7 @@ class HeightMap: UIStackView {
         alignment = .center
         distribution = .fill
         spacing = 0
+        backgroundColor = .white
         
         selectedIndexRelay.asDriver()
             .drive(onNext: { [weak self] selectedIndex in
@@ -100,7 +101,6 @@ private extension HeightMap {
 private class HeightBox: UIView {
     let textLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .Palette.text
         label.font = .systemFont(ofSize: 10)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -122,7 +122,6 @@ private class HeightBox: UIView {
         self.color = color
         self.index = heightIndex
         super.init(frame: .zero)
-        backgroundColor = .white
         textLabel.text = text
         addSubview(textLabel)
         
