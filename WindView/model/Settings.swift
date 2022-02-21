@@ -51,22 +51,28 @@ enum AltUnit: String, CaseIterable {
     case ft
 }
 
-struct DataSettings {
-    // MARK: 全体的な設定
+/// 使用するデータに関する設定
+struct DateSettings {
     /// 指定したデータから何時間分のデータを取得するか
     let useDataDuration: Int
     let selectedDate: Date?
+    
+    init(useDataDuration: Int = 6,
+         selectedDate: Date? = nil) {
+        self.useDataDuration = useDataDuration
+        self.selectedDate = selectedDate
+    }
+}
+
+/// どんなデータを見せるかという設定
+struct DisplayDataSetting {
     let isTrueNorth: Bool
     let speedUnit: SpeedUnit
     let altUnit: AltUnit
     
-    init(useDataDuration: Int = 6,
-         selectedDate: Date? = nil,
-         isTrueNorth: Bool = true,
+    init(isTrueNorth: Bool = true,
          speedUnit: SpeedUnit = .mps,
          altUnit: AltUnit = .m) {
-        self.useDataDuration = useDataDuration
-        self.selectedDate = selectedDate
         self.isTrueNorth = isTrueNorth
         self.speedUnit = speedUnit
         self.altUnit = altUnit

@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 protocol HomeModelInput {
-    var dataSettingObservable: Observable<DataSettings> { get }
+    var dataSettingObservable: Observable<DisplayDataSetting> { get }
+    var dateSettingObservable: Observable<DateSettings> { get }
     var currentSondeDataListObservable: Observable<[SondeData]> { get }
     
     func updateCurrentSondeDataList()
@@ -23,12 +24,20 @@ final class HomeModel: HomeModelInput {
     let sondeDataModel: SondeDataModelInput
 
     // MARK: data settings
-    private let dataSettingBehaviorRelay: BehaviorRelay<DataSettings>
-    var dataSettingObservable: Observable<DataSettings> {
+    private let dataSettingBehaviorRelay: BehaviorRelay<DisplayDataSetting>
+    var dataSettingObservable: Observable<DisplayDataSetting> {
         dataSettingBehaviorRelay.asObservable()
     }
-    private var dataSettings: DataSettings {
+    private var dataSettings: DisplayDataSetting {
         dataSettingBehaviorRelay.value
+    }
+    
+    private let dateSettingBehaviorRelay: BehaviorRelay<DateSettings>
+    var dateSettingObservable: Observable<DateSettings> {
+        dateSettingBehaviorRelay.asObservable()
+    }
+    private var dateSettings: DateSettings {
+        dateSettingBehaviorRelay.value
     }
     
     // MARK: currentSondeDataList
@@ -41,7 +50,7 @@ final class HomeModel: HomeModelInput {
     
     /// 選択した時刻が`lastFetchedDate`から1時間以内である場合
     var autoUpdateData: Bool {
-        if let selectedDate = dataSettings.selectedDate {
+        if let selectedDate = dateSettings.selectedDate {
             return lastFetchedDate.addingTimeInterval(-3600 * 24 * 30) < selectedDate
         } else {
             return true
@@ -55,10 +64,14 @@ final class HomeModel: HomeModelInput {
     init(sondeDataModel: SondeDataModelInput = StubSondeDataModel()) {
         self.sondeDataModel = sondeDataModel
         
-        let ds = DataSettings(useDataDuration: UserDefaults.standard.chartDisplayDuration,
-                              selectedDate: UserDefaults.standard.selectedDate,
-                              isTrueNorth: UserDefaults.standard.isTrueNorth)
-        self.dataSettingBehaviorRelay = .init(value: ds)
+        let ds = DateSettings(useDataDuration: UserDefaults.standard.chartDisplayDuration,
+                              selectedDate: UserDefaults.standard.selectedDate)
+        
+        let dds = DisplayDataSetting(isTrueNorth: UserDefaults.standard.isTrueNorth,
+                                     speedUnit: UserDefaults.standard.speedUnit,
+                                     altUnit: UserDefaults.standard.altUnit)
+        self.dataSettingBehaviorRelay = .init(value: dds)
+        self.dateSettingBehaviorRelay = .init(value: ds)
         
         self.currentSondeDataListPublishRelay = .init()
         
@@ -88,21 +101,31 @@ final class HomeModel: HomeModelInput {
     }
     
     func updateCurrentSettings() {
-        guard let selectedDate = UserDefaults.standard.selectedDate else { return }
-        let isTrueNorth = UserDefaults.standard.isTrueNorth
+        updateCurrentSettings()
+        updateCurrentDisplayDataSettings()
+    }
+    
+    private func updateCurrentDateSettings() {
+        let selectedDate = UserDefaults.standard.selectedDate
         let useDataDuration = UserDefaults.standard.chartDisplayDuration
+        
+        if dateSettings.selectedDate != selectedDate || dateSettings.useDataDuration != useDataDuration {
+            let newSettings = DateSettings(useDataDuration: useDataDuration, selectedDate: selectedDate)
+            dateSettingBehaviorRelay.accept(newSettings)
+        }
+    }
+    
+    private func updateCurrentDisplayDataSettings() {
+        let isTrueNorth = UserDefaults.standard.isTrueNorth
         let speedUnit = UserDefaults.standard.speedUnit
         let altUnit = UserDefaults.standard.altUnit
-        if dataSettings.selectedDate != selectedDate
-            || dataSettings.isTrueNorth != isTrueNorth
-            || dataSettings.useDataDuration != useDataDuration
+        
+        if dataSettings.isTrueNorth != isTrueNorth
             || dataSettings.speedUnit != speedUnit
             || dataSettings.altUnit != altUnit {
-            let newSettings = DataSettings(useDataDuration: useDataDuration,
-                                           selectedDate: selectedDate,
-                                           isTrueNorth: isTrueNorth,
-                                           speedUnit: speedUnit,
-                                           altUnit: altUnit)
+            let newSettings = DisplayDataSetting(isTrueNorth: isTrueNorth,
+                                                 speedUnit: speedUnit,
+                                                 altUnit: altUnit)
             dataSettingBehaviorRelay.accept(newSettings)
         }
     }

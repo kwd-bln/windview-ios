@@ -111,27 +111,27 @@ final class HomeViewController: UIViewController {
             viewModel.outputs.sondeDataList,
             viewModel.outputs.chartSize,
             viewModel.outputs.isDistFrom,
-            viewModel.outputs.dateSettings
-        ).drive { [weak self] sondeDataList, csize, isDistFrom, dataSettings in
+            viewModel.outputs.displayDataSettings
+        ).drive { [weak self] sondeDataList, csize, isDistFrom, displayDataSettings in
             if sondeDataList.count == 0 { return }
             HUD.hide(afterDelay: 0.5)
             self?.distanceChartViewController.drawChart(by: sondeDataList,
                                                         with: csize,
                                                         isTo: !isDistFrom,
-                                                        useTN: dataSettings.isTrueNorth)
+                                                        useTN: displayDataSettings.isTrueNorth)
         }.disposed(by: disposeBag)
         
         Driver.combineLatest(
             viewModel.outputs.sondeDataList,
-            viewModel.outputs.dateSettings
-        ).drive { [weak self] sondeDataList, dataSettings in
+            viewModel.outputs.displayDataSettings
+        ).drive { [weak self] sondeDataList, displayDataSettings in
             self?.speedChartViewController.viewModel.inputs.updateSondeDataList(sondeDataList)
-            self?.speedChartViewController.viewModel.inputs.updateUseTrueNorth(dataSettings.isTrueNorth)
-            self?.speedChartViewController.viewModel.inputs.updateSpeedUnit(dataSettings.speedUnit)
+            self?.speedChartViewController.viewModel.inputs.updateUseTrueNorth(displayDataSettings.isTrueNorth)
+            self?.speedChartViewController.viewModel.inputs.updateSpeedUnit(displayDataSettings.speedUnit)
             self?.colorLayerTableViewController.set(sondeDataList,
-                                                    useTN: dataSettings.isTrueNorth,
-                                                    speedUnit: dataSettings.speedUnit,
-                                                    altUnit: dataSettings.altUnit)
+                                                    useTN: displayDataSettings.isTrueNorth,
+                                                    speedUnit: displayDataSettings.speedUnit,
+                                                    altUnit: displayDataSettings.altUnit)
         }.disposed(by: disposeBag)
         
         distanceChartViewController
