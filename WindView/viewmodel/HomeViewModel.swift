@@ -41,11 +41,9 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     
     // MARK: outputs
     
-    private let _sondeDataList = PublishRelay<[SondeData]>()
     var sondeDataList: Driver<[SondeData]>
     var isDistFrom: Driver<Bool>
     
-//    private let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
     var chartSize: Driver<ChartSize>
     
     let model: HomeModelInput
@@ -53,8 +51,7 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     init(model: HomeModelInput = HomeModel()) {
         self.model = model
         
-        // output
-        self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
+        self.sondeDataList = self.model.currentSondeDataListObservable.asDriver(onErrorJustReturn: [])
         let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
         self.chartSize = _chartSize.asDriver(onErrorJustReturn: .m)
         
@@ -83,10 +80,7 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     }
     
     private func updateSondeDataList() {
-        Task {
-            let currentDataList = try await model.fetchCurrentSondeDataList()
-            self._sondeDataList.accept(currentDataList)
-        }
+        model.updateCurrentSondeDataList()
     }
     
     func reAppearView() {

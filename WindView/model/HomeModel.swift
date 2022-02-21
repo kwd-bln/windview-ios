@@ -11,9 +11,12 @@ import RxCocoa
 
 protocol HomeModelInput {
     var dataSettingObservable: Observable<DataSettings> { get }
+    var currentSondeDataListObservable: Observable<[SondeData]> { get }
     
-    func fetchCurrentSondeDataList() async throws -> [SondeData]
+    func updateCurrentSondeDataList()
     func updateCurrentSettings()
+    
+    var autoUpdateData: Bool { get }
 }
 
 final class HomeModel: HomeModelInput {
@@ -28,6 +31,27 @@ final class HomeModel: HomeModelInput {
         dataSettingBehaviorRelay.value
     }
     
+    // MARK: currentSondeDataList
+    private let currentSondeDataListPublishRelay: PublishRelay<[SondeData]>
+    var currentSondeDataListObservable: Observable<[SondeData]> {
+        currentSondeDataListPublishRelay.asObservable()
+    }
+    
+    private var lastFetchedDate: Date = .init()
+    
+    /// 選択した時刻が`lastFetchedDate`から1時間以内である場合
+    var autoUpdateData: Bool {
+        if let selectedDate = dataSettings.selectedDate {
+            return lastFetchedDate.addingTimeInterval(-3600 * 24 * 30) < selectedDate
+        } else {
+            return true
+        }
+    }
+    
+    var myTimer: Timer?
+    var myTask: Task<Void, Error>?
+    let disposeBag = DisposeBag()
+    
     init(sondeDataModel: SondeDataModelInput = StubSondeDataModel()) {
         self.sondeDataModel = sondeDataModel
         
@@ -35,11 +59,32 @@ final class HomeModel: HomeModelInput {
                               selectedDate: UserDefaults.standard.selectedDate,
                               isTrueNorth: UserDefaults.standard.isTrueNorth)
         self.dataSettingBehaviorRelay = .init(value: ds)
+        
+        self.currentSondeDataListPublishRelay = .init()
+        
+        dataSettingObservable.subscribe { [weak self] event in
+            self?.myTimer?.invalidate()
+            self?.myTask?.cancel()
+            if self?.autoUpdateData == true {
+                self?.myTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
+                    print("== intervalFunc")
+                    guard let self = self else { return }
+                    self.updateCurrentSettings()
+                })
+            } else {
+                print("== stop interval")
+            }
+        }.disposed(by: disposeBag)
     }
     
-    func fetchCurrentSondeDataList() async throws -> [SondeData] {
-        try await sondeDataModel.fetchSondeDataList(at: dataSettings.selectedDate,
-                                                    duration: dataSettings.useDataDuration)
+    func updateCurrentSondeDataList() {
+        lastFetchedDate = Date()
+        self.myTask = Task {
+            let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: dataSettings.selectedDate,
+                                                                            duration: dataSettings.useDataDuration)
+            
+            currentSondeDataListPublishRelay.accept(sondeDataList)
+        }
     }
     
     func updateCurrentSettings() {
