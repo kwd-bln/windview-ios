@@ -22,6 +22,7 @@ final class SpeedChartView: UIView {
     private var featuredIndex: Int? = nil
     /// 真北を使うかどうか
     private var useTN: Bool = true
+    private var speedUnit: SpeedUnit = .mps
     
     init() {
         super.init(frame: .zero)
@@ -49,11 +50,13 @@ final class SpeedChartView: UIView {
     func set(sondeData: SondeData,
              isFrom: Bool,
              featuredIndex: Int?,
-             useTN: Bool) {
+             useTN: Bool,
+             speedUnit: SpeedUnit) {
         self.sondeData = sondeData
         self.isTo = !isFrom
         self.featuredIndex = featuredIndex
         self.useTN = useTN
+        self.speedUnit = speedUnit
     }
 }
 
@@ -62,12 +65,13 @@ final class SpeedChartView: UIView {
 private extension SpeedChartView {
     func drawChart(_ rect: CGRect, in context: CGContext, data sondeData: SondeData) {
         // calculate max speed
-        let maxSpeed = sondeData.maxSpeed
+        let maxSpeed = speedUnit.converted(from: sondeData.maxSpeed)
+        
         // 単位となる速度
         let unitSpeed = calcUnitSpeed(maxSpeed)
         drawScales(rect, in: context, unitSpeed: unitSpeed)
         
-        let speedViewData = SpeedChartViewData(from: sondeData, useTN: useTN)
+        let speedViewData = SpeedChartViewData(from: sondeData, useTN: useTN, unit: speedUnit)
         drawChartLines(in: context, with: rect, speedViewData: speedViewData, unit: unitSpeed)
         
         if let featuredIndex = featuredIndex {
@@ -138,8 +142,8 @@ private extension SpeedChartView {
             y += size2.height + 2
         }
         
-        let windSpeedText = String(format: "%.1f", item.windspeed)
-        let text3 = "Speed: \(windSpeedText)[m/s]"
+        let windSpeedText = String(format: "%.1f", speedUnit.converted(from: item.windspeed))
+        let text3 = "Speed: \(windSpeedText)[\(speedUnit.rawValue)]"
         let size3 = text3.size(withAttributes: attrs)
         let point3: CGPoint = .init(x: rect.maxX - size3.width - offsetX, y: y)
         context.drawText(text3, at: point3, align: .left, angleRadians: 0, attributes: attrs)
@@ -201,7 +205,7 @@ private extension SpeedChartView {
         
         for i in 1...5 {
             let scaleValue = unitSpeed * CGFloat(i)
-            let text = "\(scaleValue.stringFixedTo2)[m/s]"
+            let text = "\(scaleValue.stringFixedTo2)[\(speedUnit.rawValue)]"
             let point: CGPoint = CGFloat(i) * unitVector + rect.mid
             let size = text.size(withAttributes: attrs)
             

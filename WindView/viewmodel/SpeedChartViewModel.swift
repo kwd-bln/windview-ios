@@ -15,6 +15,7 @@ protocol SpeedViewModelInput {
     var selectedHieightIndexValueChanged: AnyObserver<Int?> { get }
     func updateSondeDataList(_ values: [SondeData])
     func updateUseTrueNorth(_ bool: Bool)
+    func updateSpeedUnit(_ unit: SpeedUnit)
 }
 
 protocol SpeedViewModelOutput {
@@ -23,6 +24,7 @@ protocol SpeedViewModelOutput {
     var selectedHeightIndex: Driver<Int?> { get }
     var isFrom: Driver<Bool> { get }
     var useTN: Driver<Bool> { get }
+    var speedUnit: Driver<SpeedUnit> { get }
 }
 
 protocol SpeedViewModelPresenterOutput {
@@ -53,13 +55,16 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     let selectedIndex: Driver<Int>
     
     private let _isFrom: BehaviorRelay<Bool>
-    let useTN: Driver<Bool>
+    let isFrom: Driver<Bool>
     
     private let _useTN: BehaviorRelay<Bool>
-    let isFrom: Driver<Bool>
+    let useTN: Driver<Bool>
     
     private let _selectedHeightIndex: BehaviorRelay<Int?>
     let selectedHeightIndex: Driver<Int?>
+    
+    private let _speedUnit: BehaviorRelay<SpeedUnit>
+    let speedUnit: Driver<SpeedUnit>
     
     init() {
         // outputs
@@ -76,6 +81,9 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         
         let _selectedHeightIndex = BehaviorRelay<Int?>.init(value: nil)
         self.selectedHeightIndex = _selectedHeightIndex.asDriver(onErrorJustReturn: nil)
+        
+        let _speedUnit = BehaviorRelay<SpeedUnit>.init(value: .mps)
+        self.speedUnit = _speedUnit.asDriver(onErrorJustReturn: .mps)
         
         // inputs
         self.timeButtonTap = AnyObserver<Int>() { event in
@@ -94,6 +102,7 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         self._isFrom = _isFrom
         self._useTN = _useTN
         self._selectedHeightIndex = _selectedHeightIndex
+        self._speedUnit = _speedUnit
     }
     
     func updateSondeDataList(_ values: [SondeData]) {
@@ -101,7 +110,15 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     }
     
     func updateUseTrueNorth(_ bool: Bool) {
-        _useTN.accept(bool)
+        if _useTN.value != bool {
+            _useTN.accept(bool)
+        }
+    }
+    
+    func updateSpeedUnit(_ unit: SpeedUnit) {
+        if _speedUnit.value != unit {
+            _speedUnit.accept(unit)
+        }
     }
 }
 
