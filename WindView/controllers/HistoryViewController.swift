@@ -30,7 +30,8 @@ final class HistoryViewController: UIViewController {
     
     private var sondeDataListWithDate: [(date: String, dataList: [SondeData])] = []
     
-    private let model = UpdatingStubSondeDataModel()
+    private let model: SondeDataModelInput =
+    AppDelegate.useStubData ? UpdatingStubSondeDataModel() : SondeDataModel()
     
     override func loadView() {
         super.loadView()

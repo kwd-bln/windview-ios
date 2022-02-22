@@ -69,8 +69,16 @@ final class HomeModel: HomeModelInput {
     var myTask: Task<Void, Error>?
     let disposeBag = DisposeBag()
     
-    init(sondeDataModel: SondeDataModelInput = UpdatingStubSondeDataModel()) {
-        self.sondeDataModel = sondeDataModel
+    init(sondeDataModel: SondeDataModelInput? = nil) {
+        if let sondeDataModel = sondeDataModel {
+            self.sondeDataModel = sondeDataModel
+        } else {
+            if AppDelegate.useStubData {
+                self.sondeDataModel =  UpdatingStubSondeDataModel()
+            } else {
+                self.sondeDataModel = SondeDataModel()
+            }
+        }
         
         let ds = DateSettings(useDataDuration: UserDefaults.standard.chartDisplayDuration,
                               selectedDate: UserDefaults.standard.selectedDate)
@@ -87,7 +95,7 @@ final class HomeModel: HomeModelInput {
             self?.myTimer?.invalidate()
             if self?.autoUpdateData == true {
                 self?.forceUpdateToLatestDate()
-                self?.myTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
+                self?.myTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { [weak self] _ in
                     guard let self = self else { return }
                     self.forceUpdateToLatestDate()
                 })
