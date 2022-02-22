@@ -8,10 +8,14 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Firebase
+import FirebaseAuth
 
 protocol HomeModelInput {
     var dataSettingObservable: Observable<DisplayDataSetting> { get }
     var currentSondeDataListObservable: Observable<[SondeData]> { get }
+    
+    var isLoggedIn: Bool { get }
     
     func updateCurrentSondeDataList()
     func updateCurrentSettings()
@@ -42,6 +46,14 @@ final class HomeModel: HomeModelInput {
         currentSondeDataListBehaviorRelay.asObservable()
     }
     
+    var isLoggedIn: Bool {
+        if AppDelegate.useStubData {
+            return true
+        } else {
+            return (Auth.auth().currentUser?.uid.isEmpty ?? true) == false
+        }
+    }
+    
     private var lastFetchedDate: Date = .init()
     
     var criteriaOffset: TimeInterval {
@@ -56,6 +68,8 @@ final class HomeModel: HomeModelInput {
     /// 選択した時刻が`lastFetchedDate`から`criteriaOffset`時間以内である場合、
     /// もしくは選択していないけれども、最新のデータの時刻が`criteriaOffset`時間以内である場合
     var autoUpdateData: Bool {
+        if !isLoggedIn { return false }
+        
         if let selectedDate = dateSettings.selectedDate {
             return lastFetchedDate.addingTimeInterval(-criteriaOffset) < selectedDate
         } else {

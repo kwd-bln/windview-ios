@@ -12,6 +12,8 @@ import RxCocoa
 // MVVMの設計は https://qiita.com/REON/items/c7f3d72995170f472701 を参考にした
 
 protocol HomeViewModelInput {
+    var isLoggedIn: Bool { get }
+    
     func loadView()
     func reAppearView()
     
@@ -38,6 +40,9 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     
     var zoomButtonTap: AnyObserver<Void>
     var distIsFromSegment: AnyObserver<Bool>
+    var isLoggedIn: Bool {
+        model.isLoggedIn
+    }
     
     // MARK: outputs
     
