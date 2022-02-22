@@ -7,6 +7,8 @@
 
 import UIKit
 import BetterSegmentedControl
+import FirebaseAuth
+import Firebase
 
 final class SettingsViewController: UIViewController {
     // MARK: - temporary values
@@ -100,6 +102,20 @@ final class SettingsViewController: UIViewController {
         return slider
     }()
     
+    /// ログアウトボタン
+    let logoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.snp.makeConstraints {
+            $0.size.equalTo(CGSize(width: 160, height: 40))
+        }
+        button.titleLabel?.font = .hiraginoSans(style: .bold, size: 16)
+        button.setTitle("ログアウト", for: .normal)
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UIColor.Palette.text.withAlphaComponent(0.4)
+        button.contentVerticalAlignment = .fill
+        return button
+    }()
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .Palette.main
@@ -118,6 +134,8 @@ final class SettingsViewController: UIViewController {
         altUnitSegmentedControl.addTarget(self,
                                           action: #selector(altUnitSegmentedControlValueChanged(_:)),
                                           for: .valueChanged)
+        
+        logoutButton.addTarget(self, action: #selector(didPushLogoutButton), for: .touchUpInside)
         
         
         setupFirstValue()
@@ -207,6 +225,8 @@ private extension SettingsViewController {
         chartDurationSlider.snp.makeConstraints { make in
             make.width.equalTo(200)
         }
+        
+        stack.addArrangedSubview(logoutButton)
     }
     
     func setupFirstValue() {
@@ -254,6 +274,15 @@ private extension SettingsViewController {
     
     @objc private func altUnitSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
         tmpAltUnit = AltUnit.allCases[sender.index]
+    }
+    
+    @objc private func didPushLogoutButton() {
+        do {
+            try Auth.auth().signOut()
+            dismiss(animated: true, completion: nil)
+        } catch {
+            print("error: \(error)")
+        }
     }
 }
 
