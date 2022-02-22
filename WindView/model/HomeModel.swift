@@ -75,16 +75,17 @@ final class HomeModel: HomeModelInput {
         
         self.currentSondeDataListPublishRelay = .init()
         
-        dataSettingObservable.subscribe { [weak self] event in
+        dateSettingObservable.subscribe { [weak self] event in
             self?.myTimer?.invalidate()
-            self?.myTask?.cancel()
             if self?.autoUpdateData == true {
+                self?.forceUpdateToLatestDate()
                 self?.myTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
                     print("== intervalFunc")
                     guard let self = self else { return }
-                    self.updateCurrentSettings()
+                    self.forceUpdateToLatestDate()
                 })
             } else {
+                self?.updateCurrentSondeDataList()
                 print("== stop interval")
             }
         }.disposed(by: disposeBag)
@@ -92,16 +93,27 @@ final class HomeModel: HomeModelInput {
     
     func updateCurrentSondeDataList() {
         lastFetchedDate = Date()
+        self.myTask?.cancel()
         self.myTask = Task {
-            let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: dataSettings.selectedDate,
-                                                                            duration: dataSettings.useDataDuration)
+            let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: dateSettings.selectedDate,
+                                                                            duration: dateSettings.useDataDuration)
+            
+            currentSondeDataListPublishRelay.accept(sondeDataList)
+        }
+    }
+    
+    private func forceUpdateToLatestDate() {
+        self.myTask?.cancel()
+        self.myTask = Task {
+            let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: nil,
+                                                                            duration: dateSettings.useDataDuration)
             
             currentSondeDataListPublishRelay.accept(sondeDataList)
         }
     }
     
     func updateCurrentSettings() {
-        updateCurrentSettings()
+        updateCurrentDateSettings()
         updateCurrentDisplayDataSettings()
     }
     
