@@ -106,6 +106,10 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     }
     
     func updateSondeDataList(_ values: [SondeData]) {
+        if _selectedIndex.value >= values.count {
+            _selectedIndex.accept(0)
+        }
+        _selectedHeightIndex.accept(nil)
         _sondeDataList.accept(values)
     }
     
