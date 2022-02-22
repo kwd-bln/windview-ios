@@ -68,54 +68,6 @@ final class SondeDataModel: SondeDataModelInput {
     }
 }
 
-final class StubSondeDataModel: SondeDataModelInput {
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        let sondeDataList = getDataList()
-        return sondeDataList.first!
-    }
-    
-    func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        let sondeDataList = getDataList()
-        let optionalTargetDate = date ?? sondeDataList.first?.measuredAt.dateValue()
-        
-        if let targetDate = optionalTargetDate {
-            let limitDate = Date(timeInterval: -TimeInterval(hour: duration), since: targetDate)
-            return sondeDataList.filter { sondeData in
-                let measuredAt = sondeData.measuredAt.dateValue()
-                return limitDate < measuredAt && measuredAt <= targetDate
-            }
-        } else {
-            return []
-        }
-    }
-    
-    func fetchAllSondeDataList() async throws -> [SondeData] {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        return getDataList()
-    }
-    
-    private func getDataList() -> [SondeData] {
-        guard let url = Bundle.main.url(forResource: "winds", withExtension: "json") else {
-            fatalError("ファイルが見つからない")
-        }
-        
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("ファイル読み込みエラー")
-        }
-        
-        let decoder = JSONDecoder()
-        guard let sondeDataList = try? decoder.decode([SondeData].self, from: data) else {
-            fatalError("JSON読み込みエラー")
-        }
-        
-        return sondeDataList
-    }
-}
-
-
 extension TimeInterval {
     init(hour: Int) {
         // 60秒 * 60分 * hour時間

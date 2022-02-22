@@ -62,6 +62,7 @@
 		C9AE013927BFED1900277E0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013827BFED1800277E0F /* SettingsViewController.swift */; };
 		C9AE013B27C1464100277E0F /* HeightMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013A27C1464100277E0F /* HeightMap.swift */; };
 		C9AE013D27C289B000277E0F /* UnitConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013C27C289B000277E0F /* UnitConverter.swift */; };
+		C9AE013F27C53CD800277E0F /* UpdatingStubSondeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE013E27C53CD700277E0F /* UpdatingStubSondeDataModel.swift */; };
 		C9AE014427C53EFD00277E0F /* winds-4.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AE014027C53EFC00277E0F /* winds-4.json */; };
 		C9AE014527C53EFD00277E0F /* winds-3.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AE014127C53EFD00277E0F /* winds-3.json */; };
 		C9AE014627C53EFD00277E0F /* winds-2.json in Resources */ = {isa = PBXBuildFile; fileRef = C9AE014227C53EFD00277E0F /* winds-2.json */; };
@@ -151,6 +152,7 @@
 		C9AE013827BFED1800277E0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C9AE013A27C1464100277E0F /* HeightMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightMap.swift; sourceTree = "<group>"; };
 		C9AE013C27C289B000277E0F /* UnitConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverter.swift; sourceTree = "<group>"; };
+		C9AE013E27C53CD700277E0F /* UpdatingStubSondeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatingStubSondeDataModel.swift; sourceTree = "<group>"; };
 		C9AE014027C53EFC00277E0F /* winds-4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "winds-4.json"; sourceTree = "<group>"; };
 		C9AE014127C53EFD00277E0F /* winds-3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "winds-3.json"; sourceTree = "<group>"; };
 		C9AE014227C53EFD00277E0F /* winds-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "winds-2.json"; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				C9072A5E27B56D0B001397D6 /* Settings.swift */,
 				C9E5FB6E27B33C2900538B09 /* SondeData.swift */,
 				C9E5FB7A27B3F20000538B09 /* SondeDataModel.swift */,
+				C9AE013E27C53CD700277E0F /* UpdatingStubSondeDataModel.swift */,
 				C9072A6027B5F168001397D6 /* HomeModel.swift */,
 			);
 			path = model;
@@ -561,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9AE013F27C53CD800277E0F /* UpdatingStubSondeDataModel.swift in Sources */,
 				C9E5FB7B27B3F20000538B09 /* SondeDataModel.swift in Sources */,
 				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
 				C9AE010627B927A000277E0F /* TextCell.swift in Sources */,

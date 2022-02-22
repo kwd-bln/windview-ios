@@ -61,7 +61,7 @@ final class HomeModel: HomeModelInput {
     var myTask: Task<Void, Error>?
     let disposeBag = DisposeBag()
     
-    init(sondeDataModel: SondeDataModelInput = StubSondeDataModel()) {
+    init(sondeDataModel: SondeDataModelInput = UpdatingStubSondeDataModel()) {
         self.sondeDataModel = sondeDataModel
         
         let ds = DateSettings(useDataDuration: UserDefaults.standard.chartDisplayDuration,
