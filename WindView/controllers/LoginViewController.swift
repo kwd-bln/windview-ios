@@ -15,7 +15,7 @@ final class LoginViewController: UIViewController {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "balloons"))
         let dimView = UIView()
-        dimView.backgroundColor = .black.withAlphaComponent(0.4)
+        dimView.backgroundColor = .black.withAlphaComponent(0.2)
         imageView.addSubview(dimView)
         dimView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -63,10 +63,13 @@ final class LoginViewController: UIViewController {
         button.titleLabel?.font = .hiraginoSans(style: .bold, size: 16)
         button.setTitle("ログイン", for: .normal)
         button.layer.cornerRadius = 4
-        button.setTitleColor(UIColor.Palette.text, for: .normal)
-        button.backgroundColor = UIColor.Palette.main.withAlphaComponent(0.8)
+        button.clipsToBounds = true
+        button.setTitleColor(.black, for: .normal)
         button.contentVerticalAlignment = .fill
-        
+        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.8).image, for: .normal)
+        let grayImage = UIColor.lightGray.withAlphaComponent(0.5).image
+        button.setBackgroundImage(grayImage, for: .selected)
+        button.setBackgroundImage(grayImage, for: .highlighted)
         return button
     }()
     
@@ -143,8 +146,13 @@ final class LoginViewController: UIViewController {
     @objc private func didPushLoginButton() {
         let email = emailTextField.text ?? ""
         let pass = passwordTextField.text ?? ""
+        if email.isEmpty || pass.isEmpty { return }
         Auth.auth().signIn(withEmail: email, password: pass) { [weak self] authResult, error in
-            print("== AuthResult: ,", authResult, error)
+            if let error = error {
+                print("サインインに失敗:", error)
+                return
+            }
+            self?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -165,7 +173,7 @@ final class LoginViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
             
-            Auth.auth().signIn(with: credential) { authResult, error in
+            Auth.auth().signIn(with: credential) { [unowned self] authResult, error in
                 if let error = error {
                     let authError = error as NSError
                     if authError.code == AuthErrorCode.secondFactorRequired.rawValue {
@@ -175,7 +183,7 @@ final class LoginViewController: UIViewController {
                     }
                     return
                 }
-                print("Googleのログインに成功しました。")
+                self.dismiss(animated: true, completion: nil)
             }
             
             
