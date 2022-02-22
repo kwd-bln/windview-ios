@@ -22,7 +22,6 @@ protocol HomeViewModelInput {
 protocol HomeViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var displayDataSettings: Driver<DisplayDataSetting> { get }
-    var dateSettings: Driver<DateSettings> { get }
     var chartSize: Driver<ChartSize> { get }
     var isDistFrom: Driver<Bool> { get }
 }
@@ -90,10 +89,6 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     
     var displayDataSettings: Driver<DisplayDataSetting> {
         model.dataSettingObservable.asDriver(onErrorJustReturn: .init())
-    }
-    
-    var dateSettings: Driver<DateSettings> {
-        model.dateSettingObservable.asDriver(onErrorJustReturn: .init())
     }
 }
 
