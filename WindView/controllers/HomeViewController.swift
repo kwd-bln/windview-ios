@@ -277,6 +277,27 @@ extension HomeViewController {
     }
 }
 
+// MARK: - show history and setting
+
+extension HomeViewController {
+    func showHistoryViewController() {
+        let historyViewController = HistoryViewController()
+        historyViewController.presentationController?.delegate = self
+        present(historyViewController, animated: true, completion: nil)
+    }
+    
+    func showSettingsViewController() {
+        let settingsViewController = SettingsViewController(delegate: self)
+        present(settingsViewController, animated: true, completion: nil)
+    }
+    
+    func showLoginViewController() {
+        let loginViewController = LoginViewController(delegate: self)
+        present(loginViewController, animated: true, completion: nil)
+    }
+}
+
+
 // MARK: - UIPageViewControllerDataSource
 
 extension HomeViewController: UIPageViewControllerDataSource {
@@ -296,26 +317,6 @@ extension HomeViewController: UIPageViewControllerDataSource {
         } else {
             return nil
         }
-    }
-}
-
-// MARK: - show history and setting
-
-extension HomeViewController {
-    func showHistoryViewController() {
-        let historyViewController = HistoryViewController()
-        historyViewController.presentationController?.delegate = self
-        present(historyViewController, animated: true, completion: nil)
-    }
-    
-    func showSettingsViewController() {
-        let settingsViewController = SettingsViewController(delegate: self)
-        present(settingsViewController, animated: true, completion: nil)
-    }
-    
-    func showLoginViewController() {
-        let loginViewController = LoginViewController(delegate: self)
-        present(loginViewController, animated: true, completion: nil)
     }
 }
 
