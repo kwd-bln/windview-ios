@@ -57,7 +57,7 @@ final class HomeModel: HomeModelInput {
     
     private var lastFetchedDate: Date = .init()
     
-    var criteriaOffset: TimeInterval {
+    private var criteriaOffset: TimeInterval {
         if AppDelegate.useStubData {
             // 2ヶ月
             return 3600 * 24 * 60
@@ -66,6 +66,17 @@ final class HomeModel: HomeModelInput {
             return 3600
         }
     }
+    
+    private var updateInterval: TimeInterval {
+        if AppDelegate.useStubData {
+            // 5秒
+            return 5
+        } else {
+            // 15秒
+            return 15
+        }
+    }
+    
     /// 選択した時刻が`lastFetchedDate`から`criteriaOffset`時間以内である場合、
     /// もしくは選択していないけれども、最新のデータの時刻が`criteriaOffset`時間以内である場合
     var autoUpdateData: Bool {
@@ -107,12 +118,13 @@ final class HomeModel: HomeModelInput {
         self.currentSondeDataListBehaviorRelay = .init(value: [])
         
         dateSettingBehaviorRelay
-            .skip(1)
             .subscribe { [weak self] event in
             self?.myTimer?.invalidate()
             if self?.autoUpdateData == true {
                 self?.forceUpdateToLatestDate()
-                self?.myTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { [weak self] _ in
+                self?.myTimer = Timer.scheduledTimer(withTimeInterval: self?.updateInterval ?? 10,
+                                                     repeats: true,
+                                                     block: { [weak self] _ in
                     guard let self = self else { return }
                     self.forceUpdateToLatestDate()
                 })

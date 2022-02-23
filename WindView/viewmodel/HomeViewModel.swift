@@ -85,7 +85,8 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     }
     
     func loadView() {
-        updateSondeDataList()
+        // 必要なさそうなのでとりあえずコメントアウト
+//        updateSondeDataList()
     }
     
     private func updateSondeDataList() {
