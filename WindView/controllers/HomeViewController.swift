@@ -22,6 +22,7 @@ final class HomeViewController: UIViewController {
     }()
     
     private var currentPageIndex: Int = 0
+    private var currentMoveToIndex: Int? = nil
     
     let childVCList: [(menuTitle: String, vc: UIViewController)]
     
@@ -83,6 +84,13 @@ final class HomeViewController: UIViewController {
     let bottomControlView = BottomControlView(frame: .zero)
     
     // MARK: その他
+    /// pagingVCがアニメーション中かどうか
+    var isVCAnimating: Bool = false {
+        didSet {
+            pageViewController.view.isUserInteractionEnabled = !isVCAnimating
+        }
+    }
+    
     let disposeBag = DisposeBag()
     
     init(viewModel: HomeViewModelType = HomeViewModel()) {
@@ -235,7 +243,7 @@ private extension HomeViewController {
     
     func setupMenuStackView() {
         hiddenMenuStackView.layer.mask = currentHole
-        menuTitles.forEach { menuTitle in
+        menuTitles.enumerated().forEach { index, menuTitle in
             let menuButton = UIButton.createMenuButton(text: menuTitle, textColor: .Palette.text)
             menuStackView.addArrangedSubview(menuButton)
             menuButton.snp.makeConstraints { make in
@@ -244,6 +252,8 @@ private extension HomeViewController {
             menuButtons.append(menuButton)
             
             let hiddenButton = UIButton.createMenuButton(text: menuTitle, textColor: .Palette.main)
+            hiddenButton.tag = index
+            hiddenButton.addTarget(self, action: #selector(didPushMenuItem(_:)), for: .touchUpInside)
             hiddenMenuStackView.addArrangedSubview(hiddenButton)
             hiddenButton.snp.makeConstraints { make in
                 make.top.bottom.equalToSuperview()
@@ -318,6 +328,37 @@ extension HomeViewController: UIPageViewControllerDataSource {
             return nil
         }
     }
+    
+    @objc private func didPushMenuItem(_ sender: UIButton) {
+        if isVCAnimating { return }
+        updatePageVC(to: sender.tag)
+    }
+    
+    private func updatePageVC(to index: Int) {
+        if currentPageIndex == index { return }
+        let targetVC = childControllers[index]
+        if pageViewController.viewControllers?.first == targetVC { return }
+        isVCAnimating = true
+        currentMoveToIndex = index
+        pageViewController.setViewControllers([targetVC],
+                                              direction: index > currentPageIndex ? .forward : .reverse,
+                                              animated: true,
+                                              completion: { [weak self] _ in
+            self?.isVCAnimating = false
+            self?.currentPageIndex = index
+            self?.currentMoveToIndex = nil
+        })
+    }
+    
+    private func updateCurrentHole(from index: Int, to target: Int) {
+        let currentMenuButton = menuButtons[index]
+        let moveToButton = menuButtons[target]
+        let anim = CABasicAnimation(keyPath:"path")
+        anim.fromValue = UIBezierPath(roundedRect: currentMenuButton.frame, cornerRadius: currentMenuButton.frame.height / 2)
+        anim.toValue = UIBezierPath(roundedRect: moveToButton.frame, cornerRadius: moveToButton.frame.height / 2)
+        anim.duration = 0.3
+        currentHole.add(anim, forKey: nil)
+    }
 }
 
 // MARK: - UIPageViewControllerDelegate
@@ -354,6 +395,13 @@ extension HomeViewController: UIScrollViewDelegate {
         if leftRightJug == 0 {
             return
         }
+        
+        if isVCAnimating {
+            guard let currentMoveToIndex = currentMoveToIndex else { return }
+            let moveRatio = abs(leftRightJug) / parentWidth
+            updateCurrentHole(currentIndex: currentPageIndex, moveToIndex: currentMoveToIndex, ratio: moveRatio)
+            return
+        }
 
         let moveToIndex = leftRightJug > 0 ? currentPageIndex - 1 : currentPageIndex + 1
 
@@ -367,14 +415,10 @@ extension HomeViewController: UIScrollViewDelegate {
     private func updateCurrentHole(currentIndex: Int, moveToIndex: Int, ratio: CGFloat) {
         let currentMenuButton = menuButtons[currentIndex]
         let moveToButton = menuButtons[moveToIndex]
+        let minX = moveToButton.frame.minX * ratio + currentMenuButton.frame.minX * (1 - ratio)
+        let maxX = moveToButton.frame.maxX * ratio + currentMenuButton.frame.maxX * (1 - ratio)
         
-        let leftRatio = currentIndex < moveToIndex ? 1 - ratio : ratio
-        let currentX = currentMenuButton.frame.minX * leftRatio + currentMenuButton.frame.maxX * (1 - leftRatio)
-        let moveToX = moveToButton.frame.minX * leftRatio + moveToButton.frame.maxX * (1 - leftRatio)
-        let x = min(currentX, moveToX)
-        let width = abs(moveToX - currentX)
-        
-        let rect: CGRect = .init(x: x, y: currentMenuButton.frame.minY, width: width, height: currentMenuButton.frame.height)
+        let rect: CGRect = .init(x: minX, y: currentMenuButton.frame.minY, width: maxX - minX, height: currentMenuButton.frame.height)
         
         let maskPath = UIBezierPath(roundedRect: rect, cornerRadius: currentMenuButton.frame.height / 2)
         currentHole.path = maskPath.cgPath
