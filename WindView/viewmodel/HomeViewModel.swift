@@ -72,12 +72,6 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         self.distIsFromSegment = AnyObserver<Bool>() { event in
             _isDistFrom.accept(event.element ?? false)
         }
-        
-        model.dataSettingObservable
-            .subscribe(onNext: { [weak self] _ in
-                self?.updateSondeDataList()
-            })
-            .disposed(by: disposeBag)
     }
     
     func loadView() {

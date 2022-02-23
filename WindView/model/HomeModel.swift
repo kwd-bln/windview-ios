@@ -57,7 +57,7 @@ final class HomeModel: HomeModelInput {
     private var lastFetchedDate: Date = .init()
     
     var criteriaOffset: TimeInterval {
-        if Util.isDebug {
+        if AppDelegate.useStubData {
             // 2ヶ月
             return 3600 * 24 * 60
         } else {
@@ -105,7 +105,9 @@ final class HomeModel: HomeModelInput {
         
         self.currentSondeDataListBehaviorRelay = .init(value: [])
         
-        dateSettingBehaviorRelay.subscribe { [weak self] event in
+        dateSettingBehaviorRelay
+            .skip(1)
+            .subscribe { [weak self] event in
             self?.myTimer?.invalidate()
             if self?.autoUpdateData == true {
                 self?.forceUpdateToLatestDate()
@@ -123,10 +125,14 @@ final class HomeModel: HomeModelInput {
         lastFetchedDate = Date()
         self.myTask?.cancel()
         self.myTask = Task {
+            if !isLoggedIn { return }
             let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: dateSettings.selectedDate,
                                                                             duration: dateSettings.useDataDuration)
-            
             currentSondeDataListBehaviorRelay.accept(sondeDataList)
+            if sondeDataList.isEmpty {
+                UserDefaults.standard.selectedDate = nil
+                updateCurrentDateSettings()
+            }
         }
     }
     
@@ -134,6 +140,7 @@ final class HomeModel: HomeModelInput {
         lastFetchedDate = Date()
         self.myTask?.cancel()
         self.myTask = Task {
+            if !isLoggedIn { return }
             let sondeDataList = try await sondeDataModel.fetchSondeDataList(at: nil,
                                                                             duration: dateSettings.useDataDuration)
             

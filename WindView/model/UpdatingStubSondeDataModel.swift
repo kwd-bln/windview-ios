@@ -28,12 +28,6 @@ final class UpdatingStubSondeDataModel: SondeDataModelInput {
         }
     }
     
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        let sondeDataList = getDataList()
-        return sondeDataList.first!
-    }
-    
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
         try await Task.sleep(nanoseconds: 1_000_000_000)
         

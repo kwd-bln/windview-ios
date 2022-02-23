@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -14,7 +15,6 @@ enum SondeDataModelError: Error {
 }
 
 protocol SondeDataModelInput {
-    func fetchLatestSondeDataModel() async throws -> SondeData
     /// 指定した日時から遡って`duration`だけデータを取得する
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData]
     /// 全てのsondeDataを取得する
@@ -34,17 +34,19 @@ extension SondeDataModelInput {
 final class SondeDataModel: SondeDataModelInput {
     static let fetchCount: Int = 10
     
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        let sondeDataList = try await fetchLatestSondeDataList()
-        return sondeDataList.first!
+    var isLoggedIn: Bool {
+        (Auth.auth().currentUser?.uid.isEmpty ?? true) == false
     }
     
     private func fetchLatestSondeDataList() async throws -> [SondeData] {
+        if !isLoggedIn { return [] }
         let sondeDataList = try await Firestore.fetchSondeDateList(limitCount: Self.fetchCount)
         return sondeDataList
     }
     
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
+        if !isLoggedIn { return [] }
+        
         if let date = date {
             let fromDate = Date(timeInterval: -TimeInterval(hour: duration), since: date)
             return try await Firestore.fetchSondeDateList(from: fromDate, to: date, limitCount: Self.fetchCount)
@@ -64,7 +66,8 @@ final class SondeDataModel: SondeDataModelInput {
     }
     
     func fetchAllSondeDataList() async throws -> [SondeData] {
-        try await Firestore.fetchSondeDateList(from: nil, to: nil, limitCount: 50)
+        if !isLoggedIn { return [] }
+        return try await Firestore.fetchSondeDateList(from: nil, to: nil, limitCount: 50)
     }
 }
 
