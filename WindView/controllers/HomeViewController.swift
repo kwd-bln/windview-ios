@@ -104,6 +104,40 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .Palette.main
         
         setupSubviews()
+        setupBindings()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if !viewModel.inputs.isLoggedIn {
+            DispatchQueue.main.async { [weak self] in
+                self?.showLoginViewController()
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        for view in self.pageViewController.view.subviews {
+            if view is UIScrollView {
+                (view as? UIScrollView)!.delaysContentTouches = false
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if firstOpen, menuButtons[1].frame.origin.x > 0 {
+            updateCurrentHole(currentIndex: 0, moveToIndex: 1, ratio: 0)
+            firstOpen = false
+        }
+    }
+}
+
+// MARK: - DataBinding
+
+private extension HomeViewController {
+    func setupBindings() {
         viewModel.inputs.loadView()
         HUD.show(.progress, onView: view)
         
@@ -158,25 +192,8 @@ final class HomeViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        for view in self.pageViewController.view.subviews {
-            if view is UIScrollView {
-                (view as? UIScrollView)!.delaysContentTouches = false
-            }
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if firstOpen, menuButtons[1].frame.origin.x > 0 {
-            updateCurrentHole(currentIndex: 0, moveToIndex: 1, ratio: 0)
-            firstOpen = false
-        }
-    }
 }
+
 
 // MARK: - UI
 
@@ -292,9 +309,13 @@ extension HomeViewController {
     }
     
     func showSettingsViewController() {
-        let settingsViewController = SettingsViewController()
-        settingsViewController.presentationController?.delegate = self
+        let settingsViewController = SettingsViewController(delegate: self)
         present(settingsViewController, animated: true, completion: nil)
+    }
+    
+    func showLoginViewController() {
+        let loginViewController = LoginViewController(delegate: self)
+        present(loginViewController, animated: true, completion: nil)
     }
 }
 
@@ -359,3 +380,21 @@ extension HomeViewController: UIScrollViewDelegate {
     }
 }
 
+extension HomeViewController: LoginViewControllerDelegate {
+    func loginViewControllerDidDismiss() {
+        viewModel.inputs.finishLogin()
+    }
+}
+
+extension HomeViewController: SettingsViewControllerDelegate {
+    func settingsViewControllerDidDismiss(logouted: Bool) {
+        if logouted {
+            viewModel.inputs.logout()
+            DispatchQueue.main.async { [weak self] in
+                self?.showLoginViewController()
+            }
+        } else {
+            viewModel.inputs.reAppearView()
+        }
+    }
+}

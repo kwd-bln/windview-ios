@@ -11,6 +11,10 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func loginViewControllerDidDismiss()
+}
+
 final class LoginViewController: UIViewController {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "balloons"))
@@ -90,9 +94,26 @@ final class LoginViewController: UIViewController {
     
     private let separetorView = SeparatorView()
     
+    private weak var delegate: LoginViewControllerDelegate?
+    
+    init(delegate: LoginViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        delegate?.loginViewControllerDidDismiss()
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.Palette.main
+        isModalInPresentation = true
     
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {

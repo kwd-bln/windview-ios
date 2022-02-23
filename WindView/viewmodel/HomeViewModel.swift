@@ -16,6 +16,8 @@ protocol HomeViewModelInput {
     
     func loadView()
     func reAppearView()
+    func finishLogin()
+    func logout()
     
     var zoomButtonTap: AnyObserver<Void> { get }
     var distIsFromSegment: AnyObserver<Bool> { get }
@@ -42,6 +44,14 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     var distIsFromSegment: AnyObserver<Bool>
     var isLoggedIn: Bool {
         model.isLoggedIn
+    }
+    
+    func finishLogin() {
+        model.updateCurrentSondeDataList()
+    }
+    
+    func logout() {
+        model.logout()
     }
     
     // MARK: outputs

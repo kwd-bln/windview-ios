@@ -10,6 +10,10 @@ import BetterSegmentedControl
 import FirebaseAuth
 import Firebase
 
+protocol SettingsViewControllerDelegate: AnyObject {
+    func settingsViewControllerDidDismiss(logouted: Bool)
+}
+
 final class SettingsViewController: UIViewController {
     // MARK: - temporary values
     var tmpIsTrueNorth: Bool = UserDefaults.standard.isTrueNorth
@@ -116,6 +120,17 @@ final class SettingsViewController: UIViewController {
         return button
     }()
     
+    private weak var delegate: SettingsViewControllerDelegate?
+    
+    init(delegate: SettingsViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .Palette.main
@@ -164,10 +179,9 @@ final class SettingsViewController: UIViewController {
         setupStackViews()
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag, completion: completion)
-        guard let presentationController = presentationController else { return }
-        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+    private func dismiss(logouted: Bool) {
+        dismiss(animated: true, completion: nil)
+        delegate?.settingsViewControllerDidDismiss(logouted: logouted)
     }
 }
 
@@ -242,7 +256,7 @@ private extension SettingsViewController {
 
 private extension SettingsViewController {
     @objc func didPushCloseButton() {
-        dismiss(animated: true, completion: nil)
+        dismiss(logouted: false)
     }
     
     @objc func didPushSaveButton() {
@@ -250,7 +264,7 @@ private extension SettingsViewController {
         UserDefaults.standard.chartDisplayDuration = tmpChartDisplayDuration
         UserDefaults.standard.speedUnit = tmpSpeedUnit
         UserDefaults.standard.altUnit = tmpAltUnit
-        dismiss(animated: true, completion: nil)
+        dismiss(logouted: false)
     }
     
     @objc private func directionSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
@@ -279,7 +293,7 @@ private extension SettingsViewController {
     @objc private func didPushLogoutButton() {
         do {
             try Auth.auth().signOut()
-            dismiss(animated: true, completion: nil)
+            dismiss(logouted: true)
         } catch {
             print("error: \(error)")
         }

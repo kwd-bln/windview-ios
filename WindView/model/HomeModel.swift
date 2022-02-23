@@ -19,6 +19,7 @@ protocol HomeModelInput {
     
     func updateCurrentSondeDataList()
     func updateCurrentSettings()
+    func logout()
     
     var autoUpdateData: Bool { get }
 }
@@ -176,5 +177,13 @@ final class HomeModel: HomeModelInput {
                                                  altUnit: altUnit)
             dataSettingBehaviorRelay.accept(newSettings)
         }
+    }
+    
+    func logout() {
+        UserDefaults.standard.selectedDate = nil
+        UserDefaults.standard.chartDisplayDuration = 6
+        UserDefaults.standard.isTrueNorth = true
+        UserDefaults.standard.speedUnit = .mps
+        UserDefaults.standard.altUnit = .m
     }
 }
