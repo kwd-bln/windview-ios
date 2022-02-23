@@ -51,31 +51,19 @@ final class DistanceChartViewController: UIViewController {
                   .cornerRadius(18)]
     )
     
-    private let fromButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("From", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.setTitleColor(.Palette.text, for: .normal)
-        button.setBackgroundImage(UIColor.clear.image, for: .normal)
-        button.setBackgroundImage(UIColor.systemYellow.withAlphaComponent(0.5).image, for: .selected)
-        button.contentEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
-        button.layer.cornerRadius = 3
-        
-        button.layer.borderColor = UIColor(hex: "444444").cgColor
-        button.layer.borderWidth = 1
-        button.clipsToBounds = true
-        
-        return button
-    }()
+    private let mapButton: UIButton = .createImageTitleButton(
+        image: UIImage(named: "map_icon")!.resize(size: .init(width: 32, height: 32))!,
+        title: "MAP",
+        height: 18)
+    
+    private let placeLabel: UILabel = .createDefaultLabel("",
+                                                          color: .Palette.grayText,
+                                                          font: .systemFont(ofSize: 12))
     
     // view model
     
     var zoomButtonTap: ControlEvent<Void> {
         zoomButton.rx.tap
-    }
-    
-    var fromButtonTap: ControlEvent<Void> {
-        fromButton.rx.tap
     }
     
     var isFromSegmentSelectedRelay: BehaviorRelay<Bool> = .init(value: false)
@@ -101,11 +89,15 @@ final class DistanceChartViewController: UIViewController {
                                          action: #selector(toFromSegmentedControlValueChanged(_:)),
                                          for: .valueChanged)
         
+        mapButton.addTarget(self, action: #selector(didPushMapButton(_:)), for: .touchUpInside)
+        
         view.addSubview(timeCollectionView)
         view.addSubview(timeLabel)
         view.addSubview(distanceChartView)
         view.addSubview(zoomButton)
         view.addSubview(toFromSegmentedControl)
+        view.addSubview(mapButton)
+        view.addSubview(placeLabel)
         
         timeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -135,6 +127,16 @@ final class DistanceChartViewController: UIViewController {
             $0.right.equalTo(distanceChartView).offset(-8)
             $0.bottom.equalTo(distanceChartView).offset(-8)
         }
+        
+        mapButton.snp.makeConstraints { make in
+            make.top.equalTo(distanceChartView).offset(4)
+            make.left.equalTo(distanceChartView).offset(4)
+        }
+        
+        placeLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(mapButton)
+            make.left.equalTo(mapButton.snp.right)   
+        }
     }
     
     func drawChart(by sondeDataList: [SondeData], with size: ChartSize, isTo: Bool, useTN: Bool) {
@@ -145,19 +147,28 @@ final class DistanceChartViewController: UIViewController {
         distanceChartView.set(size)
         distanceChartView.set(isTo)
         distanceChartView.set(useTN: useTN)
-        fromButton.isSelected = !isTo
         if let sondeData = sondeDataList.first {
             let timeText = DateUtil.timeText(from: sondeData.updatedAt.dateValue())
             timeLabel.text = "更新 \(timeText)"
         }
+        
+        if let locationText = sondeDataList.first?.locationText {
+            placeLabel.text = locationText
+        }
     }
 }
 
-// MARK: - segment control
+// MARK: - objc methods
 
 extension DistanceChartViewController {
     @objc private func toFromSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
         isFromSegmentSelectedRelay.accept(sender.index == 1)
+    }
+    
+    @objc private func didPushMapButton(_ sender: UIButton) {
+        if let firstSondeData = sondeDataList.first {
+            UIApplication.shared.openGoogleMap(lat: firstSondeData.lat, lng: firstSondeData.lng)
+        }
     }
 }
 
