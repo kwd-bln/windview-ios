@@ -32,6 +32,9 @@ class HistoryCell: UITableViewCell {
         return button
     }()
     
+    private var lat: CGFloat?
+    private var lng: CGFloat?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
@@ -62,10 +65,22 @@ class HistoryCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-8)
         }
+        
+        mapButton.addTarget(self, action: #selector(didPushMapButton(_:)), for: .touchUpInside)
     }
     
-    func set(time: String, place: String) {
+    func set(time: String, place: String, lat: CGFloat, lng: CGFloat) {
         timeLabel.text = time
         placeLabel.text = place
+        self.lat = lat
+        self.lng = lng
+    }
+    
+    @objc func didPushMapButton(_ sender: UIButton) {
+        guard let lat = lat, let lng = lng else {
+            return
+        }
+        
+        UIApplication.shared.openGoogleMap(lat: lat, lng: lng)
     }
 }

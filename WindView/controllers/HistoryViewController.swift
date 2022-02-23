@@ -117,7 +117,7 @@ extension HistoryViewController: UITableViewDataSource {
         let time = DateUtil.timeText(from: date)
         let place = sondeData.locationText
         
-        historyCell.set(time: time, place: place)
+        historyCell.set(time: time, place: place, lat: sondeData.lat, lng: sondeData.lng)
         return historyCell
     }
     
