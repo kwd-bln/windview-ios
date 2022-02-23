@@ -23,13 +23,22 @@ class HistoryCell: UITableViewCell {
         label.textColor = .Palette.text
         return label
     }()
-
+    
+    private let mapButton: UIButton = {
+        let button = UIButton.createImageTitleButton(
+            image: UIImage(named: "map_icon")!.resize(size: .init(width: 32, height: 32))!,
+            title: "MAP",
+            height: 18)
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
         backgroundColor = .clear
         setupSubviews()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,6 +46,7 @@ class HistoryCell: UITableViewCell {
     private func setupSubviews() {
         addSubview(timeLabel)
         addSubview(placeLabel)
+        addSubview(mapButton)
         
         timeLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -46,6 +56,11 @@ class HistoryCell: UITableViewCell {
         placeLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(79)
+        }
+        
+        mapButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-8)
         }
     }
     
