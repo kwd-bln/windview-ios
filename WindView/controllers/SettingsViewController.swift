@@ -54,7 +54,7 @@ final class SettingsViewController: UIViewController {
     /// 磁北・真北
     private let directionSegmentedControl = BetterSegmentedControl(
         frame: .zero,
-        segments: LabelSegment.segments(withTitles: ["磁北", "真北"],
+        segments: LabelSegment.segments(withTitles: ["真北", "磁北"],
                                         normalTextColor: UIColor(red: 0.15, green: 0.39, blue: 0.96, alpha: 0.9),
                                         selectedTextColor: UIColor(red: 0.16, green: 0.40, blue: 0.96, alpha: 1.00)),
         options: [.backgroundColor(UIColor(red: 0.6, green: 0.7, blue: 0.98, alpha: 1)),
