@@ -34,7 +34,15 @@ extension UserDefaults {
     
     /// データ表示期間
     var chartDisplayDuration: Int {
-        get { integer(forKey: Key.chartDisplayDuration.rawValue) }
+        get {
+            let int = integer(forKey: Key.chartDisplayDuration.rawValue)
+            if int == 0 {
+                UserDefaults.standard.chartDisplayDuration = 6
+                return 6
+            } else {
+                return int
+            }
+        }
         set { set(newValue, forKey: Key.chartDisplayDuration.rawValue) }
     }
     
