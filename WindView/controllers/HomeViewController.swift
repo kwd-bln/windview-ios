@@ -11,6 +11,15 @@ import RxCocoa
 import PKHUD
 
 final class HomeViewController: UIViewController {
+    // orientaion
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+    
     // MARK: PageViewController系
     
     let pageViewController: UIPageViewController = {
