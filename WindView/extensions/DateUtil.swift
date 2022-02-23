@@ -23,5 +23,12 @@ final class DateUtil {
         df.dateFormat = "yyyy/MM/dd"
         return df.string(from: date)
     }
+    
+    static func date(from string: String, format: String) -> Date {
+        let formatter: DateFormatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.dateFormat = format
+        return formatter.date(from: string)!
+    }
 }
 

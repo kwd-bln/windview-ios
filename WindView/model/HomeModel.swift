@@ -59,8 +59,9 @@ final class HomeModel: HomeModelInput {
     
     private var criteriaOffset: TimeInterval {
         if AppDelegate.useStubData {
-            // 2ヶ月
-            return 3600 * 24 * 60
+            // "2021/01/01 00:00:00 +09:00"のデータ以降はupdateするようにしたい
+            let criteriaDate = DateUtil.date(from: "2022/01/01 00:00:00 +09:00", format: "yyyy/MM/dd HH:mm:ss Z")
+            return lastFetchedDate.timeIntervalSince(criteriaDate)
         } else {
             // 1時間
             return 3600
