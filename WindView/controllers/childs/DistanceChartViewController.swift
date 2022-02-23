@@ -135,7 +135,7 @@ final class DistanceChartViewController: UIViewController {
         
         placeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(mapButton)
-            make.left.equalTo(mapButton.snp.right)   
+            make.left.equalTo(mapButton.snp.right)
         }
     }
     

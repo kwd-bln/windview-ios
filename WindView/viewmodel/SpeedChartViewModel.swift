@@ -11,6 +11,7 @@ import RxCocoa
 
 protocol SpeedViewModelInput {
     var timeButtonTap: AnyObserver<Int> { get }
+    var mapButtonTap: AnyObserver<Void> { get }
     var isFromSegmentControlChanged: AnyObserver<Bool> { get }
     var selectedHieightIndexValueChanged: AnyObserver<Int?> { get }
     func updateSondeDataList(_ values: [SondeData])
@@ -25,6 +26,7 @@ protocol SpeedViewModelOutput {
     var isFrom: Driver<Bool> { get }
     var useTN: Driver<Bool> { get }
     var speedUnit: Driver<SpeedUnit> { get }
+    var mapSondeData: Driver<SondeData?> { get }
 }
 
 protocol SpeedViewModelPresenterOutput {
@@ -43,12 +45,13 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     // MARK: inputs
     
     var timeButtonTap: AnyObserver<Int>
+    var mapButtonTap: AnyObserver<Void>
     var isFromSegmentControlChanged: AnyObserver<Bool>
     var selectedHieightIndexValueChanged: AnyObserver<Int?>
     
     // MARK: outputs
     
-    private let _sondeDataList: BehaviorRelay<[SondeData]> = .init(value: [])
+    private let _sondeDataList: BehaviorRelay<[SondeData]>
     var sondeDataList: Driver<[SondeData]>
     
     private let _selectedIndex: BehaviorRelay<Int>
@@ -63,11 +66,15 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     private let _selectedHeightIndex: BehaviorRelay<Int?>
     let selectedHeightIndex: Driver<Int?>
     
+    let _mapSondeData: PublishRelay<SondeData?>
+    let mapSondeData: Driver<SondeData?>
+    
     private let _speedUnit: BehaviorRelay<SpeedUnit>
     let speedUnit: Driver<SpeedUnit>
     
     init() {
         // outputs
+        let _sondeDataList = BehaviorRelay<[SondeData]>.init(value: [])
         self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
         
         let _selectedIndex = BehaviorRelay<Int>.init(value: 0)
@@ -85,9 +92,17 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
         let _speedUnit = BehaviorRelay<SpeedUnit>.init(value: .mps)
         self.speedUnit = _speedUnit.asDriver(onErrorJustReturn: .mps)
         
+        let _mapSondeData = PublishRelay<SondeData?>.init()
+        self.mapSondeData = _mapSondeData.asDriver(onErrorJustReturn: nil)
+        
         // inputs
         self.timeButtonTap = AnyObserver<Int>() { event in
             _selectedIndex.accept(event.element ?? 0)
+        }
+        
+        self.mapButtonTap = AnyObserver<Void>() { _ in
+            let sondeData = _sondeDataList.value[_selectedIndex.value]
+            _mapSondeData.accept(sondeData)
         }
         
         self.isFromSegmentControlChanged = AnyObserver<Bool> { event in
@@ -98,11 +113,13 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
             _selectedHeightIndex.accept(event.element ?? nil)
         }
         
+        self._sondeDataList = _sondeDataList
         self._selectedIndex = _selectedIndex
         self._isFrom = _isFrom
         self._useTN = _useTN
         self._selectedHeightIndex = _selectedHeightIndex
         self._speedUnit = _speedUnit
+        self._mapSondeData = _mapSondeData
     }
     
     func updateSondeDataList(_ values: [SondeData]) {

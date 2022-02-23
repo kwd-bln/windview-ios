@@ -41,6 +41,15 @@ final class SpeedChartViewController: UIViewController {
                                                          font: .hiraginoSans(style: .light, size: 12))
     private let heightMap = HeightMap(frame: .zero)
     
+    private let mapButton: UIButton = .createImageTitleButton(
+        image: UIImage(named: "map_icon")!.resize(size: .init(width: 32, height: 32))!,
+        title: "MAP",
+        height: 18)
+    
+    private let placeLabel: UILabel = .createDefaultLabel("",
+                                                          color: .Palette.grayText,
+                                                          font: .systemFont(ofSize: 12))
+    
     // MARK: - viewModel
     
     let viewModel: SpeedViewModelType
@@ -70,6 +79,10 @@ final class SpeedChartViewController: UIViewController {
             .bind(to: viewModel.inputs.selectedHieightIndexValueChanged)
             .disposed(by: disposeBag)
         
+        mapButton.rx.tap
+            .bind(to: viewModel.inputs.mapButtonTap)
+            .disposed(by: disposeBag)
+        
         setupSubviews()
         
         Driver.combineLatest(
@@ -96,10 +109,18 @@ final class SpeedChartViewController: UIViewController {
         ).drive { [weak self] sondeDataList, selectedIndex in
             if sondeDataList.count == 0 { return }
             let sondeData = sondeDataList[selectedIndex]
+            self?.placeLabel.text = sondeData.locationText
+            
             let spdData = SpeedChartViewData(from: sondeData, useTN: true)
             self?.heightMap.set(speedViewData: spdData)
         }.disposed(by: disposeBag)
         
+        viewModel.outputs.mapSondeData
+            .drive(onNext: { sondeData in
+                guard let sondeData = sondeData else { return }
+                UIApplication.shared.openGoogleMap(lat: sondeData.lat, lng: sondeData.lng)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,6 +138,8 @@ private extension SpeedChartViewController {
         view.addSubview(speedChartView)
         view.addSubview(timeCollectionView)
         view.addSubview(toFromSegmentedControl)
+        view.addSubview(mapButton)
+        view.addSubview(placeLabel)
         
         timeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -144,6 +167,16 @@ private extension SpeedChartViewController {
             make.bottom.equalTo(speedChartView.snp.top).offset(-8)
             make.right.equalTo(speedChartView).offset(-12)
             make.height.equalTo(36)
+        }
+        
+        mapButton.snp.makeConstraints { make in
+            make.top.equalTo(speedChartView).offset(4)
+            make.left.equalTo(speedChartView).offset(4)
+        }
+        
+        placeLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(mapButton)
+            make.left.equalTo(mapButton.snp.right)
         }
     }
 }
