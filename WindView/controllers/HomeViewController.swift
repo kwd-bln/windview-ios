@@ -46,6 +46,28 @@ final class HomeViewController: UIViewController {
     var firstOpen: Bool = true
     
     // MARK: views
+    
+    private let navigationHeader: UIView = {
+        let view = UIView(frame: .zero)
+        return view
+    }()
+    
+    private let smallTitle: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = .hiraginoSans(style: .extraBold, size: 13)
+        label.textColor = .Palette.text
+        return label
+    }()
+    
+    private let smallSubTitle: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = .hiraginoSans(style: .light, size: 12)
+        label.textColor = .Palette.text
+        return label
+    }()
+    
     /// menuButtonを置くためのStackView
     var menuStackView: UIStackView = {
         let stack = UIStackView()
@@ -117,7 +139,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if !viewModel.inputs.isLoggedIn {
+        if !viewModel.outputs.isLoggedIn {
             DispatchQueue.main.async { [weak self] in
                 self?.showLoginViewController()
             }
@@ -156,6 +178,10 @@ private extension HomeViewController {
             viewModel.outputs.displayDataSettings
         ).drive { [weak self] sondeDataList, csize, isDistFrom, displayDataSettings in
             if sondeDataList.count == 0 { return }
+            
+            self?.updateLabels(date: sondeDataList.first?.updatedAt.dateValue(),
+                         autooUpdate: self?.viewModel.outputs.autoUpdateData == true)
+            
             HUD.hide(afterDelay: 0.5)
             self?.distanceChartViewController.drawChart(by: sondeDataList,
                                                         with: csize,
@@ -200,6 +226,21 @@ private extension HomeViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    func updateLabels(date: Date?, autooUpdate: Bool) {
+        if let date = date {
+            let dateText = DateUtil.dateText(from: date)
+            smallTitle.text = dateText
+        }
+        
+        if viewModel.outputs.autoUpdateData {
+            smallSubTitle.text = "[更新中]"
+            smallSubTitle.textColor = .red
+        } else {
+            smallSubTitle.text = "[停止中]"
+            smallSubTitle.textColor = .Palette.text
+        }
+    }
 }
 
 
@@ -207,13 +248,35 @@ private extension HomeViewController {
 
 private extension HomeViewController {
     func setupSubviews() {
-        setupPVC()
+        setupHeader()
         setupMenuStackView()
+        setupPVC()
         
         view.addSubview(bottomControlView)
         bottomControlView.snp.makeConstraints { make in
             make.top.equalTo(pageViewController.view.snp.bottom)
             make.left.right.bottom.equalToSuperview()
+        }
+    }
+    
+    func setupHeader() {
+        view.addSubview(navigationHeader)
+        navigationHeader.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(safeAreaGuide.snp.top).offset(4)
+            $0.bottom.equalTo(safeAreaGuide.snp.top).offset(40)
+        }
+        
+        navigationHeader.addSubview(smallTitle)
+        smallTitle.snp.makeConstraints {
+            $0.centerX.equalToSuperview().offset(-20)
+            $0.centerY.equalTo(navigationHeader)
+        }
+        
+        navigationHeader.addSubview(smallSubTitle)
+        smallSubTitle.snp.makeConstraints { make in
+            make.left.equalTo(smallTitle.snp.right).offset(16)
+            make.centerY.equalTo(navigationHeader)
         }
     }
     
@@ -230,7 +293,7 @@ private extension HomeViewController {
         view.addSubview(pageViewController.view)
         
         pageViewController.view.snp.makeConstraints {
-            $0.top.equalTo(safeAreaGuide).offset(60)
+            $0.top.equalTo(menuStackView.snp.bottom)
             $0.left.right.equalToSuperview()
             $0.bottom.equalTo(safeAreaGuide).offset(-72)
         }
@@ -262,7 +325,7 @@ private extension HomeViewController {
         
         view.addSubview(menuStackView)
         menuStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(pageViewController.view.snp.top)
+            make.top.equalTo(navigationHeader.snp.bottom)
             make.left.greaterThanOrEqualToSuperview().priority(.low)
             make.right.lessThanOrEqualToSuperview().priority(.low)
             make.centerX.equalToSuperview().priority(.medium)
@@ -270,7 +333,7 @@ private extension HomeViewController {
         
         view.addSubview(hiddenMenuStackView)
         hiddenMenuStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(pageViewController.view.snp.top)
+            make.top.equalTo(navigationHeader.snp.bottom)
             make.left.greaterThanOrEqualToSuperview().priority(.low)
             make.right.lessThanOrEqualToSuperview().priority(.low)
             make.centerX.equalToSuperview().priority(.medium)

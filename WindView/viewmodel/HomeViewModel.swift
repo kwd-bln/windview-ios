@@ -12,8 +12,6 @@ import RxCocoa
 // MVVMの設計は https://qiita.com/REON/items/c7f3d72995170f472701 を参考にした
 
 protocol HomeViewModelInput {
-    var isLoggedIn: Bool { get }
-    
     func loadView()
     func reAppearView()
     func finishLogin()
@@ -28,6 +26,9 @@ protocol HomeViewModelOutput {
     var displayDataSettings: Driver<DisplayDataSetting> { get }
     var chartSize: Driver<ChartSize> { get }
     var isDistFrom: Driver<Bool> { get }
+    
+    var isLoggedIn: Bool { get }
+    var autoUpdateData: Bool { get }
 }
 
 protocol HomeViewModelType {
@@ -42,9 +43,6 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     
     var zoomButtonTap: AnyObserver<Void>
     var distIsFromSegment: AnyObserver<Bool>
-    var isLoggedIn: Bool {
-        model.isLoggedIn
-    }
     
     func finishLogin() {
         model.updateCurrentSondeDataList()
@@ -62,6 +60,14 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
     var chartSize: Driver<ChartSize>
     
     let model: HomeModelInput
+    
+    var isLoggedIn: Bool {
+        model.isLoggedIn
+    }
+    
+    var autoUpdateData: Bool {
+        model.autoUpdateData
+    }
     
     init(model: HomeModelInput = HomeModel()) {
         self.model = model
