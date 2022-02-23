@@ -11,13 +11,12 @@ class BoundButton: UIButton {
     override var isHighlighted: Bool {
         didSet {
             if isHighlighted {
-                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: []) {
-                    
+                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: []) {
                     self.transform = .init(scaleX: 0.8, y: 0.8)
                     self.layoutIfNeeded()
                 }
             } else {
-                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: []) {
+                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: []) {
                     self.transform = .identity
                     self.layoutIfNeeded()
                 }

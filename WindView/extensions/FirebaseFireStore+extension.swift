@@ -14,7 +14,8 @@ extension FirebaseFirestore.Firestore {
         
         if let from = from, let to = to {
             let fromTimestamp = Timestamp(date: from)
-            let toStamp = Timestamp(date: to)
+            /// なぜかdateのままだとEquealToの部分で失敗することがあったので、修正しておく
+            let toStamp = Timestamp(date: to.addingTimeInterval(100))
             snapshot = try await firestore()
                 .collection("sondeview")
                 .order(by: "measured_at", descending: true)

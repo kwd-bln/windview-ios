@@ -1,0 +1,1011 @@
+[
+  {
+    "values": [
+      {
+        "windspeed": 0.74553602864123103,
+        "windheading": 52.399999999999999,
+        "height": 50,
+        "altitude": 278.69999999999999
+      },
+      {
+        "windspeed": 0.706913693552086,
+        "windheading": 91.893810069917905,
+        "height": 100,
+        "altitude": 328.69999999999999
+      },
+      {
+        "windspeed": 0.90563669660846502,
+        "windheading": 89.200929480658701,
+        "height": 150,
+        "altitude": 378.69999999999999
+      },
+      {
+        "windspeed": 0.56573374265762599,
+        "windheading": 36.467825208897203,
+        "height": 200,
+        "altitude": 428.69999999999999
+      },
+      {
+        "windspeed": 0.85687936650389296,
+        "windheading": 52.990187584855398,
+        "height": 250,
+        "altitude": 478.69999999999999
+      },
+      {
+        "windspeed": 0.65242169131792704,
+        "windheading": 55.3893852213223,
+        "height": 300,
+        "altitude": 528.70000000000005
+      },
+      {
+        "windspeed": 0.80238661743213202,
+        "windheading": 53.421727071256697,
+        "height": 350,
+        "altitude": 578.70000000000005
+      }
+    ],
+    "location": {
+      "formatted_address": "1488-12 Kurishita, Ebino, Miyazaki 889-4221, Japan",
+      "address_components": [
+        {
+          "short_name": "1488-12",
+          "long_name": "1488-12",
+          "types": ["premise"]
+        },
+        {
+          "short_name": "Kurishita",
+          "long_name": "Kurishita",
+          "types": ["political", "sublocality", "sublocality_level_2"]
+        },
+        {
+          "short_name": "Ebino",
+          "long_name": "Ebino",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        },
+        {
+          "short_name": "889-4221",
+          "long_name": "889-4221",
+          "types": ["postal_code"]
+        }
+      ],
+      "geometry": {
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "northeast": { "lat": 32.052856380291502, "lng": 130.81313958029151 },
+          "southwest": { "lat": 32.050158419708502, "lng": 130.81044161970851 }
+        },
+        "bounds": {
+          "northeast": { "lat": 32.051558800000002, "lng": 130.81184930000001 },
+          "southwest": { "lat": 32.051456000000002, "lng": 130.81173190000001 }
+        },
+        "location": { "lng": 130.811804, "lat": 32.0515252 }
+      },
+      "place_id": "ChIJxYH4UW8SPzURErKjne3t1LA",
+      "types": ["premise"]
+    },
+    "measured_at": { "seconds": 1640992367, "nanoseconds": 0 },
+    "mag_dec": 6.6100000000000003,
+    "lng": 130.8126858,
+    "lat": 32.051725699999999,
+    "updated_at": { "seconds": 1640992589, "nanoseconds": 294625000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 7.21912645714026,
+        "windheading": 148.90000000000001,
+        "height": 50,
+        "altitude": 798.60000000000002
+      },
+      {
+        "windspeed": 15.085312921279399,
+        "windheading": 148.012872059058,
+        "height": 100,
+        "altitude": 848.60000000000002
+      },
+      {
+        "windspeed": 13.8379578742402,
+        "windheading": 157.44688746567101,
+        "height": 150,
+        "altitude": 898.60000000000002
+      },
+      {
+        "windspeed": 13.699010996043899,
+        "windheading": 168.57805671064801,
+        "height": 200,
+        "altitude": 948.60000000000002
+      },
+      {
+        "windspeed": 16.4718687115232,
+        "windheading": 176.11455560970401,
+        "height": 250,
+        "altitude": 998.60000000000002
+      },
+      {
+        "windspeed": 8.0465683790248104,
+        "windheading": 192.33428742063501,
+        "height": 300,
+        "altitude": 1048.5999999999999
+      },
+      {
+        "windspeed": 11.2745359992802,
+        "windheading": 179.48972822451501,
+        "height": 350,
+        "altitude": 1098.5999999999999
+      },
+      {
+        "windspeed": 11.875122186736,
+        "windheading": 169.797275095532,
+        "height": 400,
+        "altitude": 1148.5999999999999
+      },
+      {
+        "windspeed": 10.5238971371646,
+        "windheading": 167,
+        "height": 450,
+        "altitude": 1198.5999999999999
+      },
+      {
+        "windspeed": 8.8524257146917407,
+        "windheading": 168.290668293664,
+        "height": 500,
+        "altitude": 1248.5999999999999
+      },
+      {
+        "windspeed": 9.9045126613311307,
+        "windheading": 157.599535995634,
+        "height": 600,
+        "altitude": 1348.5999999999999
+      },
+      {
+        "windspeed": 15.0765694793572,
+        "windheading": 162.98041510723399,
+        "height": 700,
+        "altitude": 1448.5999999999999
+      },
+      {
+        "windspeed": 14.1172819652827,
+        "windheading": 166.56140940433701,
+        "height": 800,
+        "altitude": 1548.5999999999999
+      },
+      {
+        "windspeed": 8.0122427259101006,
+        "windheading": 167.999229532166,
+        "height": 900,
+        "altitude": 1648.5999999999999
+      },
+      {
+        "windspeed": 7.80736979324179,
+        "windheading": 125.78497091606199,
+        "height": 1000,
+        "altitude": 1748.5999999999999
+      },
+      {
+        "windspeed": 12.9920131691505,
+        "windheading": 145.74758308347401,
+        "height": 1100,
+        "altitude": 1848.5999999999999
+      },
+      {
+        "windspeed": 11.933828163163099,
+        "windheading": 139.37367947794399,
+        "height": 1200,
+        "altitude": 1948.5999999999999
+      }
+    ],
+    "location": {
+      "formatted_address": "3VX4+78 Ebino, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q4G3VX4+78",
+        "compound_code": "3VX4+78 Ebino, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "3VX4+78",
+          "long_name": "3VX4+78",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Ebino",
+          "long_name": "Ebino",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 32.099536480291498, "lng": 130.8571614802915 },
+          "southwest": { "lat": 32.096838519708498, "lng": 130.8544635197085 }
+        },
+        "bounds": {
+          "northeast": { "lat": 32.09825, "lng": 130.855875 },
+          "southwest": { "lat": 32.098125000000003, "lng": 130.85575 }
+        },
+        "location": { "lng": 130.855861, "lat": 32.098196000000002 }
+      },
+      "place_id": "GhIJjEzAr5EMQEARgJ2bNmNbYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640988389, "nanoseconds": 0 },
+    "mag_dec": 6.6100000000000003,
+    "lng": 130.855861,
+    "lat": 32.098196000000002,
+    "updated_at": { "seconds": 1640989154, "nanoseconds": 438131000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 6.6352781257491298,
+        "windheading": 151.59999999999999,
+        "height": 50,
+        "altitude": 798.60000000000002
+      },
+      {
+        "windspeed": 11.4323874964764,
+        "windheading": 162.97152477591101,
+        "height": 100,
+        "altitude": 848.60000000000002
+      },
+      {
+        "windspeed": 10.375021007332499,
+        "windheading": 160.71350772566001,
+        "height": 150,
+        "altitude": 898.60000000000002
+      },
+      {
+        "windspeed": 12.8360314803917,
+        "windheading": 154.68484026634499,
+        "height": 200,
+        "altitude": 948.60000000000002
+      },
+      {
+        "windspeed": 13.301441490381899,
+        "windheading": 159.63788421421299,
+        "height": 250,
+        "altitude": 998.60000000000002
+      },
+      {
+        "windspeed": 15.8183541836523,
+        "windheading": 161.06605762316499,
+        "height": 300,
+        "altitude": 1048.5999999999999
+      },
+      {
+        "windspeed": 14.954530435161701,
+        "windheading": 164.13231198152499,
+        "height": 350,
+        "altitude": 1098.5999999999999
+      },
+      {
+        "windspeed": 17.568201035734901,
+        "windheading": 165.753448300597,
+        "height": 400,
+        "altitude": 1148.5999999999999
+      },
+      {
+        "windspeed": 17.8518571090998,
+        "windheading": 166.98249642847199,
+        "height": 450,
+        "altitude": 1198.5999999999999
+      },
+      {
+        "windspeed": 15.3525090561346,
+        "windheading": 166.225088422613,
+        "height": 500,
+        "altitude": 1248.5999999999999
+      },
+      {
+        "windspeed": 14.7943126917224,
+        "windheading": 158.387115882964,
+        "height": 600,
+        "altitude": 1348.5999999999999
+      },
+      {
+        "windspeed": 15.2436930137114,
+        "windheading": 166.097361479661,
+        "height": 700,
+        "altitude": 1448.5999999999999
+      }
+    ],
+    "location": {
+      "formatted_address": "3VX4+78 Ebino, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q4G3VX4+78",
+        "compound_code": "3VX4+78 Ebino, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "3VX4+78",
+          "long_name": "3VX4+78",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Ebino",
+          "long_name": "Ebino",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 32.099536480291498, "lng": 130.8571614802915 },
+          "southwest": { "lat": 32.096838519708498, "lng": 130.8544635197085 }
+        },
+        "bounds": {
+          "northeast": { "lat": 32.09825, "lng": 130.855875 },
+          "southwest": { "lat": 32.098125000000003, "lng": 130.85575 }
+        },
+        "location": { "lng": 130.855861, "lat": 32.098196000000002 }
+      },
+      "place_id": "GhIJjEzAr5EMQEARgJ2bNmNbYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640984590, "nanoseconds": 0 },
+    "mag_dec": 6.6100000000000003,
+    "lng": 130.855861,
+    "lat": 32.098196000000002,
+    "updated_at": { "seconds": 1640987861, "nanoseconds": 91779000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 5.38413006781549,
+        "windheading": 160.19999999999999,
+        "height": 50,
+        "altitude": 798.60000000000002
+      },
+      {
+        "windspeed": 12.613663325157299,
+        "windheading": 164.90796486769401,
+        "height": 100,
+        "altitude": 848.60000000000002
+      },
+      {
+        "windspeed": 14.3204550726763,
+        "windheading": 161.01846117093001,
+        "height": 150,
+        "altitude": 898.60000000000002
+      },
+      {
+        "windspeed": 14.3204550726763,
+        "windheading": 161.01846117093001,
+        "height": 200,
+        "altitude": 948.60000000000002
+      },
+      {
+        "windspeed": 14.3204550726763,
+        "windheading": 161.01846117093001,
+        "height": 250,
+        "altitude": 998.60000000000002
+      }
+    ],
+    "location": {
+      "formatted_address": "3VX4+78 Ebino, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q4G3VX4+78",
+        "compound_code": "3VX4+78 Ebino, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "3VX4+78",
+          "long_name": "3VX4+78",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Ebino",
+          "long_name": "Ebino",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 32.099536480291498, "lng": 130.8571614802915 },
+          "southwest": { "lat": 32.096838519708498, "lng": 130.8544635197085 }
+        },
+        "bounds": {
+          "northeast": { "lat": 32.09825, "lng": 130.855875 },
+          "southwest": { "lat": 32.098125000000003, "lng": 130.85575 }
+        },
+        "location": { "lng": 130.855861, "lat": 32.098196000000002 }
+      },
+      "place_id": "GhIJjEzAr5EMQEARgJ2bNmNbYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640983590, "nanoseconds": 0 },
+    "mag_dec": 6.6100000000000003,
+    "lng": 130.855861,
+    "lat": 32.098196000000002,
+    "updated_at": { "seconds": 1640984292, "nanoseconds": 491927000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 12.4910856648023,
+        "windheading": 118.3,
+        "height": 50,
+        "altitude": 180.09999999999999
+      },
+      {
+        "windspeed": 20.325737472784901,
+        "windheading": 117.492729796036,
+        "height": 100,
+        "altitude": 230.09999999999999
+      },
+      {
+        "windspeed": 12.6813710470703,
+        "windheading": 130.028031881305,
+        "height": 150,
+        "altitude": 280.10000000000002
+      },
+      {
+        "windspeed": 12.6813710470703,
+        "windheading": 130.028031881305,
+        "height": 200,
+        "altitude": 330.10000000000002
+      }
+    ],
+    "location": {
+      "formatted_address": "Q3WW+V7 Miyakonojo, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q3HQ3WW+V7",
+        "compound_code": "Q3WW+V7 Miyakonojo, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "Q3WW+V7",
+          "long_name": "Q3WW+V7",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Miyakonojo",
+          "long_name": "Miyakonojo",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 31.798536480291499, "lng": 131.09703648029151 },
+          "southwest": { "lat": 31.7958385197085, "lng": 131.09433851970849 }
+        },
+        "bounds": {
+          "northeast": { "lat": 31.797249999999998, "lng": 131.09575000000001 },
+          "southwest": { "lat": 31.797125000000001, "lng": 131.09562500000001 }
+        },
+        "location": { "lng": 131.09566599999999, "lat": 31.797142000000001 }
+      },
+      "place_id": "GhIJnUSEfxHMP0AR2qoksg9jYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640901665, "nanoseconds": 0 },
+    "mag_dec": 6.5899999999999999,
+    "lng": 131.09566599999999,
+    "lat": 31.797142000000001,
+    "updated_at": { "seconds": 1640901821, "nanoseconds": 85619000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 7.1620733061540696,
+        "windheading": 148.30000000000001,
+        "height": 50,
+        "altitude": 180.09999999999999
+      },
+      {
+        "windspeed": 9.22273304732642,
+        "windheading": 149.54359177265201,
+        "height": 100,
+        "altitude": 230.09999999999999
+      },
+      {
+        "windspeed": 12.5527529504805,
+        "windheading": 144.19999999999999,
+        "height": 350,
+        "altitude": 480.10000000000002
+      },
+      {
+        "windspeed": 9.7729933182263906,
+        "windheading": 142.964133742542,
+        "height": 400,
+        "altitude": 530.10000000000002
+      },
+      {
+        "windspeed": 9.8051942310365199,
+        "windheading": 138.21004176524801,
+        "height": 500,
+        "altitude": 630.10000000000002
+      },
+      {
+        "windspeed": 9.8051942310365199,
+        "windheading": 138.21004176524801,
+        "height": 600,
+        "altitude": 730.10000000000002
+      }
+    ],
+    "location": {
+      "formatted_address": "Q3WW+V7 Miyakonojo, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q3HQ3WW+V7",
+        "compound_code": "Q3WW+V7 Miyakonojo, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "Q3WW+V7",
+          "long_name": "Q3WW+V7",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Miyakonojo",
+          "long_name": "Miyakonojo",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 31.798536480291499, "lng": 131.09703648029151 },
+          "southwest": { "lat": 31.7958385197085, "lng": 131.09433851970849 }
+        },
+        "bounds": {
+          "northeast": { "lat": 31.797249999999998, "lng": 131.09575000000001 },
+          "southwest": { "lat": 31.797125000000001, "lng": 131.09562500000001 }
+        },
+        "location": { "lng": 131.09566599999999, "lat": 31.797142000000001 }
+      },
+      "place_id": "GhIJnUSEfxHMP0AR2qoksg9jYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640897934, "nanoseconds": 0 },
+    "mag_dec": 6.5899999999999999,
+    "lng": 131.09566599999999,
+    "lat": 31.797142000000001,
+    "updated_at": { "seconds": 1640898305, "nanoseconds": 260734000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 0.87873364792200104,
+        "windheading": 14.9,
+        "height": 50,
+        "altitude": 180.09999999999999
+      },
+      {
+        "windspeed": 0.88060515719168297,
+        "windheading": 3.1125833623217201,
+        "height": 100,
+        "altitude": 230.09999999999999
+      },
+      {
+        "windspeed": 0.225323194438386,
+        "windheading": 334.220201718917,
+        "height": 150,
+        "altitude": 280.10000000000002
+      },
+      {
+        "windspeed": 0.82728319672053297,
+        "windheading": 357.50165178343599,
+        "height": 200,
+        "altitude": 330.10000000000002
+      },
+      {
+        "windspeed": 2.4321660257527502,
+        "windheading": 357.134155524768,
+        "height": 250,
+        "altitude": 380.10000000000002
+      },
+      {
+        "windspeed": 2.2939383890966498,
+        "windheading": 359.87387997773601,
+        "height": 300,
+        "altitude": 430.10000000000002
+      },
+      {
+        "windspeed": 2.2056843183116799,
+        "windheading": 23.2023654647999,
+        "height": 350,
+        "altitude": 480.10000000000002
+      },
+      {
+        "windspeed": 1.4964068650142901,
+        "windheading": 51.256147040957799,
+        "height": 400,
+        "altitude": 530.10000000000002
+      },
+      {
+        "windspeed": 1.9328834216852,
+        "windheading": 83.2616919642022,
+        "height": 450,
+        "altitude": 580.10000000000002
+      },
+      {
+        "windspeed": 1.9840789344884699,
+        "windheading": 84.633378535859904,
+        "height": 500,
+        "altitude": 630.10000000000002
+      },
+      {
+        "windspeed": 2.3973991451069399,
+        "windheading": 93.286718929967506,
+        "height": 600,
+        "altitude": 730.10000000000002
+      },
+      {
+        "windspeed": 3.1897371003291202,
+        "windheading": 98.482769766294894,
+        "height": 700,
+        "altitude": 830.10000000000002
+      }
+    ],
+    "location": {
+      "formatted_address": "Q3WW+V7 Miyakonojo, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q3HQ3WW+V7",
+        "compound_code": "Q3WW+V7 Miyakonojo, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "Q3WW+V7",
+          "long_name": "Q3WW+V7",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Miyakonojo",
+          "long_name": "Miyakonojo",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 31.798536480291499, "lng": 131.09703648029151 },
+          "southwest": { "lat": 31.7958385197085, "lng": 131.09433851970849 }
+        },
+        "bounds": {
+          "northeast": { "lat": 31.797249999999998, "lng": 131.09575000000001 },
+          "southwest": { "lat": 31.797125000000001, "lng": 131.09562500000001 }
+        },
+        "location": { "lng": 131.09566599999999, "lat": 31.797142000000001 }
+      },
+      "place_id": "GhIJnUSEfxHMP0AR2qoksg9jYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640727791, "nanoseconds": 0 },
+    "mag_dec": 6.5899999999999999,
+    "lng": 131.09566599999999,
+    "lat": 31.797142000000001,
+    "updated_at": { "seconds": 1640728221, "nanoseconds": 171061000 }
+  },
+  {
+    "values": [
+      {
+        "windspeed": 0.63310727581703197,
+        "windheading": 130.19999999999999,
+        "height": 50,
+        "altitude": 180.09999999999999
+      },
+      {
+        "windspeed": 0.96829779981825903,
+        "windheading": 144.245892515734,
+        "height": 100,
+        "altitude": 230.09999999999999
+      },
+      {
+        "windspeed": 0.45707248077732199,
+        "windheading": 247.06376006875999,
+        "height": 150,
+        "altitude": 280.10000000000002
+      },
+      {
+        "windspeed": 0.84521034571116604,
+        "windheading": 337.289274896351,
+        "height": 200,
+        "altitude": 330.10000000000002
+      },
+      {
+        "windspeed": 3.1668532398029998,
+        "windheading": 313.82195657045997,
+        "height": 250,
+        "altitude": 380.10000000000002
+      },
+      {
+        "windspeed": 3.1668532398029998,
+        "windheading": 313.82195657045997,
+        "height": 300,
+        "altitude": 430.10000000000002
+      },
+      {
+        "windspeed": 1.2463360329692701,
+        "windheading": 138.55679390165599,
+        "height": 350,
+        "altitude": 480.10000000000002
+      },
+      {
+        "windspeed": 4.3518203044017296,
+        "windheading": 52.723083318403198,
+        "height": 400,
+        "altitude": 530.10000000000002
+      },
+      {
+        "windspeed": 1.8049927026480901,
+        "windheading": 74.9405707738741,
+        "height": 450,
+        "altitude": 580.10000000000002
+      },
+      {
+        "windspeed": 2.8677756120875699,
+        "windheading": 88.234579114528003,
+        "height": 500,
+        "altitude": 630.10000000000002
+      },
+      {
+        "windspeed": 2.65771292656905,
+        "windheading": 99.659904398499194,
+        "height": 600,
+        "altitude": 730.10000000000002
+      },
+      {
+        "windspeed": 1.2985757844958099,
+        "windheading": 230.57622651573701,
+        "height": 700,
+        "altitude": 830.10000000000002
+      },
+      {
+        "windspeed": 0.86420452502890299,
+        "windheading": 119.11297494098901,
+        "height": 800,
+        "altitude": 930.10000000000002
+      },
+      {
+        "windspeed": 0.877723099595487,
+        "windheading": 54.612107504418901,
+        "height": 900,
+        "altitude": 1030.0999999999999
+      }
+    ],
+    "location": {
+      "formatted_address": "Q3WW+V7 Miyakonojo, Miyazaki, Japan",
+      "plus_code": {
+        "global_code": "8Q3HQ3WW+V7",
+        "compound_code": "Q3WW+V7 Miyakonojo, Miyazaki, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "Q3WW+V7",
+          "long_name": "Q3WW+V7",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Miyakonojo",
+          "long_name": "Miyakonojo",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Miyazaki",
+          "long_name": "Miyazaki",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 31.798536480291499, "lng": 131.09703648029151 },
+          "southwest": { "lat": 31.7958385197085, "lng": 131.09433851970849 }
+        },
+        "bounds": {
+          "northeast": { "lat": 31.797249999999998, "lng": 131.09575000000001 },
+          "southwest": { "lat": 31.797125000000001, "lng": 131.09562500000001 }
+        },
+        "location": { "lng": 131.09566599999999, "lat": 31.797142000000001 }
+      },
+      "place_id": "GhIJnUSEfxHMP0AR2qoksg9jYEA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1640726161, "nanoseconds": 0 },
+    "mag_dec": 6.5899999999999999,
+    "lng": 131.09566599999999,
+    "lat": 31.797142000000001,
+    "updated_at": { "seconds": 1640726710, "nanoseconds": 799038000 }
+  },
+  {
+    "values": [
+      { "windspeed": 0, "windheading": 0, "height": 0, "altitude": 15 },
+      {
+        "windspeed": 1.5899209265129399,
+        "windheading": 195.56,
+        "height": 100,
+        "altitude": 115
+      },
+      {
+        "windspeed": 4.2015824572329601,
+        "windheading": 210.89271912146,
+        "height": 200,
+        "altitude": 215
+      },
+      {
+        "windspeed": 2.4341482064801601,
+        "windheading": 193.18113129178201,
+        "height": 300,
+        "altitude": 315
+      },
+      {
+        "windspeed": 1.61114226281478,
+        "windheading": 168.84489932357801,
+        "height": 400,
+        "altitude": 415
+      },
+      {
+        "windspeed": 3.1579143840428499,
+        "windheading": 105.779818335331,
+        "height": 500,
+        "altitude": 515
+      },
+      {
+        "windspeed": 4.3338878715027001,
+        "windheading": 79.636541450027096,
+        "height": 600,
+        "altitude": 615
+      },
+      {
+        "windspeed": 3.6090304226785999,
+        "windheading": 63.3743437388434,
+        "height": 700,
+        "altitude": 715
+      },
+      {
+        "windspeed": 3.9597527697458799,
+        "windheading": 43.934459746482098,
+        "height": 800,
+        "altitude": 815
+      },
+      {
+        "windspeed": 3.5851960004693901,
+        "windheading": 39.158524595726298,
+        "height": 900,
+        "altitude": 915
+      },
+      {
+        "windspeed": 3.50493683694675,
+        "windheading": 33.111078196371899,
+        "height": 1000,
+        "altitude": 1015
+      },
+      {
+        "windspeed": 3.5210768544481201,
+        "windheading": 30.6043923759287,
+        "height": 1100,
+        "altitude": 1115
+      },
+      {
+        "windspeed": 3.5099244370587699,
+        "windheading": 17.572319214775099,
+        "height": 1200,
+        "altitude": 1215
+      }
+    ],
+    "location": {
+      "formatted_address": "7M34+3P Tochigi, Japan",
+      "plus_code": {
+        "global_code": "8Q8X7M34+3P",
+        "compound_code": "7M34+3P Tochigi, Japan"
+      },
+      "address_components": [
+        {
+          "short_name": "7M34+3P",
+          "long_name": "7M34+3P",
+          "types": ["plus_code"]
+        },
+        {
+          "short_name": "Tochigi",
+          "long_name": "Tochigi",
+          "types": ["locality", "political"]
+        },
+        {
+          "short_name": "Tochigi",
+          "long_name": "Tochigi",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "short_name": "JP",
+          "long_name": "Japan",
+          "types": ["country", "political"]
+        }
+      ],
+      "geometry": {
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": { "lat": 36.254036480291497, "lng": 139.65816148029151 },
+          "southwest": { "lat": 36.251338519708497, "lng": 139.65546351970849 }
+        },
+        "bounds": {
+          "northeast": { "lat": 36.252749999999999, "lng": 139.65687500000001 },
+          "southwest": { "lat": 36.252625000000002, "lng": 139.65674999999999 }
+        },
+        "location": { "lng": 139.6567896, "lat": 36.2526668 }
+      },
+      "place_id": "GhIJemS9YlcgQkARS4ufawR1YUA",
+      "types": ["plus_code"]
+    },
+    "measured_at": { "seconds": 1639866001, "nanoseconds": 0 },
+    "mag_dec": -7,
+    "lng": 139.6567896,
+    "lat": 36.2526668,
+    "updated_at": { "seconds": 1639866728, "nanoseconds": 703959000 }
+  }
+]

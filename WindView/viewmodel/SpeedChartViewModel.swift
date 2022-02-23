@@ -11,12 +11,22 @@ import RxCocoa
 
 protocol SpeedViewModelInput {
     var timeButtonTap: AnyObserver<Int> { get }
+    var mapButtonTap: AnyObserver<Void> { get }
+    var isFromSegmentControlChanged: AnyObserver<Bool> { get }
+    var selectedHieightIndexValueChanged: AnyObserver<Int?> { get }
     func updateSondeDataList(_ values: [SondeData])
+    func updateUseTrueNorth(_ bool: Bool)
+    func updateSpeedUnit(_ unit: SpeedUnit)
 }
 
 protocol SpeedViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
     var selectedIndex: Driver<Int> { get }
+    var selectedHeightIndex: Driver<Int?> { get }
+    var isFrom: Driver<Bool> { get }
+    var useTN: Driver<Bool> { get }
+    var speedUnit: Driver<SpeedUnit> { get }
+    var mapSondeData: Driver<SondeData?> { get }
 }
 
 protocol SpeedViewModelPresenterOutput {
@@ -35,31 +45,101 @@ final class SpeedChartViewModel: SpeedViewModelInput, SpeedViewModelOutput {
     // MARK: inputs
     
     var timeButtonTap: AnyObserver<Int>
+    var mapButtonTap: AnyObserver<Void>
+    var isFromSegmentControlChanged: AnyObserver<Bool>
+    var selectedHieightIndexValueChanged: AnyObserver<Int?>
     
     // MARK: outputs
     
-    private let _sondeDataList: BehaviorRelay<[SondeData]> = .init(value: [])
+    private let _sondeDataList: BehaviorRelay<[SondeData]>
     var sondeDataList: Driver<[SondeData]>
     
     private let _selectedIndex: BehaviorRelay<Int>
     let selectedIndex: Driver<Int>
     
+    private let _isFrom: BehaviorRelay<Bool>
+    let isFrom: Driver<Bool>
+    
+    private let _useTN: BehaviorRelay<Bool>
+    let useTN: Driver<Bool>
+    
+    private let _selectedHeightIndex: BehaviorRelay<Int?>
+    let selectedHeightIndex: Driver<Int?>
+    
+    let _mapSondeData: PublishRelay<SondeData?>
+    let mapSondeData: Driver<SondeData?>
+    
+    private let _speedUnit: BehaviorRelay<SpeedUnit>
+    let speedUnit: Driver<SpeedUnit>
+    
     init() {
         // outputs
+        let _sondeDataList = BehaviorRelay<[SondeData]>.init(value: [])
         self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
         
         let _selectedIndex = BehaviorRelay<Int>.init(value: 0)
         self.selectedIndex = _selectedIndex.asDriver(onErrorJustReturn: 0)
         
+        let _isFrom = BehaviorRelay<Bool>.init(value: false)
+        self.isFrom = _isFrom.asDriver(onErrorJustReturn: false)
+        
+        let _useTN = BehaviorRelay<Bool>.init(value: true)
+        self.useTN = _useTN.asDriver(onErrorJustReturn: true)
+        
+        let _selectedHeightIndex = BehaviorRelay<Int?>.init(value: nil)
+        self.selectedHeightIndex = _selectedHeightIndex.asDriver(onErrorJustReturn: nil)
+        
+        let _speedUnit = BehaviorRelay<SpeedUnit>.init(value: .mps)
+        self.speedUnit = _speedUnit.asDriver(onErrorJustReturn: .mps)
+        
+        let _mapSondeData = PublishRelay<SondeData?>.init()
+        self.mapSondeData = _mapSondeData.asDriver(onErrorJustReturn: nil)
+        
         // inputs
         self.timeButtonTap = AnyObserver<Int>() { event in
             _selectedIndex.accept(event.element ?? 0)
         }
+        
+        self.mapButtonTap = AnyObserver<Void>() { _ in
+            let sondeData = _sondeDataList.value[_selectedIndex.value]
+            _mapSondeData.accept(sondeData)
+        }
+        
+        self.isFromSegmentControlChanged = AnyObserver<Bool> { event in
+            _isFrom.accept(event.element ?? false)
+        }
+        
+        self.selectedHieightIndexValueChanged = AnyObserver<Int?> { event in
+            _selectedHeightIndex.accept(event.element ?? nil)
+        }
+        
+        self._sondeDataList = _sondeDataList
         self._selectedIndex = _selectedIndex
+        self._isFrom = _isFrom
+        self._useTN = _useTN
+        self._selectedHeightIndex = _selectedHeightIndex
+        self._speedUnit = _speedUnit
+        self._mapSondeData = _mapSondeData
     }
     
     func updateSondeDataList(_ values: [SondeData]) {
+        if _selectedIndex.value >= values.count {
+            _selectedIndex.accept(0)
+        }
+        _selectedHeightIndex.accept(nil)
         _sondeDataList.accept(values)
+    }
+    
+    func updateUseTrueNorth(_ bool: Bool) {
+        if _useTN.value != bool {
+            _useTN.accept(bool)
+        }
+    }
+    
+    func updateSpeedUnit(_ unit: SpeedUnit) {
+        if _speedUnit.value != unit {
+            _speedUnit.accept(unit)
+        }
     }
 }
 

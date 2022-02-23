@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -14,25 +15,38 @@ enum SondeDataModelError: Error {
 }
 
 protocol SondeDataModelInput {
-    func fetchLatestSondeDataModel() async throws -> SondeData
     /// 指定した日時から遡って`duration`だけデータを取得する
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData]
+    /// 全てのsondeDataを取得する
+    func fetchAllSondeDataList() async throws -> [SondeData]
+    /// UserDefaultsのselectedDateを設定する
+    func setSelectedDate(_ date: Date?)
+}
+
+// MARK: - デフォルト実装
+
+extension SondeDataModelInput {
+    func setSelectedDate(_ date: Date?) {
+        UserDefaults.standard.selectedDate = date
+    }
 }
 
 final class SondeDataModel: SondeDataModelInput {
     static let fetchCount: Int = 10
     
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        let sondeDataList = try await fetchLatestSondeDataList()
-        return sondeDataList.first!
+    var isLoggedIn: Bool {
+        (Auth.auth().currentUser?.uid.isEmpty ?? true) == false
     }
     
     private func fetchLatestSondeDataList() async throws -> [SondeData] {
+        if !isLoggedIn { return [] }
         let sondeDataList = try await Firestore.fetchSondeDateList(limitCount: Self.fetchCount)
         return sondeDataList
     }
     
     func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
+        if !isLoggedIn { return [] }
+        
         if let date = date {
             let fromDate = Date(timeInterval: -TimeInterval(hour: duration), since: date)
             return try await Firestore.fetchSondeDateList(from: fromDate, to: date, limitCount: Self.fetchCount)
@@ -50,50 +64,12 @@ final class SondeDataModel: SondeDataModelInput {
             }
         }
     }
-}
-
-final class StubSondeDataModel: SondeDataModelInput {
-    func fetchLatestSondeDataModel() async throws -> SondeData {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        let sondeDataList = getDataList()
-        return sondeDataList.first!
-    }
     
-    func fetchSondeDataList(at date: Date?, duration: Int) async throws -> [SondeData] {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
-        let sondeDataList = getDataList()
-        let optionalTargetDate = date ?? sondeDataList.first?.measuredAt.dateValue()
-        
-        if let targetDate = optionalTargetDate {
-            let limitDate = Date(timeInterval: -TimeInterval(hour: duration), since: targetDate)
-            return sondeDataList.filter { sondeData in
-                let measuredAt = sondeData.measuredAt.dateValue()
-                return limitDate < measuredAt && measuredAt <= targetDate
-            }
-        } else {
-            return []
-        }
-    }
-    
-    private func getDataList() -> [SondeData] {
-        guard let url = Bundle.main.url(forResource: "winds", withExtension: "json") else {
-            fatalError("ファイルが見つからない")
-        }
-        
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("ファイル読み込みエラー")
-        }
-        
-        let decoder = JSONDecoder()
-        guard let sondeDataList = try? decoder.decode([SondeData].self, from: data) else {
-            fatalError("JSON読み込みエラー")
-        }
-        
-        return sondeDataList
+    func fetchAllSondeDataList() async throws -> [SondeData] {
+        if !isLoggedIn { return [] }
+        return try await Firestore.fetchSondeDateList(from: nil, to: nil, limitCount: 50)
     }
 }
-
 
 extension TimeInterval {
     init(hour: Int) {

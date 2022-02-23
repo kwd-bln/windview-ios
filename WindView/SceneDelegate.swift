@@ -19,18 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             
-            let rootViewController: UIViewController
-            if Util.isDebug {
-                rootViewController = HomeViewController()
-            } else {
-                if Auth.auth().currentUser == nil {
-                    rootViewController = LoginViewController()
-                } else {
-                    rootViewController = HomeViewController()
-                }
-            }
-            
-            window.rootViewController = rootViewController
+            let homeViewController = HomeViewController()
+            window.rootViewController = homeViewController
             self.window = window
             window.makeKeyAndVisible()
         }

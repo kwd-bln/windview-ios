@@ -11,11 +11,20 @@ import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    /// スタブデータを使用するかどうか。重要！！
+    private static let useStubDataIfDebug: Bool = false
+    static var useStubData: Bool {
+        if Util.isDebug {
+            return useStubDataIfDebug
+        } else {
+            return false
+        }
+    }
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if !Util.isDebug {
+        if !Self.useStubData {
             FirebaseApp.configure()
         }
         return true

@@ -11,11 +11,15 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func loginViewControllerDidDismiss()
+}
+
 final class LoginViewController: UIViewController {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "balloons"))
         let dimView = UIView()
-        dimView.backgroundColor = .black.withAlphaComponent(0.4)
+        dimView.backgroundColor = .black.withAlphaComponent(0.2)
         imageView.addSubview(dimView)
         dimView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -63,10 +67,13 @@ final class LoginViewController: UIViewController {
         button.titleLabel?.font = .hiraginoSans(style: .bold, size: 16)
         button.setTitle("ログイン", for: .normal)
         button.layer.cornerRadius = 4
-        button.setTitleColor(UIColor.Palette.text, for: .normal)
-        button.backgroundColor = UIColor.Palette.main.withAlphaComponent(0.8)
+        button.clipsToBounds = true
+        button.setTitleColor(.black, for: .normal)
         button.contentVerticalAlignment = .fill
-        
+        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.8).image, for: .normal)
+        let grayImage = UIColor.lightGray.withAlphaComponent(0.5).image
+        button.setBackgroundImage(grayImage, for: .selected)
+        button.setBackgroundImage(grayImage, for: .highlighted)
         return button
     }()
     
@@ -87,9 +94,26 @@ final class LoginViewController: UIViewController {
     
     private let separetorView = SeparatorView()
     
+    private weak var delegate: LoginViewControllerDelegate?
+    
+    init(delegate: LoginViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        delegate?.loginViewControllerDidDismiss()
+    }
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.Palette.main
+        isModalInPresentation = true
     
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {
@@ -143,8 +167,13 @@ final class LoginViewController: UIViewController {
     @objc private func didPushLoginButton() {
         let email = emailTextField.text ?? ""
         let pass = passwordTextField.text ?? ""
+        if email.isEmpty || pass.isEmpty { return }
         Auth.auth().signIn(withEmail: email, password: pass) { [weak self] authResult, error in
-            print("== AuthResult: ,", authResult, error)
+            if let error = error {
+                print("サインインに失敗:", error)
+                return
+            }
+            self?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -165,7 +194,7 @@ final class LoginViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
             
-            Auth.auth().signIn(with: credential) { authResult, error in
+            Auth.auth().signIn(with: credential) { [unowned self] authResult, error in
                 if let error = error {
                     let authError = error as NSError
                     if authError.code == AuthErrorCode.secondFactorRequired.rawValue {
@@ -175,7 +204,7 @@ final class LoginViewController: UIViewController {
                     }
                     return
                 }
-                print("Googleのログインに成功しました。")
+                self.dismiss(animated: true, completion: nil)
             }
             
             

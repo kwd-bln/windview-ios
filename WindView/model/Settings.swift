@@ -29,16 +29,52 @@ enum ChartSize: CGFloat {
     }
 }
 
-struct DataSettings {
-    // MARK: 全体的な設定
+enum SpeedUnit: String, CaseIterable {
+    case mps = "m/s"
+    case kmph = "km/h"
+    case kt = "kt"
+    
+    func converted(from mps: CGFloat) -> CGFloat {
+        switch self {
+        case .mps:
+            return mps
+        case .kmph:
+            return UnitConverter.mpsTokmph(mps)
+        case .kt:
+            return UnitConverter.mpsToKt(mps)
+        }
+    }
+}
+
+enum AltUnit: String, CaseIterable {
+    case m
+    case ft
+}
+
+/// 使用するデータに関する設定
+struct DateSettings {
     /// 指定したデータから何時間分のデータを取得するか
     let useDataDuration: Int
     let selectedDate: Date?
-    let showFromInDist: Bool
     
-    init(useDataDuration: Int = 6, selectedDate: Date? = nil, showFromInDist: Bool = false) {
+    init(useDataDuration: Int = 6,
+         selectedDate: Date? = nil) {
         self.useDataDuration = useDataDuration
         self.selectedDate = selectedDate
-        self.showFromInDist = showFromInDist
+    }
+}
+
+/// どんなデータを見せるかという設定
+struct DisplayDataSetting {
+    let isTrueNorth: Bool
+    let speedUnit: SpeedUnit
+    let altUnit: AltUnit
+    
+    init(isTrueNorth: Bool = true,
+         speedUnit: SpeedUnit = .mps,
+         altUnit: AltUnit = .m) {
+        self.isTrueNorth = isTrueNorth
+        self.speedUnit = speedUnit
+        self.altUnit = altUnit
     }
 }

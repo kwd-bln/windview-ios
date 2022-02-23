@@ -13,15 +13,22 @@ import RxCocoa
 
 protocol HomeViewModelInput {
     func loadView()
+    func reAppearView()
+    func finishLogin()
+    func logout()
+    
     var zoomButtonTap: AnyObserver<Void> { get }
-    var distFromButtonTap: AnyObserver<Void> { get }
+    var distIsFromSegment: AnyObserver<Bool> { get }
 }
 
 protocol HomeViewModelOutput {
     var sondeDataList: Driver<[SondeData]> { get }
-    var dateSettings: Driver<DataSettings> { get }
+    var displayDataSettings: Driver<DisplayDataSetting> { get }
     var chartSize: Driver<ChartSize> { get }
     var isDistFrom: Driver<Bool> { get }
+    
+    var isLoggedIn: Bool { get }
+    var autoUpdateData: Bool { get }
 }
 
 protocol HomeViewModelType {
@@ -30,27 +37,42 @@ protocol HomeViewModelType {
 }
 
 final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
+    let disposeBag = DisposeBag()
+    
     // MARK: inputs
     
     var zoomButtonTap: AnyObserver<Void>
-    var distFromButtonTap: AnyObserver<Void>
+    var distIsFromSegment: AnyObserver<Bool>
+    
+    func finishLogin() {
+        model.updateCurrentSondeDataList()
+    }
+    
+    func logout() {
+        model.logout()
+    }
     
     // MARK: outputs
     
-    private let _sondeDataList = PublishRelay<[SondeData]>()
     var sondeDataList: Driver<[SondeData]>
     var isDistFrom: Driver<Bool>
     
-//    private let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
     var chartSize: Driver<ChartSize>
     
     let model: HomeModelInput
     
+    var isLoggedIn: Bool {
+        model.isLoggedIn
+    }
+    
+    var autoUpdateData: Bool {
+        model.autoUpdateData
+    }
+    
     init(model: HomeModelInput = HomeModel()) {
         self.model = model
         
-        // output
-        self.sondeDataList = _sondeDataList.asDriver(onErrorJustReturn: [])
+        self.sondeDataList = self.model.currentSondeDataListObservable.asDriver(onErrorJustReturn: [])
         let _chartSize: BehaviorRelay<ChartSize> = .init(value: .m)
         self.chartSize = _chartSize.asDriver(onErrorJustReturn: .m)
         
@@ -63,19 +85,25 @@ final class HomeViewModel: HomeViewModelInput, HomeViewModelOutput {
         }
         
         // input
-        self.distFromButtonTap = AnyObserver<Void>() { _ in
-            _isDistFrom.accept(!_isDistFrom.value)
+        self.distIsFromSegment = AnyObserver<Bool>() { event in
+            _isDistFrom.accept(event.element ?? false)
         }
     }
     
     func loadView() {
-        Task {
-            let currentDataList = try await model.fetchCurrentSondeDataList()
-            self._sondeDataList.accept(currentDataList)
-        }
+        // 必要なさそうなのでとりあえずコメントアウト
+//        updateSondeDataList()
     }
     
-    var dateSettings: Driver<DataSettings> {
+    private func updateSondeDataList() {
+        model.updateCurrentSondeDataList()
+    }
+    
+    func reAppearView() {
+        model.updateCurrentSettings()
+    }
+    
+    var displayDataSettings: Driver<DisplayDataSetting> {
         model.dataSettingObservable.asDriver(onErrorJustReturn: .init())
     }
 }

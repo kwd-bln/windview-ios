@@ -10,7 +10,9 @@ import FirebaseFirestore
 import CoreGraphics
 
 struct SondeData: Codable {
+    /// 緯度
     let lat: CGFloat
+    /// 軽度
     let lng: CGFloat
     let magDeclination: CGFloat
     
