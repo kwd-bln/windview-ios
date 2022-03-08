@@ -374,7 +374,7 @@ extension HomeViewController {
     }
     
     func showLoginViewController() {
-        let loginViewController = LoginViewController(delegate: self)
+        let loginViewController = SignInViewController(delegate: self)
         present(loginViewController, animated: true, completion: nil)
     }
 }
