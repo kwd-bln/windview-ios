@@ -11,6 +11,15 @@ import RxCocoa
 import PKHUD
 
 final class HomeViewController: UIViewController {
+    // orientaion
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+    
     // MARK: PageViewController系
     
     let pageViewController: UIPageViewController = {
@@ -365,7 +374,7 @@ extension HomeViewController {
     }
     
     func showLoginViewController() {
-        let loginViewController = LoginViewController(delegate: self)
+        let loginViewController = SignInViewController(delegate: self)
         present(loginViewController, animated: true, completion: nil)
     }
 }

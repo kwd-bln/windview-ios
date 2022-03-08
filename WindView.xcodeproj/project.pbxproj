@@ -38,7 +38,7 @@
 		C95E310927AC2A97001D9088 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C95E310827AC2A97001D9088 /* FirebaseAuth */; };
 		C95E310B27AC2A97001D9088 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C95E310A27AC2A97001D9088 /* FirebaseCrashlytics */; };
 		C95E310D27AC2A97001D9088 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C95E310C27AC2A97001D9088 /* FirebaseFirestore */; };
-		C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E310E27AC2AAA001D9088 /* LoginViewController.swift */; };
+		C95E310F27AC2AAA001D9088 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E310E27AC2AAA001D9088 /* SignInViewController.swift */; };
 		C95E311227AC2C93001D9088 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C95E311127AC2C93001D9088 /* SnapKit */; };
 		C98BA1C227C627C200E96ED8 /* Strings+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BA1C127C627C100E96ED8 /* Strings+extension.swift */; };
 		C98BA1C427C62D6B00E96ED8 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BA1C327C62D6B00E96ED8 /* UIApplication+extension.swift */; };
@@ -133,7 +133,7 @@
 		C95E30F427AC22FA001D9088 /* WindViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindViewUITests.swift; sourceTree = "<group>"; };
 		C95E30F627AC22FA001D9088 /* WindViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C95E310327AC273E001D9088 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C95E310E27AC2AAA001D9088 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C95E310E27AC2AAA001D9088 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C98BA1C127C627C100E96ED8 /* Strings+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+extension.swift"; sourceTree = "<group>"; };
 		C98BA1C327C62D6B00E96ED8 /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		C9AE00FD27B7D79300277E0F /* TimeSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectorButton.swift; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				C9072A4B27B53081001397D6 /* childs */,
-				C95E310E27AC2AAA001D9088 /* LoginViewController.swift */,
+				C95E310E27AC2AAA001D9088 /* SignInViewController.swift */,
 				C9E5FB6B27B33ADD00538B09 /* HomeViewController.swift */,
 				C9AE010527B927A000277E0F /* TextCell.swift */,
 				C9AE011C27BBE90200277E0F /* HistoryViewController.swift */,
@@ -572,7 +572,7 @@
 			files = (
 				C9AE013F27C53CD800277E0F /* UpdatingStubSondeDataModel.swift in Sources */,
 				C9E5FB7B27B3F20000538B09 /* SondeDataModel.swift in Sources */,
-				C95E310F27AC2AAA001D9088 /* LoginViewController.swift in Sources */,
+				C95E310F27AC2AAA001D9088 /* SignInViewController.swift in Sources */,
 				C9AE010627B927A000277E0F /* TextCell.swift in Sources */,
 				C98BA1C427C62D6B00E96ED8 /* UIApplication+extension.swift in Sources */,
 				C9072A6127B5F168001397D6 /* HomeModel.swift in Sources */,

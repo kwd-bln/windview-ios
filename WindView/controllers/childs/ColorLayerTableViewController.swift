@@ -109,10 +109,10 @@ final class ColorLayerTableViewController: UIViewController {
         speedUnit: SpeedUnit,
         altUnit: AltUnit
     ) {
-        self.sondeDataList = sondeDataList
         self.useTN = useTN
         self.speedUnit = speedUnit
         self.altUnit = altUnit
+        self.sondeDataList = sondeDataList
     }
 }
 

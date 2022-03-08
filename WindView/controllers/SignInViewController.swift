@@ -15,7 +15,7 @@ protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidDismiss()
 }
 
-final class LoginViewController: UIViewController {
+final class SignInViewController: UIViewController {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "balloons"))
         let dimView = UIView()
